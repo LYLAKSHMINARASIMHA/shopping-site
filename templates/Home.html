@@ -14,16 +14,18 @@
     </main>
 
    
-    <section class="rowsimg">
-    {% for image in grouped_Bimg %}
+   <section class="row3img">
+    {% for imageId in grouped_Bimg %}
     <article class="product">
-        <div class="productimg">
-            <a href="/products/{{ image }}">
-                <img src="{{ url_for('static', filename=image) }}" alt="">
-            </a>
-        </div>
+        {% for image in imageId %}
+            <div class="productimg">
+                <a href="/products/{{ image }}">
+                    <img src="{{url_for('static', filename=image)}}" alt="Mimg">
+                </a>
+            </div>
+        {% endfor %}
     </article>
-    {% endfor %}
+{% endfor %}
 </section>
 
     <section class="section33">
@@ -83,16 +85,18 @@
             </article>
     </section>
 
- <section class="rowsimg">
-    {% for image in grouped_Gimg %}
+ <section class="row3img">
+    {% for imageId in grouped_Gimg %}
     <article class="product">
-        <div class="productimg">
-            <a href="/products/{{ image }}">
-                <img src="{{ url_for('static', filename=image) }}" alt="">
-            </a>
-        </div>
+        {% for image in imageId %}
+            <div class="productimg">
+                <a href="/products/{{ image }}">
+                    <img src="{{url_for('static', filename=image)}}" alt="Mimg">
+                </a>
+            </div>
+        {% endfor %}
     </article>
-    {% endfor %}
+{% endfor %}
 </section>
 
     <section class="section33">
@@ -154,16 +158,18 @@
 
 
         
-    <section class="rowsimg">
-    {% for image in grouped_Mimg %}
+   <section class="row3img">
+    {% for imageId in grouped_Mimg %}
     <article class="product">
-        <div class="productimg">
-            <a href="/products/{{ image }}">
-                <img src="{{ url_for('static', filename=image) }}" alt="">
-            </a>
-        </div>
+        {% for image in imageId %}
+            <div class="productimg">
+                <a href="/products/{{ image }}">
+                    <img src="{{url_for('static', filename=image)}}" alt="Mimg">
+                </a>
+            </div>
+        {% endfor %}
     </article>
-    {% endfor %}
+{% endfor %}
 </section>
 
 {% endblock %}

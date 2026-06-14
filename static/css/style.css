@@ -108,7 +108,8 @@ outline: none;}
              background-color: var(--afbtn);}
              
 /*-------------------------------- [home img] -----------------------------------------*/
-   .add_container img{width: 100%;}
+.add_container img{width: 100%;}
+.row3img{display: flex; flex-direction: column; gap: 30px;} 
    .rowsimg{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding: 1%; }
    .product{display: flex; justify-content: space-around; align-items: stretch; gap: 10px; padding: 3%; }
    .product img{width: 100%; height: 100%; object-fit: cover; display: block;}
