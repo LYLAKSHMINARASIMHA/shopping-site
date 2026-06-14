@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>auto adjustment img</title>
+
+    <style>
+        .A{display: flex; width: 100%; aspect-ratio: 16/9;}
+    </style>
+</head>
+<body>
+    <div class="A">
+        <div class="B">
+            <img src="{{ url_for('static', filename='products/mens_dresses/11011.jpg') }}">
+        </div>
+        <div class="B">
+            <img src="{{ url_for('static', filename='products/mens_dresses/11011.jpg') }}">
+        </div>
+        <div class="B">
+            <img src="{{ url_for('static', filename='products/mens_dresses/11011.jpg') }}">
+        </div>
+    </div>
+</body>
+</html>

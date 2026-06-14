@@ -1,0 +1,16 @@
+<div class="container">
+
+    <h1>Product List</h1>
+
+    {% for p in products %}
+
+    <div class="card">
+        <h3>{{ p.p_name }}</h3>
+        <p><b>ID:</b> {{ p.p_id }}</p>
+        <p><b>Price:</b> ₹{{ p.p_price }}</p>
+        <p>{{ p.p_description }}</p>
+    </div>
+
+    {% endfor %}
+
+</div>

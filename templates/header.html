@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}" >
+</head>
+<body>
+
+    <header>
+        <div class="container">
+        
+            <div class="brand">
+                <span class="logo" style="font-size: 20px;"><a href="#">SH</a></span>
+                <div class="discripsion">
+                    <div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                        shop now </div>
+                    <div class="platform">it's shopping platform</div>
+                </div>
+            </div>
+             <nav class="Navbar">
+                <ul class="menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/Orders">Orders</a></li>
+                    <li><a href="/Orders">Cart</a></li>
+                    <li><a href="/Help_Center">Help Center</a></li>
+                    <li class="more">
+                        <a href="#">More ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="/Orders">Coupons</a></li>
+                            <li><a href="/Help_Center">Contact</a></li>
+                            <li><a href="#bottom">About</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+             <div class="S_L">
+                <div class="btnls">
+                    <a href="#" class="Sbtn" >sign up</a>
+                    <a href="#" class="Lbtn" >login</a>
+                </div>
+                <div class="profile">
+                    <a href="#" class="PRF"><div class="circle">P</div></a>
+                </div>
+            </div>
+            
+        </div>
+        
+    </header>
+
+    <div class="Sinp">
+            <div class="mnbtn">
+                <button type="button" class="mbtn"><a href="#">☰</a></button>
+                <nav class="Navbar1">
+                <ul class="menu1">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/Orders">Orders</a></li>
+                    <li><a href="/Orders">Cart</a></li>
+                    <li><a href="/Help_Center">Help Center</a></li>
+                    <li><a href="/Orders">Coupons</a></li>
+                    <li><a href="/Help_Center">Contact</a></li>
+                    <li><a href="#bottom">About</a></li> 
+                    </li>
+                </ul>
+            </nav>
+            </div>
+            
+        <input type="text" placeholder="text" class="SHin">
+        <a href="#" class="searchbtn">search</a>
+        <a href="#" class="searchbtn2">🔍</a>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <footer class="footer" id="bottom">
+        <div class="footerinfo">
+                  <h3>ShopEasy</h3>
+                  <p>Best online shopping website for fashion and accessories.</p>
+            </div>
+        <div class="footerdata">
+            <div class="SHabout">
+                <h3>Quick Links</h3>
+                <a href="#">Home</a><br>
+                <a href="#">Products</a><br>
+                <a href="#">Contact</a><br>
+                <a href="#">About</a>
+            </div>
+            <div class="SHcontacts">
+                    <h3>Contact</h3>
+                    <p>Email: support@shopeasy.com</p>
+                    <p>Phone: +91 9876543210</p>
+            </div>
+        </div>
+    </footer>
+
+        <script src="{{url_for('static', filename ='javascript/script.js')}}" defer></script>
+</body>
+</html> 

@@ -1,0 +1,192 @@
+
+{% extends "header.html" %}
+
+{% block content %}
+  
+
+    <main>
+
+        <div class="add_container">
+            <div class="firstimg"><a href="/products/products/mainimg/1133.jpg">
+                <img src="{{url_for('static', filename='products/mainimg/1133.jpg')}}" alt="both products">
+           </a> </div> 
+        </div>
+    </main>
+
+   
+    <section class="rowsimg">
+    {% for image in grouped_Bimg %}
+    <article class="product">
+        <div class="productimg">
+            <a href="/products/{{ image }}">
+                <img src="{{ url_for('static', filename=image) }}" alt="">
+            </a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+    <section class="section33">
+            <article class="product33">
+                        <h3>Product 1</h3>
+                        <p>It's a useful product</p>
+                    <div class="imgbox">
+                        <div class="img big"><a href="/products/products/mens_img/4522.jpg">
+                        <img src="{{url_for('static', filename='products/mens_img/4522.jpg')}}" alt="product-card">
+                        </a> </div>
+                        <div class="img small"><a href="/products/products/mens_img/4511.jpg">
+                        <img src="{{url_for('static', filename='products/mens_img/4511.jpg')}}" alt="product-card">
+                        </a> </div>
+                        <div class="img small"><a href="/products/products/mens_img/4500.jpg">
+                        <img src="{{url_for('static', filename='products/mens_img/4500.jpg')}}" alt="product-card">
+                       </a> </div>
+                    </div>
+                    <a href="/Products"><button type="button" class="p1btn">Shop Now >></button></a>
+            </article>
+            <article class="product33D">
+                <div class="P33D"><a href="/products/products/mens_img/4522.jpg">
+                    <div class="D33">
+                        <div class="D33img">
+                            <img src="{{url_for('static', filename='products/mens_img/4522.jpg')}}" alt="">
+                        </div>
+                        <div>
+                            <h3>Product 1</h3>
+                            <p>It's a useful product</p>
+                        </div>
+                    </div>
+               </a> </div>
+                
+                <div class="P33D"> <a href="/products/products/mens_img/4511.jpg">
+                    <div class="D33">
+                        <div class="D33img">
+                            <img src="{{url_for('static', filename='products/mens_img/4511.jpg')}}" alt="">
+                        </div>
+                        <div>
+                            <h3>Product 1</h3>
+                            <p>It's a useful product</p>
+                        </div>
+                    </div>
+                </a></div>
+                
+                <div class="P33D"><a href="/products/products/mens_img/4500.jpg">
+                    <div class="D33">
+                        <div class="D33img">
+                            <img src="{{url_for('static', filename='products/mens_img/4500.jpg')}}" alt="">
+                        </div>
+                        <div>
+                            <h3>Product 1</h3>
+                            <p>It's a useful product</p>
+                        </div>
+                    </div>  
+                </a></div>
+                   <a href="/products"> <button>see more >></button> </a>
+            </article>
+    </section>
+
+ <section class="rowsimg">
+    {% for image in grouped_Gimg %}
+    <article class="product">
+        <div class="productimg">
+            <a href="/products/{{ image }}">
+                <img src="{{ url_for('static', filename=image) }}" alt="">
+            </a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+    <section class="section33">
+            <article class="product33">
+                        <h3>Product 1</h3>
+                        <p>It's a useful product</p>
+                    <div class="imgbox">
+                        <div class="img big"><a href="/products/products/women_img/4533.jpg">
+                        <img src="{{url_for('static', filename='products/women_img/4533.jpg')}}" alt="product-card">
+                        </a> </div>
+                        <div class="img"><a href="/products/products/women_img/4544.jpg">
+                        <img src="{{url_for('static', filename='products/women_img/4544.jpg')}}" alt="product-card">
+                        </a> </div>
+                        <div class="img"><a href="/products/products/women_img/4555.jpg">
+                        <img src="{{url_for('static', filename='products/women_img/4555.jpg')}}" alt="product-card">
+                        </a> </div>
+                    </div>
+                    <a href="/products" ><button type="button" class="p1btn">Shop Now >></button></a>
+            </article>
+            <article class="product33D">
+                <div class="P33D"><a href="/products/products/women_img/4533.jpg">
+                    <div class="D33">
+                        <div class="D33img">
+                            <img src="{{url_for('static', filename='products/women_img/4533.jpg')}}" alt="">
+                        </div>
+                        <div>
+                            <h3>Product 1</h3>
+                            <p>It's a useful product</p>
+                        </div>
+                    </div>
+                </a> </div>
+                
+                <div class="P33D"><a href="/products/products/women_img/4544.jpg">
+                    <div class="D33">
+                        <div class="D33img">
+                            <img src="{{url_for('static', filename='products/women_img/4544.jpg')}}" alt="">
+                        </div>
+                        <div>
+                            <h3>Product 1</h3>
+                            <p>It's a useful product</p>
+                        </div>
+                    </div>
+                </a> </div>
+                
+                <div class="P33D"><a href="/products/products/women_img/4555.jpg">
+                    <div class="D33">
+                        <div class="D33img">
+                            <img src="{{url_for('static', filename='products/women_img/4555.jpg')}}" alt="">
+                        </div>
+                        <div>
+                            <h3>Product 1</h3>
+                            <p>It's a useful product</p>
+                        </div>
+                    </div>  
+                </a> </div>
+                    <a href="/products" ><button>see more >></button> </a>
+            </article>
+    </section>
+
+
+        
+    <section class="rowsimg">
+    {% for image in grouped_Mimg %}
+    <article class="product">
+        <div class="productimg">
+            <a href="/products/{{ image }}">
+                <img src="{{ url_for('static', filename=image) }}" alt="">
+            </a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+{% endblock %}
+
+
+
+
+
+
+<!-- header.html // header.html-->
+<!-- <div class="container">
+
+    <h1>Product List</h1>
+
+    {% for p in products %}
+
+    <div class="card">
+        <h3>{{ p.p_name }}</h3>
+        <p><b>ID:</b> {{ p.p_id }}</p>
+        <p><b>Price:</b> ₹{{ p.p_price }}</p>
+        <p>{{ p.p_description }}</p>
+    </div>
+
+    {% endfor %}
+
+</div> -->

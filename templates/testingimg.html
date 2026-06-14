@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            border: 0px;
+            margin: 0px;
+        }
+        .card{
+            width: 260px;
+            height: 260px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .card img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+        .overlay{
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0,0.5);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.4s;
+            font-size: 18px;
+        }
+        .card:hover img{
+            filter: blur(2px);
+            transform: scale(1.1);
+        }
+        .card:hover .overlay{
+            opacity: 1;
+        }
+        .subbtn{padding: 5% 10px; background-color: aqua; border: none; }
+
+
+/*-----------------------------------------------------------------------*/
+       body{
+    margin:0;
+    background:black;
+}
+
+
+
+/* LEFT TEXT */
+.leftbox{
+    position: absolute;
+    width:25%;
+    color:white;
+    padding:30px;
+    border-radius:15px;
+    z-index: 11;
+}
+
+/* IMAGE */
+.laptop{
+    width: 100%;
+    height: auto;
+    position:relative;
+    top: 0%;
+    z-index: 1;
+}
+
+/* RIGHT TEXT */
+.rightbox{
+    position: absolute;
+   top: 130%;
+    left: 70%;
+    width:25%;
+    color: white;
+    padding:30px;
+    border-radius:15px;
+    z-index: 12;
+}
+        
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="{{ url_for('static', filename='products/mens_dresses/11015.jpg') }}">
+        <div class="overlay">View Product</div>
+    </div>
+
+    <div class="mainbox">
+
+    <div class="leftbox">
+        <h1>WELCOME</h1>
+        <p>Online shopping platform</p>
+    </div>
+
+    <img src="{{url_for('static', filename='products/mainimg/1133.jpg')}}" class="laptop">
+
+    <div class="rightbox">
+        <h2>TEXT</h2>
+        <ul>
+            <li>Feature one</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>
