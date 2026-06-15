@@ -49,7 +49,15 @@ def testing():
 
 @app.route("/Orders")
 def Orders():
-    return render_template("Orders.html")
+    pimage = []
+    for Mfile in os.listdir(folders["womens"]):
+        pimage.append("products/women_dresses/" + Mfile)
+        pimage = pimage[:4]
+    pimage_g = []
+    for i in range(0, len(pimage), 2):
+            pimage_g.append(pimage[i:i+2])
+    return render_template("Orders.html", 
+                           pimage_g = pimage_g)
 
 @app.route("/Cart")
 def Cart():

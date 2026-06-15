@@ -1,7 +1,7 @@
 
 {% extends "header.html" %}
 {% block content %}
-<div class="Orders_page">
+<div class="product_boxs">
       <div class="product_page">
             <div class="product_block">
                   <div class="product_img">
@@ -43,9 +43,11 @@
             </div>
 
             <div class="services">
-              <div class="payment">Secure Payment</div>
-              <div class="delivery">Fast Delivery</div>
-              <div class="returns">Easy Returns</div>
+                <div class="all_services">
+                  <div class="servicesbtn">Secure Payment</div>
+                  <div class="servicesbtn">Fast Delivery</div>
+                  <div class="servicesbtn">Easy Returns</div>
+                </div>
             </div>
       </div>
 
@@ -63,7 +65,7 @@
 {% endfor %}
 </section>
 
-  </div>
+
          {% for p in products %}
 
 

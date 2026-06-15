@@ -2,7 +2,81 @@
 
     {% block content %}
     <div class="Orders_page">
-        <h1>it's Orders Page</h1>
+        <div class="orders_block">
+            <div class="page_content">
+                <h3>My Orders</h3>
+                <p>Track, view and manage your orders</p>
+            </div>
+            <div class="type_buttons">
+                <button type="button">All Orders</button>
+                <button type="button">Shipped</button>
+                <button type="button">Delivered</button>
+                <button type="button">Cancelled</button>
+            </div>
+            <div class="all_products">
+                 {% for images in pimage_g %}
+                <div class="order_items">
+                        {% for image in images %}
+                    <div class="order_product">
+                            <div class="items_data">
+                                <div class="img_and_data">
+                                <a href="products/{{ image }}">
+                                    <div class="image1">
+                                        <img src="{{url_for('static', filename= image)}}">
+                                    </div>
+                                      </a>
+                                    
+                                    <div class="data">
+                                        <h3>Order Id</h3>
+                                        <h5>Order Name</h5>
+                                        <div>
+                                            <samp>Size:M </samp>
+                                            <samp>color: Beige </samp>
+                                            <samp> Qty: 1</samp>
+                                        </div>
+                                        <h5>$788</h5>
+                                    </div>
+                                </div>
+                                <div class="order_date">
+                                    <p>Order Date</p>
+                                    <h6>12 May 2026</h6>
+                                </div>
+                            </div>
+                            <div class="details_and_buy">
+                                <a href="products/{{ image }}"><p>View Details</p></a>
+                                <button type="button" 
+                                onclick="window.location.href='{{ url_for('products', image = image)}}'">
+                                Buy Again</button>
+                            </div>
+                    </div> 
+                     {% endfor %}
+                </div>
+                {% endfor %}
+            
+            </div>
+        </div>
+        <div class="coupons_block">
+            <div class="page_content">
+                <h1>My Coupons</h1>
+                <p>Use coupons to get exciting discounts</p>
+            </div>
+            <div class="coupon_card">
+                <p>FLAT</p>
+                <h3>WELCOME-10</h3>
+                <P>Get 10% off on your first order</P>
+                <p>min, order value $499</p>
+                <p>vaild time 31 may 2027</p>
+                <button>Copy Code</button>
+            </div>
+            <div><h1>10% OFF</h1></div>
+        </div>
+         <div class="services">
+                <div class="all_services">
+                  <div class="servicesbtn">Secure Payment</div>
+                  <div class="servicesbtn">Fast Delivery</div>
+                  <div class="servicesbtn">Easy Returns</div>
+                </div>
+            </div>
     </div>
     {% endblock %}
     

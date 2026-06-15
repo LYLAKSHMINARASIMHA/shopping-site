@@ -161,9 +161,16 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
        .product_quantity input{display: flex; padding: 1%; border-radius: 8px; }
        .product_btns{display: flex; align-items: center; justify-content: space-around;}
        .product_btns button{width: 150px; height: 50px; border-radius: 10px; box-shadow: 0 10px 8px rgba(0,0,0,0.1);
-      border: none; cursor: pointer;}
+      border: none; cursor: pointer; }
       .product_btns button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
           color: white;}
+
+     .services{ padding: 1%;}  
+   
+    .all_services{box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; padding: 1%;
+        align-items: center; justify-content: space-around; border-radius:10px ;}
+    .servicesbtn{ padding: 1%; border-radius: 5px; background-color: #e8fff0; color: #16a34a; border: 1px solid #16a34a;
+          }
 
       @media(max-width: 760px){
         .product_block{
@@ -174,6 +181,28 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
         }
       }
 
+/*-------------------------------- [orders page] -----------------------------------------*/
+.orders_block button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px;}
+.details_and_buy  button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 10px;}
+    .orders_block{display: flex; flex-direction: column;
+     padding: 1%; align-items: flex-start; }
+     .all_products{display: flex; flex-direction: column; gap: 10px; margin-top: 10px;
+         width: 100%; align-items: center; justify-content: space-between;}
+    .order_items{width: 100%; display: flex; flex-direction: row;  gap: 10px; justify-content: space-around;}
+    .order_product{border-radius: 15px; box-shadow: 0px 1px 5px black; width: 100%; padding: 1%;}
+    .items_data{display: flex;  justify-content: space-evenly; 
+         gap: 20px; }
+    .img_and_data{display: flex;  gap: 10px; align-items: center;}
+    .img_and_data .image1{ display: flex; height: 150px; border-radius: 10px;
+        box-shadow: 0 1px 4px  black;
+         object-fit: cover; overflow: hidden;}
+    .img_and_data img{width: 100%; height: auto;}
+    .details_and_buy{display: flex; justify-content: space-around;}
+  
+    @media(max-width: 760px){
+        .order_items{flex-direction: column;}
+        /* .all_products{} */
+    }
 /*-------------------------------- [footer] -----------------------------------------*/
    .footer{ display: flex; flex-direction: column; align-items: center; padding: 3%;
 border: 1px solid black; border-radius: 10px;}
