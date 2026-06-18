@@ -1,7 +1,199 @@
 {% extends "header.html" %}
 
 {% block content %}
-<div class="Orders_page">
-<h1>Help_Center Page</h1>
+<div class="help_center">
+       <section class="main_datablock">
+            <h1>Contact & Help Center</h1>
+            <p>We're here to help! Reach out to us or find answers to common questions.</p>
+        </section>
+
+        <section class="contact_section">
+
+        <!-- LEFT -->
+        <div class="contact_form">
+
+            <h2>Send us a Message</h2>
+
+            <form>
+
+                <div class="input_group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name">
+                </div>
+
+                <div class="input_group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email address">
+                </div>
+
+                <div class="input_group">
+                    <label>Subject</label>
+                    <select>
+                        <option>Select a Subject</option>
+                        <option>Order Issue</option>
+                        <option>Refund</option>
+                        <option>Payment</option>
+                        <option>Account</option>
+                    </select>
+                </div>
+
+                <div class="input_group">
+                    <label>Message</label>
+                    <textarea rows="6" placeholder="Type your message here..."></textarea>
+                </div>
+
+                <button class="send_btn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="support_cards">
+
+            <h2>Quick Support</h2>
+
+            <div class="support_card">
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                    <h4>Call Us</h4>
+                    <p>+91 1234567890</p>
+                </div>
+            </div>
+
+            <div class="support_card">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                    <h4>Email Us</h4>
+                    <p>support@shopeasy.com</p>
+                </div>
+            </div>
+
+            <div class="support_card">
+                <i class="fa-solid fa-comments"></i>
+                <div>
+                    <h4>Live Chat</h4>
+                    <p>Chat with support team</p>
+                </div>
+            </div>
+
+            <div class="support_card">
+                <i class="fa-regular fa-clock"></i>
+                <div>
+                    <h4>Working Hours</h4>
+                    <p>Mon - Sat : 9 AM - 6 PM</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="faq_section">
+
+        <div class="faq_left">
+
+            <h2>Help Center (FAQ)</h2>
+
+            <div class="faq_category active">
+                Orders & Shipping
+            </div>
+
+            <div class="faq_category">
+                Returns & Refunds
+            </div>
+
+            <div class="faq_category">
+                Payments
+            </div>
+
+            <div class="faq_category">
+                Coupons & Discounts
+            </div>
+
+            <div class="faq_category">
+                Account & Profile
+            </div>
+
+        </div>
+
+        <div class="faq_right">
+
+            <div class="faq_item">
+                <span>How can I track my order?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <div class="faq_item">
+                <span>How long does shipping take?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <div class="faq_item">
+                <span>Can I cancel my order?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <div class="faq_item">
+                <span>Do you ship internationally?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <div class="faq_item">
+                <span>What if my order is delayed?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="support_cta">
+
+        <div>
+            <h2>Still Need Help?</h2>
+            <p>Our support team is ready to assist you.</p>
+        </div>
+
+        <div class="cta_buttons">
+            <button class="chat_btn">Start Live Chat</button>
+            <button class="ticket_btn">Create Ticket</button>
+        </div>
+
+    </section>
+
+     <div class="feature_block">
+                <section class="features">
+
+        <div class="feature">
+            <i class="fa-solid fa-truck"></i>
+            <h4>Free Shipping</h4>
+            <p>Orders above ₹999</p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-rotate-left"></i>
+            <h4>Easy Returns</h4>
+            <p>30 Days Policy</p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-wallet"></i>
+            <h4>Secure Payment</h4>
+            <p>100% Secure</p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-headset"></i>
+            <h4>24/7 Support</h4>
+            <p>Customer Care</p>
+        </div>
+
+    </section>
+     </div>
+
 </div>
 {% endblock %}

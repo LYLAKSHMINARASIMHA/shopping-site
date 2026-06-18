@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}" >
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
@@ -42,7 +45,7 @@
                     <a href="#" class="Lbtn" >login</a>
                 </div>
                 <div class="profile">
-                    <a href="#" class="PRF"><div class="circle">P</div></a>
+                    <a href="#" class="PRF"><div class="circle"><i class="fa-solid fa-user"></i></div></a>
                 </div>
             </div>
             
@@ -59,7 +62,7 @@
                     <li><a href="/Orders">Orders</a></li>
                     <li><a href="/Orders">Cart</a></li>
                     <li><a href="/Help_Center">Help Center</a></li>
-                    <li><a href="/Orders">Coupons</a></li>
+                    <li><a href="#coupon_page">Coupons</a></li>
                     <li><a href="/Help_Center">Contact</a></li>
                     <li><a href="#bottom">About</a></li> 
                     </li>
@@ -84,15 +87,17 @@
         <div class="footerdata">
             <div class="SHabout">
                 <h3>Quick Links</h3>
-                <a href="#">Home</a><br>
-                <a href="#">Products</a><br>
-                <a href="#">Contact</a><br>
-                <a href="#">About</a>
+                <div class="footer_icons">
+                    <a href="#"><i class="fa-solid fa-home"></i> Home</a><br>
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i> Products</a><br>
+                    <a href="#"><i class="fa-solid fa-headset"></i> Contact</a><br>
+                    <a href="#"><i class="fa-solid fa-address-card"></i> About</a>
+                </div>
             </div>
             <div class="SHcontacts">
                     <h3>Contact</h3>
-                    <p>Email: support@shopeasy.com</p>
-                    <p>Phone: +91 9876543210</p>
+                    <p><i class="fa-solid fa-envelope"></i> Email: support@shopeasy.com</p>
+                    <p><i class="fa-solid fa-phone"></i> Phone: +91 9876543210</p>
             </div>
         </div>
     </footer>

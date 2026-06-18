@@ -52,7 +52,7 @@ def Orders():
     pimage = []
     for Mfile in os.listdir(folders["womens"]):
         pimage.append("products/women_dresses/" + Mfile)
-        pimage = pimage[:4]
+        pimage = pimage[:3]
     pimage_g = []
     for i in range(0, len(pimage), 2):
             pimage_g.append(pimage[i:i+2])
