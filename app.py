@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for , redirect
 import random
+import pandas as pd
 import os
 app = Flask(__name__)
 
@@ -9,6 +10,11 @@ folders ={
     "phones": "static/products/phones",
     "slippers" : "static/products/slippers"
 }
+data_url = "https://docs.google.com/spreadsheets/d/1Rhk0JHhzzCCpHNAt1m6c3opGCH1rOj5DlG5A1oFGEE4/export?format=csv"
+df = pd.read_csv(data_url)
+df.columns = df.columns.str.strip().str.lower()
+product = df.to_dict(orient="records")
+
 
 @app.route("/")
 def testing():
@@ -69,6 +75,15 @@ def Help_Center():
 
 @app.route("/products/<path:image>")
 def products(image):
+
+    imagedata = image.split("/")
+
+    p_data = None
+    for item in product:
+        if imagedata[2] == item["p_id"]:
+           p_data = item
+           break
+
     imageId = []
     for file in os.listdir(folders["mens"]):
         imageId.append("products/mens_dresses/" + file)
@@ -87,8 +102,10 @@ def products(image):
     for i in range(0, len(selectimg),3):
             img_group.append(selectimg[i:i+3])
     return render_template("products.html", 
+                           imagedata2 = imagedata,
                            image = image,
-                           imageId = img_group)
+                           imageId = img_group,
+                           products = p_data)
 
 @app.route("/AllProducts")
 def AllProducts():

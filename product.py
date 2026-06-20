@@ -12,9 +12,9 @@ def home():
     df = df.dropna(how="all")
     man_products =df[df["category"]=="mens"]
     
-    products = man_products.to_dict(orient="records")
+    products = df.to_dict(orient="records")
 
-    return render_template("pageT.html", products=products)
+    return render_template("pageT.html", products=products )
 
 if __name__ == "__main__":
     app.run(debug=True)

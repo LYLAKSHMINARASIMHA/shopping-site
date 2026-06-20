@@ -3,14 +3,17 @@
     <h1>Product List</h1>
 
     {% for p in products %}
+    <p>{{p}}</p>
+    {% endfor %}
+    <!-- {% for p in products %}
 
-    <div class="card">
+    <div class="card">  
         <h3>{{ p.p_name }}</h3>
         <p><b>ID:</b> {{ p.p_id }}</p>
         <p><b>Price:</b> ₹{{ p.p_price }}</p>
         <p>{{ p.p_description }}</p>
     </div>
 
-    {% endfor %}
+    {% endfor %} -->
 
 </div>

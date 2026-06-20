@@ -12,15 +12,15 @@
                   <!-- --------------- -->
                   <div class="product_data">
                     <div class="product_name">
-                      <h1 class="name">men's casual cotton shirt</h1>
+                      <h1 class="name">{{ products.p_name }}</h1>
                     </div>
                     <div class="product_review">
                       <span class="review">4.7  (130 reviews)</span>
                     </div>
                     <div class="product_discription">
-                      <p class="discription">it's men's casual cotton shirt. and it's best quality product</p>
+                      <p class="discription">{{ products.p_description }}</p>
                     </div>
-                    <div class="product_price">$3,500</div>
+                    <div class="product_price">₹ {{ products.p_price }}</div>
                     <div class="product_size">
                       <label class="size">Size</label>
                       <div class="size_btn">
@@ -87,16 +87,6 @@
 </section>
 
 
-         {% for p in products %}
-
-
-    <div class="card">
-        <h3>{{ p.p_name }}</h3>
-        <p><b>ID:</b> {{ p.p_id }}</p>
-        <p><b>Price:</b> ₹{{ p.p_price }}</p>
-        <p>{{ p.p_description }}</p>
-    </div>
-
-    {% endfor %}
+      
 </div>
     {% endblock %}
