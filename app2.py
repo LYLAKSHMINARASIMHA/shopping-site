@@ -10,7 +10,7 @@ folders ={
     "phones": "static/products/phones",
     "slippers" : "static/products/slippers"
 }
-data_url = "https://docs.google.com/spreadsheets/d/1Rhk0JHhzzCCpHNAt1m6c3opGCH1rOj5DlG5A1oFGEE4/edit?usp=drivesdk"
+data_url = "https://docs.google.com/spreadsheets/d/1Rhk0JHhzzCCpHNAt1m6c3opGCH1rOj5DlG5A1oFGEE4/export?format=csv"
 df = pd.read_csv(data_url)
 df.columns = df.columns.str.strip().str.lower()
 product = df.to_dict(orient="records")
@@ -37,10 +37,13 @@ def home():
     selectimg = (random.sample(imageId, 1))
    
     imagenames = selectimg[0].split("/")
-    print(len(product))
+
+    imgname = imagenames[2].split(".")
+
+    print(imgname[0])
     p_data = None
     for item in product:
-        if imagenames[2] == item["p_id"]:
+        if imgname[0] == item["p_id"]:
            p_data = item
            break
     

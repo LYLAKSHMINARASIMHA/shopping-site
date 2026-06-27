@@ -77,10 +77,11 @@ def Help_Center():
 def products(image):
 
     imagedata = image.split("/")
+    imgname = imagedata[2].split(".")
 
     p_data = None
     for item in product:
-        if imagedata[2] == item["p_id"]:
+        if imgname[0] == item["p_id"]:
            p_data = item
            break
 
@@ -111,6 +112,9 @@ def products(image):
 def AllProducts():
     return render_template("AllProducts.html")
 
+@app.route("/login_page")
+def login_page():
+     return render_template("login_page.html")
 
 # @app.route("/product")
 # def product():

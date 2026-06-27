@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>shopping web portal</title>
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}" >
 
     <link rel="stylesheet"
@@ -25,13 +25,13 @@
              <nav class="Navbar">
                 <ul class="menu">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/Orders">Orders</a></li>
-                    <li><a href="/Orders">Cart</a></li>
+                    <li><a href="/Orders#orders_page">Orders</a></li>
+                    <li><a href="/Orders#cart_page">Cart</a></li>
                     <li><a href="/Help_Center">Help Center</a></li>
                     <li class="more">
                         <a href="#">More ▾</a>
                         <ul class="dropdown">
-                            <li><a href="/Orders">Coupons</a></li>
+                            <li><a href="/Orders#coupons_page">Coupons</a></li>
                             <li><a href="/Help_Center">Contact</a></li>
                             <li><a href="#bottom">About</a></li>
                         </ul>
@@ -41,8 +41,8 @@
 
              <div class="S_L">
                 <div class="btnls">
-                    <a href="#" class="Sbtn" >sign up</a>
-                    <a href="#" class="Lbtn" >login</a>
+                    <a href="/login_page" class="Sbtn" >sign up</a>
+                    <a href="/login_page" class="Lbtn" >login</a>
                 </div>
                 <div class="profile">
                     <a href="#" class="PRF"><div class="circle"><i class="fa-solid fa-user"></i></div></a>

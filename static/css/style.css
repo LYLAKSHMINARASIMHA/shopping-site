@@ -312,7 +312,11 @@ input, select, textarea{ width:100%; padding:12px; border:1px solid #ddd; border
 
 .ticket_btn{ background:#1d5b1d; color:white;
 }
+/*-------------------------------- [login-pageblock] -----------------------------------------*/
 
+.login-pageblock{display: flex; justify-content: center; align-items: center; padding: 1%; margin-top: 10px;}
+.login-form{display: flex; flex-direction: column; gap: 10px; width: 400px;}
+.label-input{display: flex; flex-direction: column; gap: 10px;}
 
 /*-------------------------------- [footer] -----------------------------------------*/
    .footer{ display: flex; flex-direction: column; align-items: center; padding: 3%;
