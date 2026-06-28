@@ -5,10 +5,12 @@ import os
 app = Flask(__name__)
 
 folders ={
-    "mens": "static/products/mens_dresses",
-    "womens": "static/products/women_dresses",
-    "phones": "static/products/phones",
-    "slippers" : "static/products/slippers"
+    "mens": "static/products/mens_dresses", #size
+    "womens": "static/products/women_dresses",#size
+    "phones": "static/products/phones",  #No
+    "slippers" : "static/products/slippers",  # size
+    "shoes" : "static/products/shoes",  # size
+    "watchs" : "static/products/watchs",  #size
 }
 data_url = "https://docs.google.com/spreadsheets/d/1Rhk0JHhzzCCpHNAt1m6c3opGCH1rOj5DlG5A1oFGEE4/export?format=csv"
 df = pd.read_csv(data_url)
@@ -44,26 +46,29 @@ def testing():
     grouped_Mimg = []
     for i in range(0, len(Mimage), 3):
             grouped_Mimg.append(Mimage[i:i+3])
-        
    
 
     return render_template("Home.html",
                             grouped_Bimg=grouped_Bimg,
                               grouped_Gimg = grouped_Gimg,
-                                grouped_Mimg = grouped_Mimg
+                                grouped_Mimg = grouped_Mimg,
+                                
                                 )
 
-@app.route("/Orders")
+@app.route("/Orders/")
 def Orders():
-    pimage = []
-    for Mfile in os.listdir(folders["womens"]):
-        pimage.append("products/women_dresses/" + Mfile)
-        pimage = pimage[:3]
-    pimage_g = []
-    for i in range(0, len(pimage), 2):
-            pimage_g.append(pimage[i:i+2])
-    return render_template("Orders.html", 
-                           pimage_g = pimage_g)
+    Gimages = []
+    for Gfile in os.listdir(folders["womens"]):
+        Gimages.append("products/women_dresses/" + Gfile)
+        Gimages = Gimages[:3]
+        O_Image = []
+    for i in range(0, len(Gimages), 3):
+            O_Image.append(Gimages[i:i+3])
+    C_Image = []
+    return render_template("Orders.html",
+                            #   O_Image = O_Image,
+                              C_Image = C_Image
+                            )
 
 @app.route("/Cart")
 def Cart():
@@ -75,10 +80,10 @@ def Help_Center():
 
 @app.route("/products/<path:image>")
 def products(image):
-
+    imagename = image
     imagedata = image.split("/")
     imgname = imagedata[2].split(".")
-
+    phones = imagedata[1]
     p_data = None
     for item in product:
         if imgname[0] == item["p_id"]:
@@ -98,7 +103,20 @@ def products(image):
     for file in os.listdir(folders["slippers"]):
         imageId.append("products/slippers/" + file)
 
-    selectimg = (random.sample(imageId, 6))
+    for file in os.listdir(folders["shoes"]):
+        imageId.append("products/shoes/" + file)
+
+    for file in os.listdir(folders["watchs"]):
+        imageId.append("products/watchs/" + file)
+
+    if imagename == "products/img/":
+        num = 15
+    else:
+        num = 9
+       
+       
+    
+    selectimg = (random.sample(imageId, num))
     img_group = []
     for i in range(0, len(selectimg),3):
             img_group.append(selectimg[i:i+3])
@@ -106,7 +124,8 @@ def products(image):
                            imagedata2 = imagedata,
                            image = image,
                            imageId = img_group,
-                           products = p_data)
+                           products = p_data,
+                           phones = phones)
 
 @app.route("/AllProducts")
 def AllProducts():
@@ -116,9 +135,9 @@ def AllProducts():
 def login_page():
      return render_template("login_page.html")
 
-# @app.route("/product")
-# def product():
-#     return render_template("products_temp.html")
+@app.route("/products1")
+def products1():
+    return render_template("products.html", )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug= True) 

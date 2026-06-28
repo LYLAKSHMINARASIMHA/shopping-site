@@ -2,29 +2,34 @@
 
 {% block content %}
 <div class="login_page">
-    <div class="login-pageblock">
-        <form class="login-form">
-            <div><h3>login-form</h3></div>
-            <div class="label-input">
-                <label class="name">Name</label>
-                <input type="text">
+     <form novalidate>
+            <div class="form_blocks">
+                <input type="text" id="user-name"  placeholder=" " required>
+                 <label for="name">User_name</label>
+                 <small class="error" >please fill this field</small>
             </div>
-            <div class="label-input">
-                <label class="Email">Email</label>
-                <input type="email">
+            <div class="form_blocks">
+                <input type="email" id="email" placeholder=" " required>
+                 <label for="email">E-mail</label>
+                 <small class="error" >please enter a valid E-mail</small>
             </div>
-            <div class="label-input">
-                <label class="password">Password</label>
-                <input type="password">
+            <div class="form_blocks">
+                <input type="password" id="password"  placeholder=" " required>
+                <label for="password">Password</label>
+                <span class="toggle-eye" onclick="togglePassword()"><i class="fa-regular fa-eye"></i></span>
+                <small class="error" >please enter password</small>
             </div>
-            <div class="label-input">
-                <label class="password">Password</label>
-                <input type="password">
+            <div class="form_blocks">
+                <input type="password" id="conform-password" placeholder=" " required>
+                <label for="password">Password</label>
+                <span class="toggle-eye" onclick="togglePassword1()"><i class="fa-regular fa-eye"></i></span>
+                <small class="error_match">password do not match</small>
+                <small class="error">please enter conform-password</small>
+           </div>
+            <div>
+                <button type="submit" >Submit</button>
             </div>
-            <div class="sub-button">
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </div>
+    </form>
+   
 </div>
 {% endblock %}

@@ -1,7 +1,10 @@
 
 {% extends "header.html" %}
 {% block content %}
-<div class="product_boxs">
+<div class="product_boxs" id="products_page">
+    {% if image == "products/img/" %}
+      
+      {% else %}
       <div class="product_page">
             <div class="product_block">
                   <div class="product_img">
@@ -21,16 +24,22 @@
                       <p class="discription">{{ products.p_description }}</p>
                     </div>
                     <div class="product_price">₹ {{ products.p_price }}</div>
-                    <div class="product_size">
-                      <label class="size">Size</label>
-                      <div class="size_btn">
-                          <button type="button" class="btn">S</button>
-                          <button type="button" class="btn">M</button>
-                          <button type="button" class="btn">L</button>
-                          <button type="button" class="btn">XL</button>
-                          <button type="button" class="btn">XXL</button>
+                    
+                      {% if phones == "phones" %}
+                      
+                      {% else %}
+                      <div class="product_size">
+                        <label class="size">Size</label>
+                        <div class="size_btn">
+                            <button type="button" class="btn">S</button>
+                            <button type="button" class="btn">M</button>
+                            <button type="button" class="btn">L</button>
+                            <button type="button" class="btn">XL</button>
+                            <button type="button" class="btn">XXL</button>
+                        </div>
                       </div>
-                    </div>
+                      {% endif %}
+                    
                     <div class="product_quantity">
                       <label class="quantity">Quantity</label>
                       <input type="number" min="1" max="25" value="1">
@@ -71,6 +80,7 @@
     </section>
      </div>
       </div>
+      {% endif %}
 
 <section class="row3img">
     {% for imageId in imageId %}

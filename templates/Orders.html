@@ -3,7 +3,7 @@
     {% block content %}
     <div class="Orders_page" >
         <section class="main_datablock">
-            <h1 id="orders_page">My Orders</h1>
+            <samp id="orders_page">My Orders</samp>
             <p>Track, view and manage your orders</p>
         </section>
         <div class="orders_block">  
@@ -13,25 +13,26 @@
                 <button type="button">Delivered</button>
                 <button type="button">Cancelled</button>
             </div>
+            {% if O_Image %}
             <div class="all_products">
-                 {% for images in pimage_g %}
+                 {% for images in O_Image %}
                 <div class="order_items">
                         {% for image in images %}
                     <div class="order_product">
                             <div class="items_data">
                                 <div class="img_and_data">
-                                <a href="products/{{ image }}">
+                                <a href="/products/{{ image }}">
                                     <div class="image1">
                                         <img src="{{url_for('static', filename= image)}}">
                                     </div>
                                       </a>
                                     
                                     <div class="data">
-                                        <h3>Order Id</h3>
-                                        <h5>Order Name</h5>
+                                        <samp class="Order-Id">Order Id</samp><br>
+                                        <samp class="Order-Name">Order Name</samp>
                                         <div>
                                             <samp>Size:M </samp>
-                                            <samp>color: Beige </samp>
+                                            <samp>color: Beige </samp><br>
                                             <samp> Qty: 1</samp>
                                         </div>
                                         <h5>$788</h5>
@@ -39,11 +40,11 @@
                                 </div>
                                 <div class="order_date">
                                     <p>Order Date</p>
-                                    <h6>12 May 2026</h6>
+                                    <samp>12 May 2026</samp>
                                 </div>
                             </div>
                             <div class="details_and_buy">
-                                <a href="products/{{ image }}"><p>View Details</p></a>
+                                <a href="/products/{{ image }}"><p>View Details</p></a>
                                 <button type="button" 
                                 onclick="window.location.href='{{ url_for('products', image = image)}}'">
                                 Buy Again</button>
@@ -54,10 +55,18 @@
                 {% endfor %}
             
             </div>
+            {% else %}
+           <div class="no-orders">
+             <p>no orders....</p> <div class="card"><i class="fa-solid fa-truck"></i></div>
+           </div>
+            {% endif %}
+
         </div>
+
+        <!-- --------------------------------------- -->
         <div class="coupons_block" id="coupons_page">
              <section class="main_datablock">
-            <h1>My Coupons</h1>
+            <samp>My Coupons</samp>
             <p>Use coupons to get exciting discounts</p>
         </section>
             <div class="all_coupons">
@@ -73,13 +82,53 @@
             </div>
         </div>
 
+        <!-- --------------------------------------- -->
         <div class="coupons_block" id="cart_page">
              <section class="main_datablock">
-                <h1>My Cart</h1>
+                <samp>My Cart</samp>
                 <p>View all the products you have added to your cart.
 You can update quantities, remove items, and proceed to checkout anytime.</p>
             </section>
+            <div class="C_Image-block">
+                {% if C_Image %}
+            <div class="all_products">
+                 {% for images in C_Image %}
+                <div class="order_items">
+                        {% for image in images %}
+                    <div class="order_product">
+                            <div class="items_data">
+                                <div class="img_and_data">
+                                    <a href="/products/{{ image }}">
+                                        <div class="image1">
+                                            <img src="{{url_for('static', filename= image)}}">
+                                        </div>
+                                    </a>
+                                    
+                                    <div class="data">
+                                        <samp class="Order-Id">Order Id</samp><br>
+                                        <samp class="Order-Name">Order Name</samp>
+                                        <h5>$788</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="details_and_buy">
+                                <a href="/products/{{ image }}"><p>View Details</p></a>
+                                <button type="button" 
+                                onclick="window.location.href='{{ url_for('products', image = image)}}'">
+                                Buy Again</button>
+                            </div>
+                    </div> 
+                     {% endfor %}
+                </div>
+                {% endfor %}
             
+            </div>
+            {% else %}
+           <div class="no-orders">
+             <p>Not Add cart....</p> <div class="card"><i class="fa-solid fa-cart-shopping"></i></div>
+           </div>
+            {% endif %}   
+            </div> 
         </div>
 
         <div class="feature_block">
