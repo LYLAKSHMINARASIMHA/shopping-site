@@ -14,7 +14,8 @@ img{ width: 100%; height: 100%;}
         .container{display: flex; justify-content: space-evenly; align-items: center; }
         
 
-        
+
+
         a{text-decoration: none; color: black;}
        .container .brand {display: flex; align-items: center; width: 100%; max-width: 250px; gap: 1px;
         transition: 0.8s; }
@@ -64,8 +65,13 @@ img{ width: 100%; height: 100%;}
          
 
 /*-------------------------------{Search Block}--------------------------------------*/
+
+
 .Sinp{ height: auto; display: flex; justify-content: space-evenly; align-items: center;
 padding: 1%;   position: sticky; top: 0%;
+background:rgba(255, 255, 255, 0.158);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.2);
  z-index: 9999;}
 
 .mnbtn .mbtn{ 
@@ -106,8 +112,10 @@ outline: none;}
              background-color: rgb(0, 132, 255);}
 .searchbtn2:focus{box-shadow: 0 1px 3px black; 
              background-color: var(--afbtn);}
-             
+            
 /*-------------------------------- [home img] -----------------------------------------*/
+
+
 .add_container img{width: 100%;}
 .row3img{display: flex; flex-direction: column; gap: 30px;} 
    .rowsimg{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding: 1%; }
@@ -196,6 +204,8 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
       }
 
 /*-------------------------------- [orders page] -----------------------------------------*/
+
+
 .Orders_page{padding: 1%;}
 button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px;}
 button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -235,7 +245,11 @@ button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         gap: 10px; height: 50%; width: 100%;}
     .C_Image-block{display: flex;}
 
+
+
 /*-------------------------------- [help center] -----------------------------------------*/
+
+
 .help_center{padding: 1%;}
 .main_datablock{ background:linear-gradient(135deg,#edf4e8,#f5f5f5); padding:15px; 
     border-radius:20px; margin-bottom:25px; margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -330,7 +344,10 @@ input, select, textarea{ width:100%; padding:12px;
     .faq_section{grid-template-columns: 1fr;}
     .support_cta{flex-direction: column;}
 }
+
+
 /*-------------------------------- [login-pageblock] -----------------------------------------*/
+/* 
 
 .L_R-form{ display: flex; flex-direction: column; height: 400px;
     justify-content: space-evenly; padding: 5%; border: 3px solid; overflow: hidden;
@@ -359,7 +376,6 @@ input, select, textarea{ width:100%; padding:12px;
             background: white;
             padding: 0 4px;
         }
-        /*floting effect */
        .form_blocks input:focus+ label, .form_blocks input:not(:placeholder-shown)+ label {
             top: -6px;
             font-size: 12px;
@@ -417,7 +433,7 @@ input, select, textarea{ width:100%; padding:12px;
        .btn1-2 button{display: flex; width: 100%;  height: 30px; align-items: center; justify-content: center;}
 
 
-       .formbtns2{display: flex; justify-content: center; width: 100%; max-width: 250px; }
+       .formbtns2{display: flex; justify-content: center; width: 200px; height: 100px; }
        .formbtns2.active{display: none; }
         .formbtns2 button{ transform: rotate(-90deg); position: relative; left: -75px; top:75px;
             display: flex; width: 150%; justify-content: center; height: 50px;
@@ -426,10 +442,8 @@ input, select, textarea{ width:100%; padding:12px;
        .login-form{ 
         position: absolute;
         width: 50px;
-        /* transform: rotate(90deg); */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%) rotate(90deg);
+        transform: rotate(90deg);
+        top: 20%;
         transition: 1.0s ease ;
         padding: 1%;
        }
@@ -439,24 +453,10 @@ input, select, textarea{ width:100%; padding:12px;
         min-height: 350px;
        }
        .registr-form{
-        /* overflow: hidden;
-        position: absolute;
-        top: 350px;
-         height: 200px;
-        width: 50px;
-         transition: 2.0s ease ;
-         opacity: 1;
-         transform: rotate(90deg);
-         background: white;
-         border-radius: 10px;
-         padding: 1%; */
-
          position: absolute;
         width: 50px;
-        /* transform: rotate(90deg); */
-        top: 80%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(90deg);
+        transform: rotate(90deg);
+        top: 50%;
         transition: 1.0s ease ;
         padding: 1%;
        }
@@ -465,24 +465,11 @@ input, select, textarea{ width:100%; padding:12px;
         height: auto;
         min-height: 350px;
        }
-
-        /* .registr-form{
-         overflow: hidden;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 450px;
-        padding: 1%;
-        border: 1px solid;
-       } */
-
        .login-form form{
         display: none;
         overflow: hidden;
         padding: 5%; 
        transition: 1.0s ease ;
-       
        }
        .registr-form form{
         display: none;
@@ -491,12 +478,214 @@ input, select, textarea{ width:100%; padding:12px;
        transition: 1.0s ease ;
        
        }
+ */
+
+/* ........................< new login page >.............................. */
+
+/* width: min(90vw,450px); */
+
+
+.LR-block{
+    /* margin-top: 80px; */
+    /* width:100%; */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    background: none;
+}
+.LR-block.active{
+    margin-top: 80px;
+    transition: 1s;
+}
+
+.LR-page{
+    min-height:300px;
+    /* min-height:600px; */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition: 0.7s;
+}
+
+.LR-formsBlock{
+    display: grid;
+   gap: 100px;
+}
+
+
+.login-form{
+    overflow: hidden;
+    display: grid;
+    justify-content: center;
+    background:rgba(255, 255, 255, 0.564);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:20px;
+     transition: 1s;
+     opacity: 1;
+}
+ .register-form{
+    overflow: hidden;
+    display: grid;
+    justify-content: center;
+    background:rgba(255, 255, 255, 0.564);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:20px;
+     transition: 1s;
+     opacity: 1;
+}
+.login-form.active{
+    padding: 1%;
+    width: min(90vw,350px);
+    height: auto;
+    min-height: 350px;
+}
+.register-form.active{
+     padding:1%;
+     width: min(100vw,350px); 
+     height: auto;
+     min-height: 350px;
+}
+
+
+
+
+.login-form form{
+            display: none;
+            transform: rotate(-90deg);
+        }
+.login-form.active form{
+            display: block;
+        }
+.register-form form{
+            display: none;
+            transform: rotate(-90deg);
+        }
+.register-form.active form{
+            display: block;
+            
+        }
+
+       /* .login-form.active .L_F_open{
+            display: block;
+        } */
+        .L_F_open{
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 30px;
+        }
+
+       /* .register-form,.active .R_F_open{
+            display: block;
+        } */
+        .R_F_open{
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 30px;
+        }
+
+    @media(max-width: 600px){
+        .LR-page{
+    min-height:450px;}
+    }
+
+.form_blocks{
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+       .form_blocks input{
+            padding: 12px 10px;
+            font-size: 16px;
+            border: 1px solid #999 ;
+            outline: none;
+        }
+        label{
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            color: #666;
+            font-size: 14px;
+            pointer-events: none;
+            transform: translateY(-50%);
+            transition: 0.3s ease;
+            background: white;
+            padding: 0 4px;
+        }
+       .form_blocks input:focus+ label, .form_blocks input:not(:placeholder-shown)+ label {
+            top: -6px;
+            font-size: 12px;
+            color: #2563ed;
+        }
+       .form_blocks input:focus, .form_blocks input:valid{
+             border-color: #2563ed;
+        }
+        .toggle-eye{
+             position: absolute;
+             right: 10px;
+             top: 50%;
+             transform: translateY(-50%);
+             cursor: pointer;
+             font-size: 16px;
+             color: #666;
+             user-select: none;
+        }
+        .toggle-eye:hover{
+            color: #2563ed;
+        }
+       .error{
+       position: absolute;
+       font-size: 12px;
+       color: red;
+       transform: translateY(-5px);
+       transition: 0.3s ease ;
+       opacity: 0;
+    }
+    .error_match{
+       position: absolute;
+       font-size: 12px;
+       color: red;
+       transform: translateY(-5px);
+       transition: 0.3s ease ;
+       opacity: 0;
+    }
+    .form_blocks.error-show .error{
+        opacity: 1;
+        transform: translateY(0);
+       }
+       .form_blocks.error-show input{
+        border-color: red;
+       }
+       .form_blocks.Perror-show .error_match{
+        opacity: 1;
+        transform: translateY(0);
+
+       }
+       .form_blocks.Perror-show input{
+        border-color: red;
+       }
+
+
 /*-------------------------------- [footer] -----------------------------------------*/
+
+
    .footer{ display: flex; flex-direction: column; align-items: center; padding: 3%;
 border: 1px solid black; border-radius: 10px;}
    .footerdata{display: flex; justify-content: space-around; align-items: center; width: 100%;}
    .footer_icons{display: flex; flex-direction: column;}
+
+
 /*-------------------------------- [JS] -----------------------------------------*/
+
+
 @media(max-width: 1000px){
     .btnls{display: none;}
     .profile{display: block;}
@@ -514,9 +703,13 @@ border: 1px solid black; border-radius: 10px;}
  .searchbtn{display: none;}
  .searchbtn2{display: flex;}
 }
+
+
 /*-------------------------------- [JS PD3img] -----------------------------------------*/
 
 @media (max-width: 1000px){
     .section33{grid-template-columns: 1fr;}
     .product33D{gap: 0px;}
 }
+
+

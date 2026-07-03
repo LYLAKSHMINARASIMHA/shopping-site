@@ -29,63 +29,70 @@ const more = document.querySelector(".more");
     // -------------------------------------------------------------------- 
 
 
+     const LR_block = document.querySelector(".LR-block");
      const loginform_form = document.querySelector(".login-form");
-    const registrform_form = document.querySelector(".registr-form");
+    const registrform_form = document.querySelector(".register-form");
      const formbtns2 = document.querySelector(".formbtns2");
      const L_F_open = document.querySelector(".L_F_open");
     const R_F_open = document.querySelector(".R_F_open");
+
            function L_rotate(){
-            
-            loginform_form.style.transform = "rotate(0deg)";
-            registrform_form.style.top = "90%";
-            registrform_form.style.opacity = "0.7";
-            setTimeout(() => {
-                loginform_form.classList.toggle("open");
-                registrform_form.style.opacity = "0.2";
-                L_F_open.style.display="none";
-                formbtns2.style.display="none";
-             }, 1000);
-            setTimeout(() => {
-                registrform_form.style.display= "none";
-                forms[0].style.display= "block";
-            
-             }, 1000);
+                registrform_form.style.transform = "translateY(200%)";
+                registrform_form.style.opacity="0";
+                loginform_form.style.transform = "rotate(90deg)";
+                //   transform: translateX(-50%);
+                setTimeout(()=>{
+                    
+                    L_F_open.style.display = "none";
+                    R_F_open.style.display = "none";
+                    loginform_form.classList.toggle("active");
+                    loginform_form.style.height = "100%";
+                }, 1000)
+                
         }
 
             function LF_close(){
-                forms[0].style.display = "none";
-                
+                loginform_form.classList.remove("active");
+                loginform_form.style.height = "auto";
+                L_F_open.style.display = "flex";
+                   R_F_open.style.display = "flex";
                 setTimeout(() => {
-                    loginform_form.classList.remove("open");
-                    loginform_form.style.transform = "rotate(90deg)";
-
-                    registrform_form.style.display= "block";
-                    L_F_open.style.display="flex";
-                    formbtns2.style.display="flex";
-                }, 500);
-                setTimeout(()=>{
-                    registrform_form.style.top = "350px";
-                }, 700)
-                setTimeout(()=>{
-                    registrform_form.style.display= "block";
-                    registrform_form.style.opacity = "1";
-                },1000)
+                   registrform_form.style.transform = "translateY(0%)";
+                registrform_form.style.opacity="1";
+                loginform_form.style.transform = "rotate(0deg)";
+                
+                }, 1000)
+                
                 
                     
             }
 
             function R_rotate(){
-                registrform_form.style.top = "20%";
-                 registrform_form.style.transform = "rotate(0deg)";
-                setTimeout(()=>{
-                    R_F_open.style.display="none";
-                    registrform_form.classList.toggle("open");
-                    forms[1].style.display = "block";
-                }, 1700)
-                setTimeout(()=>{
+                loginform_form.style.transform = "translateY(-250%)";
+                loginform_form.style.opacity="0";
+                registrform_form.style.transform = "translateY(-50%) rotate(90deg)";
+                    
+                    setTimeout(()=>{
+                        LR_block.classList.toggle("active");
+                        formbtns2.style.display = "none";
+                        L_F_open.style.display = "none";
+                        R_F_open.style.display = "none";
+                        registrform_form.classList.toggle("active"); 
+                        // registrform_form.style.height = "100%";
+                    },1000)
+            }
 
-                },2000)
-                
+            function RF_close(){
+                LR_block.classList.remove("active");
+                        formbtns2.style.display = "block";
+                        L_F_open.style.display = "flex";
+                        R_F_open.style.display = "flex";
+                        registrform_form.classList.remove("active"); 
+                        setTimeout(()=>{
+                            loginform_form.style.transform = "translateY(0%)";
+                loginform_form.style.opacity="1";
+                registrform_form.style.transform = "rotate(0deg)";
+                        })
             }
 
 

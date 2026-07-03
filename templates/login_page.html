@@ -1,8 +1,12 @@
 {% extends "header.html" %}
 
 {% block content %}
-<div class="L_R-form">
-        <div class="login-form">
+
+
+<div class="LR-block">
+    <div class="LR-page">
+        <div class="LR-formsBlock">
+            <div class="login-form">
                         <div class="formbtns2">
                             <button type="button" class="L_F_open" onclick="L_rotate()">Login</button>
                         </div>
@@ -29,8 +33,8 @@
                             <samp>Don't have an account <a href="#" style="color: rgb(0, 119, 255);" onclick="LF_close()">Registration?</a></samp>
                         </div>
                 </form>
-        </div>
-        <div class="registr-form">
+            </div>
+            <div class="register-form">
                         <div class="formbtns2">
                             <button type="button" class="R_F_open" onclick="R_rotate()">Registration</button>
                         </div>
@@ -65,9 +69,11 @@
                             <button type="submit" >Submit</button>
                         </div><br>
                         <div class="form_blocks">
-                            <samp>Already have an account <a href="#"  style="color: rgb(0, 119, 255);">Login now?</a></samp>
+                            <samp>Already have an account <a href="#"  style="color: rgb(0, 119, 255);" onclick="RF_close()" >Login now?</a></samp>
                         </div>
                 </form>
+            </div>
         </div>
+    </div>
 </div>
   {% endblock %}
