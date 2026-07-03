@@ -332,18 +332,16 @@ input, select, textarea{ width:100%; padding:12px;
 }
 /*-------------------------------- [login-pageblock] -----------------------------------------*/
 
-.login-pageblock{display: flex; justify-content: center; align-items: center; padding: 1%; margin-top: 10px;}
-        form{
-            padding: 2%;
-           max-width: 320px;
-           margin: auto;
-        }
+.L_R-form{ display: flex; flex-direction: column; height: 400px;
+    justify-content: space-evenly; padding: 5%; border: 3px solid; overflow: hidden;
+     align-items: center; }
+        
+       
         .form_blocks{
             position: relative;
             margin-bottom: 28px;
         }
-        input{
-            width: 100%;
+       .form_blocks input{
             padding: 12px 10px;
             font-size: 16px;
             border: 1px solid #999 ;
@@ -362,12 +360,12 @@ input, select, textarea{ width:100%; padding:12px;
             padding: 0 4px;
         }
         /*floting effect */
-        input:focus+ label, input:not(:placeholder-shown)+ label {
+       .form_blocks input:focus+ label, .form_blocks input:not(:placeholder-shown)+ label {
             top: -6px;
             font-size: 12px;
             color: #2563ed;
         }
-        input:focus, input:valid{
+       .form_blocks input:focus, .form_blocks input:valid{
              border-color: #2563ed;
         }
         .toggle-eye{
@@ -414,7 +412,85 @@ input, select, textarea{ width:100%; padding:12px;
        .form_blocks.Perror-show input{
         border-color: red;
        }
+       .btn1-2{display: flex; flex-direction: column; align-items: center;
+        justify-content: center; min-height: 100vh; gap: 10px;}
+       .btn1-2 button{display: flex; width: 100%;  height: 30px; align-items: center; justify-content: center;}
 
+
+       .formbtns2{display: flex; justify-content: center; width: 100%; max-width: 250px; }
+       .formbtns2.active{display: none; }
+        .formbtns2 button{ transform: rotate(-90deg); position: relative; left: -75px; top:75px;
+            display: flex; width: 150%; justify-content: center; height: 50px;
+        align-items: center;
+    }
+       .login-form{ 
+        position: absolute;
+        width: 50px;
+        /* transform: rotate(90deg); */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%) rotate(90deg);
+        transition: 1.0s ease ;
+        padding: 1%;
+       }
+       .login-form.open{
+        width: min(90vw,450px);
+        height: auto;
+        min-height: 350px;
+       }
+       .registr-form{
+        /* overflow: hidden;
+        position: absolute;
+        top: 350px;
+         height: 200px;
+        width: 50px;
+         transition: 2.0s ease ;
+         opacity: 1;
+         transform: rotate(90deg);
+         background: white;
+         border-radius: 10px;
+         padding: 1%; */
+
+         position: absolute;
+        width: 50px;
+        /* transform: rotate(90deg); */
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(90deg);
+        transition: 1.0s ease ;
+        padding: 1%;
+       }
+       .registr-form.open{
+        width: min(90vw,450px);
+        height: auto;
+        min-height: 350px;
+       }
+
+        /* .registr-form{
+         overflow: hidden;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 450px;
+        padding: 1%;
+        border: 1px solid;
+       } */
+
+       .login-form form{
+        display: none;
+        overflow: hidden;
+        padding: 5%; 
+       transition: 1.0s ease ;
+       
+       }
+       .registr-form form{
+        display: none;
+        overflow: hidden;
+        padding: 5%;
+       transition: 1.0s ease ;
+       
+       }
 /*-------------------------------- [footer] -----------------------------------------*/
    .footer{ display: flex; flex-direction: column; align-items: center; padding: 3%;
 border: 1px solid black; border-radius: 10px;}

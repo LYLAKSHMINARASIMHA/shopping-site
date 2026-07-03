@@ -1,35 +1,73 @@
 {% extends "header.html" %}
 
 {% block content %}
-<div class="login_page">
-     <form novalidate>
-            <div class="form_blocks">
-                <input type="text" id="user-name"  placeholder=" " required>
-                 <label for="name">User_name</label>
-                 <small class="error" >please fill this field</small>
-            </div>
-            <div class="form_blocks">
-                <input type="email" id="email" placeholder=" " required>
-                 <label for="email">E-mail</label>
-                 <small class="error" >please enter a valid E-mail</small>
-            </div>
-            <div class="form_blocks">
-                <input type="password" id="password"  placeholder=" " required>
-                <label for="password">Password</label>
-                <span class="toggle-eye" onclick="togglePassword()"><i class="fa-regular fa-eye"></i></span>
-                <small class="error" >please enter password</small>
-            </div>
-            <div class="form_blocks">
-                <input type="password" id="conform-password" placeholder=" " required>
-                <label for="password">Password</label>
-                <span class="toggle-eye" onclick="togglePassword1()"><i class="fa-regular fa-eye"></i></span>
-                <small class="error_match">password do not match</small>
-                <small class="error">please enter conform-password</small>
-           </div>
-            <div>
-                <button type="submit" >Submit</button>
-            </div>
-    </form>
-   
+<div class="L_R-form">
+        <div class="login-form">
+                        <div class="formbtns2">
+                            <button type="button" class="L_F_open" onclick="L_rotate()">Login</button>
+                        </div>
+                <form novalidate>
+                        <div class="form_blocks">
+                            <samp>Login</samp>
+                        </div>
+                        <div class="form_blocks">
+                            <input type="email" id="Lemail" placeholder=" " required>
+                            <label for="email">E-mail</label>
+                            <small class="error" >please enter a valid E-mail</small>
+                        </div>
+                        <div class="form_blocks">
+                            <input type="password" id="Lpassword"  placeholder=" " required>
+                            <label for="password">Password</label>
+                            <span class="toggle-eye" onclick="LtogglePassword()"><i class="fa-regular fa-eye"></i></span>
+                            <small class="error" >please enter password</small>
+                        </div>
+                        <div class="btn1-2">
+                            <button type="submit" >Submit</button>
+                            <samp><a href="#"  style="color: rgb(0, 119, 255);">forgot password?</a></samp>
+                        </div><br>
+                        <div class="form_blocks">
+                            <samp>Don't have an account <a href="#" style="color: rgb(0, 119, 255);" onclick="LF_close()">Registration?</a></samp>
+                        </div>
+                </form>
+        </div>
+        <div class="registr-form">
+                        <div class="formbtns2">
+                            <button type="button" class="R_F_open" onclick="R_rotate()">Registration</button>
+                        </div>
+                <form novalidate>
+                        <div class="form_blocks">
+                            <samp>Registration</samp>
+                        </div>
+                        <div class="form_blocks">
+                            <input type="text" id="user-name"  placeholder=" " required>
+                            <label for="name">User_name</label>
+                            <small class="error" >please fill this field</small>
+                        </div>
+                        <div class="form_blocks">
+                            <input type="email" id="email" placeholder=" " required>
+                            <label for="email">E-mail</label>
+                            <small class="error" >please enter a valid E-mail</small>
+                        </div>
+                        <div class="form_blocks">
+                            <input type="password" id="password"  placeholder=" " required>
+                            <label for="password">Password</label>
+                            <span class="toggle-eye" onclick="togglePassword()"><i class="fa-regular fa-eye"></i></span>
+                            <small class="error" >please enter password</small>
+                        </div>
+                        <div class="form_blocks">
+                            <input type="password" id="conform-password" placeholder=" " required>
+                            <label for="password">Password</label>
+                            <span class="toggle-eye" onclick="togglePassword1()"><i class="fa-regular fa-eye"></i></span>
+                            <small class="error_match">password do not match</small>
+                            <small class="error">please enter conform-password</small>
+                    </div>
+                        <div class="btn1-2">
+                            <button type="submit" >Submit</button>
+                        </div><br>
+                        <div class="form_blocks">
+                            <samp>Already have an account <a href="#"  style="color: rgb(0, 119, 255);">Login now?</a></samp>
+                        </div>
+                </form>
+        </div>
 </div>
-{% endblock %}
+  {% endblock %}
