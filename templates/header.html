@@ -40,6 +40,12 @@
             </nav>
 
              <div class="S_L">
+                {% if user %}
+                <div class="profile2">
+                    <a href="#" class="PRF"><div class="circle2"><i class="fa-solid fa-user"></i></div></a>
+                    <span>{{ user }}</span>
+                </div>
+                {% else %}
                 <div class="btnls">
                     <a href="/login_page" class="Sbtn" >sign up</a>
                     <a href="/login_page" class="Lbtn" >login</a>
@@ -47,6 +53,7 @@
                 <div class="profile">
                     <a href="#" class="PRF"><div class="circle"><i class="fa-solid fa-user"></i></div></a>
                 </div>
+                {% endif %}
             </div>
             
         </div>

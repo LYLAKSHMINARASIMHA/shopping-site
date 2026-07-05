@@ -1,8 +1,16 @@
-from flask import Flask, render_template, request, url_for , redirect
+from flask import Flask, render_template, request, url_for , redirect , session
 import random
 import pandas as pd
 import os
 app = Flask(__name__)
+
+@app.context_processor
+def inject_user():
+     return{
+          "user": session.get("user")
+     }
+
+app.secret_key = "my_secret_key"
 
 folders ={
     "mens": "static/products/mens_dresses", #size
@@ -20,6 +28,8 @@ product = df.to_dict(orient="records")
 
 @app.route("/")
 def testing():
+    
+
     images = []
     for file in os.listdir(folders["mens"]):
         images.append("products/mens_dresses/" + file)
@@ -126,6 +136,32 @@ def products(image):
                            imageId = img_group,
                            products = p_data,
                            phones = phones)
+
+
+@app.route("/login" , methods=["POST"])
+def login():
+     
+     email = request.form["email"]
+     password = request.form["password"]
+
+     
+     print(email)
+     print(password)
+
+     return redirect("/")
+
+@app.route("/register" , methods=["POST"])
+def register():
+     
+     userName = request.form["username"]
+     email = request.form["email"]
+     password = request.form["password"]
+     conform_password = request.form["conform-password"]
+
+     session["user"] = userName
+
+
+     return redirect("/")
 
 @app.route("/AllProducts")
 def AllProducts():

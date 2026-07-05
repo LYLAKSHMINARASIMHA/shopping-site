@@ -156,6 +156,10 @@ function LtogglePassword() {
             else{
                 hideError(Lpassword);
             }
+
+            if(valid){
+                this.submit();
+            }
        
         });
 
@@ -243,6 +247,11 @@ function LtogglePassword() {
             else{
                 hideError1(Cpassword);
             }
+
+            if(valid){
+                this.submit();
+            }
+            
         });
       
        function showError(input){

@@ -10,17 +10,17 @@
                         <div class="formbtns2">
                             <button type="button" class="L_F_open" onclick="L_rotate()">Login</button>
                         </div>
-                <form novalidate>
+                <form action="/login" method="POST" novalidate>
                         <div class="form_blocks">
                             <samp>Login</samp>
                         </div>
                         <div class="form_blocks">
-                            <input type="email" id="Lemail" placeholder=" " required>
+                            <input type="email" id="Lemail" placeholder=" " name="email" required>
                             <label for="email">E-mail</label>
                             <small class="error" >please enter a valid E-mail</small>
                         </div>
                         <div class="form_blocks">
-                            <input type="password" id="Lpassword"  placeholder=" " required>
+                            <input type="password" id="Lpassword"  placeholder=" " name="password" required>
                             <label for="password">Password</label>
                             <span class="toggle-eye" onclick="LtogglePassword()"><i class="fa-regular fa-eye"></i></span>
                             <small class="error" >please enter password</small>
@@ -38,28 +38,28 @@
                         <div class="formbtns2">
                             <button type="button" class="R_F_open" onclick="R_rotate()">Registration</button>
                         </div>
-                <form novalidate>
+                <form action="/register" method="POST" novalidate>
                         <div class="form_blocks">
                             <samp>Registration</samp>
                         </div>
                         <div class="form_blocks">
-                            <input type="text" id="user-name"  placeholder=" " required>
+                            <input type="text" id="user-name"  placeholder=" " name="username" required>
                             <label for="name">User_name</label>
                             <small class="error" >please fill this field</small>
                         </div>
                         <div class="form_blocks">
-                            <input type="email" id="email" placeholder=" " required>
+                            <input type="email" id="email" placeholder=" " name="email" required>
                             <label for="email">E-mail</label>
                             <small class="error" >please enter a valid E-mail</small>
                         </div>
                         <div class="form_blocks">
-                            <input type="password" id="password"  placeholder=" " required>
+                            <input type="password" id="password"  placeholder=" " name="password" required>
                             <label for="password">Password</label>
                             <span class="toggle-eye" onclick="togglePassword()"><i class="fa-regular fa-eye"></i></span>
                             <small class="error" >please enter password</small>
                         </div>
                         <div class="form_blocks">
-                            <input type="password" id="conform-password" placeholder=" " required>
+                            <input type="password" id="conform-password" placeholder=" " name="conform-password" required>
                             <label for="password">Password</label>
                             <span class="toggle-eye" onclick="togglePassword1()"><i class="fa-regular fa-eye"></i></span>
                             <small class="error_match">password do not match</small>
