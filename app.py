@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for , redirect , session
 import random
 import pandas as pd
 import os
+from openpyxl import load_workbook
 app = Flask(__name__)
 
 @app.context_processor
@@ -20,9 +21,9 @@ folders ={
     "shoes" : "static/products/shoes",  # size
     "watchs" : "static/products/watchs",  #size
 }
-data_url = "https://docs.google.com/spreadsheets/d/1Rhk0JHhzzCCpHNAt1m6c3opGCH1rOj5DlG5A1oFGEE4/export?format=csv"
-df = pd.read_csv(data_url)
+df = pd.read_excel("Shopping_W_data.xlsx")
 df.columns = df.columns.str.strip().str.lower()
+df = df.dropna(how="all")
 product = df.to_dict(orient="records")
 
 
@@ -76,7 +77,7 @@ def Orders():
             O_Image.append(Gimages[i:i+3])
     C_Image = []
     return render_template("Orders.html",
-                            #   O_Image = O_Image,
+                              O_Image = O_Image,
                               C_Image = C_Image
                             )
 
@@ -96,7 +97,7 @@ def products(image):
     phones = imagedata[1]
     p_data = None
     for item in product:
-        if imgname[0] == item["p_id"]:
+        if str(imgname[0]) == str(item["p_id"]):
            p_data = item
            break
 
@@ -145,8 +146,6 @@ def login():
      password = request.form["password"]
 
      
-     print(email)
-     print(password)
 
      return redirect("/")
 
@@ -158,8 +157,60 @@ def register():
      password = request.form["password"]
      conform_password = request.form["conform-password"]
 
-     session["user"] = userName
+     excel_file = "Shopping_W_data.xlsx"
+     sheet_name = "users_sheet"
 
+     file = "Shopping_W_data.xlsx"
+     
+
+     wb = load_workbook(file)
+     sheet1 = wb[sheet_name]
+
+    # Heading matrame unte
+     if sheet1.max_row == 1:
+         userid = "UI001"
+
+     else:
+         last_userid = sheet1.cell(row=sheet1.max_row, column=1).value
+
+         number = int(last_userid[2:])      # UI003 -> 3
+
+         userid = f"UI{number+1:03d}"       # 4 -> UI004
+
+     print(userid)
+     session["user"] = userName
+     
+
+     new_data = {
+        "userid": [userid],
+        "user" : [userName],
+        "email" : [email],
+        "password" : [password]
+     }
+
+     new_df = pd.DataFrame(new_data)
+     
+
+     if os.path.exists(excel_file):
+          book = load_workbook(excel_file)
+          sheet = book[sheet_name]
+
+          next_row = sheet.max_row
+          with pd.ExcelWriter(excel_file,
+                              engine="openpyxl",
+                              mode="a",
+                              if_sheet_exists="overlay") as writer:
+               new_df.to_excel(
+                    writer,
+                    sheet_name=sheet_name,
+                    index=False,
+                    header=False,
+                    startrow=next_row
+               )
+               print("user saved successfully")
+     print(sheet["A1"].value)
+     print(book)
+     print(sheet)
 
      return redirect("/")
 
@@ -171,9 +222,17 @@ def AllProducts():
 def login_page():
      return render_template("login_page.html")
 
-@app.route("/products1")
-def products1():
-    return render_template("products.html", )
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/buy_cart")
+def buy_cart():
+    return render_template("buy_cart.html")
+
+@app.route("/yogi")
+def yogi():
+    return render_template("yogi.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug= True) 

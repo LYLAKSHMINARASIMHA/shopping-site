@@ -44,10 +44,26 @@
                       <label class="quantity">Quantity</label>
                       <input type="number" min="1" max="25" value="1">
                     </div>
-                    <div class="product_btns">
-                      <button type="button" class="buy">Buy Now</button>
-                      <button type="button" class="add">Add to cart</button>
-                    </div>
+                    
+                    {% if user %}
+                      <div class="product_btns">
+                        <button type="button" class="buy" 
+                        onclick="window.location.href='{{ url_for('buy_cart')}}'" >
+                          Buy Now</button>
+                        <button type="button" class="add" 
+                        onclick="window.location.href='{{ url_for('buy_cart')}}'" >
+                          Add to cart</button>
+                      </div>
+                    {% else %}
+                      <div class="product_btns">
+                        <button type="button" class="buy" 
+                        onclick="buy()" >
+                          Buy Now</button>
+                        <button type="button" class="add" 
+                        onclick="cart()" >
+                          Add to cart</button>
+                      </div>
+                    {% endif %}
                   </div>
             </div>
             <div class="feature_block">

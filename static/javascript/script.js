@@ -268,18 +268,11 @@ function LtogglePassword() {
         input.parentElement.classList.remove("Perror-show");
        }
 
+// .....................{ product buy and cart }......................
 
-    // window.addEventListener("scroll", function() {
-    //     let menu = document.querySelector("mbtn");
-    //     if(window.innerWidth <= 840){
-    //            if (window.scrollY > 200){
-    //         menu.classList.add("show");
-    //     }
-    //     else{
-    //       menu.classList.remove("show");
-    //     }
-    //     }
-    // });
+ function buy(){
+    window.location.href= "{{ url_for('buy_cart') }}";
+ }
 
 
  
