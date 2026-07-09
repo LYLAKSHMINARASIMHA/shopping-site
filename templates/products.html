@@ -45,13 +45,13 @@
                       <input type="number" min="1" max="25" value="1">
                     </div>
                     
-                    {% if user %}
+                    {% if userid %}
                       <div class="product_btns">
                         <button type="button" class="buy" 
                         onclick="window.location.href='{{ url_for('buy_cart')}}'" >
                           Buy Now</button>
                         <button type="button" class="add" 
-                        onclick="window.location.href='{{ url_for('buy_cart')}}'" >
+                        onclick="cart()" >
                           Add to cart</button>
                       </div>
                     {% else %}
@@ -60,7 +60,7 @@
                         onclick="buy()" >
                           Buy Now</button>
                         <button type="button" class="add" 
-                        onclick="cart()" >
+                        onclick="window.location.href='{{ url_for('login_page')}} '" >
                           Add to cart</button>
                       </div>
                     {% endif %}

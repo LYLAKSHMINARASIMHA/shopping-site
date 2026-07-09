@@ -129,37 +129,73 @@ function LtogglePassword() {
        }
 
       
+            const Lemail = document.getElementById("Lemail");
+            const Lpassword = document.getElementById("Lpassword");
+            const login_check = document.getElementById("login_check");
             
-       
+
 
         forms[0].addEventListener(
         "submit", function(e){
             e.preventDefault();
-            const Lemail = document.getElementById("Lemail");
-            const Lpassword = document.getElementById("Lpassword");
 
             let valid = true;
         //E-mail error block
+           if(Lemail.value.trim() === ""){
+            hideError1(Lemail);
+            showError(Lemail);
+           }
            if(!Lemail.value.includes('@gmail') || !Lemail.value.includes('.')){
-                showError(Lemail);
+            login_check.innerText = "";
+                hideError(Lemail);
+                showError1(Lemail);
                 valid = false;
             }
             else{
+                hideError1(Lemail);
                 hideError(Lemail);
             }
             
          //password error block
             if(Lpassword.value.trim() === ""){
+                login_check.innerText = "";
                 showError(Lpassword);
                 valid = false;
             }
             else{
                 hideError(Lpassword);
             }
+            fetch("/check_login",{
+                method:"POST",
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                    Lpassword: Lpassword.value,
+                    Lemail: Lemail.value
+                })
+            })
+            .then(loginCheck => loginCheck.json())
+            .then(data => {
+                if(data.success){
+                    login_check.innerText = "";
+                    hideError(Lemail);
+                    hideError(Lpassword);
+                    if(valid){
+                        window.location.href = "/";
+                        }
+                        else{
+                            login_check.innerText = "invalid login details";
+                            showError1(Lemail);
+                            showError1(Lpassword);
+                        }
+                }
+                else{
+                    login_check.innerText = "invalid login details";
+                }
+            });
 
-            if(valid){
-                this.submit();
-            }
+            
        
         });
 
@@ -185,13 +221,123 @@ function LtogglePassword() {
         }
        }   
 
-       forms[1].addEventListener(
-        "submit", function(e){
-            e.preventDefault();
             const username = document.getElementById("user-name");
             const email = document.getElementById("email");
             const password = document.getElementById("password");
             const Cpassword = document.getElementById("conform-password");
+            const email_status = document.getElementById("email-status");
+
+            let E_Available = true;
+            
+            // email.addEventListener("blur", function(){
+            //     fetch("/check-LR",{
+            //         method: "POST",
+            //         headers:{
+            //             "Content-Type": "application/json"
+            //         },body:JSON.stringify({
+            //             email: email.value
+            //         })
+            //     })
+            //     .then(Response => Response.json())
+            //     .then(data =>{
+            //         document.getElementById("email-status").innerText 
+            //         t = data.massage;
+            //     });
+            // });
+
+
+email.addEventListener("blur", function () {
+
+                    if(email.value.trim()===""){
+                        email_status.innerText = "";
+                        showError1(email);
+                    }
+                    else if(!email.value.includes('@gmail') || !email.value.includes('.')){
+                        email_status.innerText = "";
+                        hideError1(email);
+                       showError(email);
+                    //    valid = false; 
+                    }
+                    else{
+                        fetch("/check-LR", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email: email.value
+                            })
+                                })
+
+                                .then(response => response.json())
+
+                                .then(data => {
+
+                                    email_status.innerText = data.message;
+
+                                     if (data.message === "Email Available"){
+                            email_status.style.color = "#18b050";
+                                E_Available = true;
+                        }
+                        else{
+                            email_status.style.color = "red";
+                            E_Available = false;
+                            hideError(email);
+                            
+                            }
+                                });
+                           
+                    }
+
+    
+
+});
+
+password.addEventListener("blur", function(){
+    const pwdvalue = password.value;
+        let letter ="";
+        let capltr ="";
+        let number ="";
+        let chare ="";
+
+    for(let i=0; i < pwdvalue.length; i++ ){
+        let pwd = pwdvalue[i];
+        if(pwd >= 'A' && pwd <= 'Z'){
+            capltr += pwd;
+        }
+        else if(pwd >= 'a' && pwd <= 'z'){
+            letter += pwd;
+        }
+        else if(pwd >= '0' && pwd <= '9' ){
+            number += pwd;
+        }
+        else{
+            chare += pwd;
+        }
+    }
+
+    if(password.value.trim()===""){
+
+            hideError1(password);
+        }
+    else if(pwdvalue.length >= 8 && pwdvalue.length <= 15 
+    && capltr.length >= 1 && number.length >= 3 
+    && chare.length >= 1
+    ){
+        hideError1(password);
+    }
+    else{
+        showError1(password);
+    }
+});
+
+
+
+       forms[1].addEventListener(
+        "submit", function(e){
+            e.preventDefault();
+            
 
             let valid = true;
         //user name error block
@@ -248,9 +394,13 @@ function LtogglePassword() {
                 hideError1(Cpassword);
             }
 
+            if(!E_Available){
+                    valid = false;
+                }
+
             if(valid){
-                this.submit();
-            }
+                    window.location.href = "/";
+                }
             
         });
       
@@ -268,10 +418,11 @@ function LtogglePassword() {
         input.parentElement.classList.remove("Perror-show");
        }
 
+
 // .....................{ product buy and cart }......................
 
  function buy(){
-    window.location.href= "{{ url_for('buy_cart') }}";
+    window.location.href = "/login_page";
  }
 
 

@@ -17,13 +17,17 @@
                         <div class="form_blocks">
                             <input type="email" id="Lemail" placeholder=" " name="email" required>
                             <label for="email">E-mail</label>
-                            <small class="error" >please enter a valid E-mail</small>
+                            <small class="error_match" >please enter a valid E-mail</small>
+                            <small class="error" >please fill this field</small>
                         </div>
                         <div class="form_blocks">
                             <input type="password" id="Lpassword"  placeholder=" " name="password" required>
                             <label for="password">Password</label>
                             <span class="toggle-eye" onclick="LtogglePassword()"><i class="fa-regular fa-eye"></i></span>
                             <small class="error" >please enter password</small>
+                        </div>
+                        <div class="form_blocks">
+                            <samp class="login_check" id="login_check"></samp>
                         </div>
                         <div class="btn1-2">
                             <button type="submit" >Submit</button>
@@ -50,15 +54,20 @@
                         <div class="form_blocks">
                             <input type="email" id="email" placeholder=" " name="email" required>
                             <label for="email">E-mail</label>
-                            <small class="error" >please enter a valid E-mail</small>
+                            <div class="errormsg">
+                                <small class="error_match" >please fill this field</small>
+                                <small class="error" >please enter a valid E-mail</small>
+                            <samp id="email-status" class="python-error"></samp>
+                            </div>
                         </div>
-                        <div class="form_blocks">
+                        <div class="form_blocks" >
                             <input type="password" id="password"  placeholder=" " name="password" required>
                             <label for="password">Password</label>
                             <span class="toggle-eye" onclick="togglePassword()"><i class="fa-regular fa-eye"></i></span>
+                            <small class="error_match" >8–15 characters, 1 uppercase letter, 3 numbers, and 1 special character.</small>
                             <small class="error" >please enter password</small>
                         </div>
-                        <div class="form_blocks">
+                        <div class="form_blocks" id="pwdcheck">
                             <input type="password" id="conform-password" placeholder=" " name="conform-password" required>
                             <label for="password">Password</label>
                             <span class="toggle-eye" onclick="togglePassword1()"><i class="fa-regular fa-eye"></i></span>

@@ -475,7 +475,7 @@ input, select, textarea{ width:100%; padding:12px;
             pointer-events: none;
             transform: translateY(-50%);
             transition: 0.3s ease;
-            background: white;
+            background: rgba(255, 255, 255, 0);
             padding: 0 4px;
         }
        .form_blocks input:focus+ label, .form_blocks input:not(:placeholder-shown)+ label {
@@ -530,6 +530,14 @@ input, select, textarea{ width:100%; padding:12px;
        .form_blocks.Perror-show input{
         border-color: red;
        }
+
+       .errormsg{ display: flex; flex-direction: column; gap: 20px; width: 100%;}
+       .python-error{position: absolute; font-size: small; transform: translate(150px); 
+    }
+    .login_check{font-size: small; color: red; position: absolute; transform: translateY(-25px);}
+    #pwdcheck{
+        margin-top: 35px;
+    }
 
 
 /*-------------------------------- [footer] -----------------------------------------*/

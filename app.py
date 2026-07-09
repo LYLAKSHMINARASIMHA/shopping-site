@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for , redirect , session
+from flask import Flask, render_template, request, url_for , redirect , session, jsonify
 import random
 import pandas as pd
 import os
@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.context_processor
 def inject_user():
      return{
-          "user": session.get("user")
+          "userid": session.get("userid")
      }
 
 app.secret_key = "my_secret_key"
@@ -142,8 +142,10 @@ def products(image):
 @app.route("/login" , methods=["POST"])
 def login():
      
+     userid = session["userid"]
      email = request.form["email"]
      password = request.form["password"]
+
 
      
 
@@ -165,20 +167,19 @@ def register():
 
      wb = load_workbook(file)
      sheet1 = wb[sheet_name]
+     last_userid = sheet1.cell(row=sheet1.max_row, column=1).value
 
     # Heading matrame unte
-     if sheet1.max_row == 1:
+     if last_userid is None or last_userid == "":
          userid = "UI001"
 
      else:
-         last_userid = sheet1.cell(row=sheet1.max_row, column=1).value
 
          number = int(last_userid[2:])      # UI003 -> 3
 
          userid = f"UI{number+1:03d}"       # 4 -> UI004
 
-     print(userid)
-     session["user"] = userName
+    #  session["user"] = userName
      
 
      new_data = {
@@ -187,6 +188,7 @@ def register():
         "email" : [email],
         "password" : [password]
      }
+     session["userid"] = userid
 
      new_df = pd.DataFrame(new_data)
      
@@ -208,9 +210,6 @@ def register():
                     startrow=next_row
                )
                print("user saved successfully")
-     print(sheet["A1"].value)
-     print(book)
-     print(sheet)
 
      return redirect("/")
 
@@ -224,15 +223,86 @@ def login_page():
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    df = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_sheet")
+    userid = session["userid"]
+    userdata = df[df["userid"]== userid]
+
+    userid = userdata.iloc[0]["userid"]
+    username = userdata.iloc[0]["username"]
+    email = userdata.iloc[0]["email"]
+
+    
+    return render_template("profile.html"
+                           , userid =userid
+                           , username = username
+                           , email = email
+                             )
+
+@app.route("/check_login", methods=["POST"])
+def check_login():
+     df = pd.read_excel("Shopping_W_data.xlsx",
+                        sheet_name="users_sheet")
+      
+     data = request.get_json()
+     email = data["Lemail"]
+     password = data["Lpassword"]
+
+     
+
+     if email in df["email"].values:
+          userdata = df[df["email"]== email]
+          excel_pwd = userdata.iloc[0]["password"]
+          if userdata.empty:
+           return jsonify({
+               "success": False
+          })
+          elif password == excel_pwd:
+                 session["userid"] = userdata.iloc[0]["userid"]
+                 return jsonify({
+                     "success": True
+                 })
+          else: 
+                 return jsonify({
+                     "success": False
+                 })
+     else: 
+        return jsonify({
+            "success": False
+                })
+     
+          
+
+
+
+@app.route("/check-LR", methods=["POST"])
+def check_email():
+
+    data = request.get_json()
+    email = data["email"]
+    
+
+    df = pd.read_excel("Shopping_W_data.xlsx",
+                        sheet_name="users_sheet")
+                        
+
+    if email in df["email"].values:
+
+        return jsonify({
+            "message": "Email Already Exists"
+        })
+
+    else:
+
+        return jsonify({
+             
+            "message": "Email Available"
+        })
+
 
 @app.route("/buy_cart")
 def buy_cart():
     return render_template("buy_cart.html")
 
-@app.route("/yogi")
-def yogi():
-    return render_template("yogi.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug= True) 

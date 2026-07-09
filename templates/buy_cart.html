@@ -3,5 +3,13 @@
 {% block content %}
 <div>
     <h1>buy page</h1>
+                <div class="product_img">
+                    <div class="img_block">
+                    <img src="{{ url_for('static' , filename = image) }}">
+                    </div>
+                </div>
+                <div>
+                    <div class="product_price">₹ {{ products.p_price }}</div>
+                </div>
 </div>
 {% endblock %}
