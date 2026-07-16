@@ -3,6 +3,7 @@ import random
 import pandas as pd
 import os
 from openpyxl import load_workbook
+from datetime import datetime
 app = Flask(__name__)
 
 @app.context_processor
@@ -76,6 +77,9 @@ def Orders():
     for i in range(0, len(Gimages), 3):
             O_Image.append(Gimages[i:i+3])
     C_Image = []
+    for i in range(0, len(Gimages), 3):
+            C_Image.append(Gimages[i:i+3])
+
     return render_template("Orders.html",
                               O_Image = O_Image,
                               C_Image = C_Image
@@ -95,6 +99,10 @@ def products(image):
     imagedata = image.split("/")
     imgname = imagedata[2].split(".")
     phones = imagedata[1]
+    hasSize = ""
+    if phones in ["phones", "mainimg"]:
+         hasSize = phones
+    print(hasSize)
     p_data = None
     for item in product:
         if str(imgname[0]) == str(item["p_id"]):
@@ -126,17 +134,20 @@ def products(image):
         num = 9
        
        
+    reviews = random.randrange(100, 281)
     
     selectimg = (random.sample(imageId, num))
     img_group = []
     for i in range(0, len(selectimg),3):
             img_group.append(selectimg[i:i+3])
+
     return render_template("products.html", 
                            imagedata2 = imagedata,
                            image = image,
                            imageId = img_group,
                            products = p_data,
-                           phones = phones)
+                           hasSize = hasSize,
+                           reviews = reviews)
 
 
 @app.route("/login" , methods=["POST"])
@@ -146,8 +157,6 @@ def login():
      email = request.form["email"]
      password = request.form["password"]
 
-
-     
 
      return redirect("/")
 
@@ -299,9 +308,79 @@ def check_email():
         })
 
 
-@app.route("/buy_cart")
-def buy_cart():
-    return render_template("buy_cart.html")
+
+@app.route("/check_buydata", methods=["POST"])
+def check_buydata():
+    data = request.get_json()
+    quantity = data["quantity"]
+    size = data["Size"]
+    imgpath = data["imgpath"]
+
+
+    
+    check_Q = quantity >= 1 and quantity <= 25
+    check_S = size.lower() in ["s","m","l","xl","nosize"]
+    check_imgp = bool(imgpath)
+    
+    if check_Q and check_S and check_imgp:
+         session["buy_data"]={
+              "quantity":quantity,
+              "size" : size,
+              "imgpath": imgpath
+         }
+         return jsonify({"ok":True})
+    else:
+         return jsonify({"ok": False})
+    
+
+@app.route("/buy_page")
+def buy_page():
+    buy_data = session.get("buy_data")
+    print(f"buy data= {buy_data}")
+
+    imgpath = buy_data["imgpath"].split("/")
+    print(f"img path = {imgpath[2]}") 
+
+    imgID = imgpath[2].split(".")
+    print(f"img id = {imgID[0]}")
+
+    df = pd.read_excel("Shopping_W_data.xlsx")
+    df.columns = df.columns.str.strip().str.lower()
+    df = df.dropna(how="all")
+    product = df.to_dict(orient="records")
+    
+    img_data = ""
+    for item in product:
+         if str(imgID[0]) == str(item["p_id"]):
+              img_data = item
+              break
+
+    print(img_data) 
+
+    date_time = datetime.now()
+    O_date = date_time.strftime("%d/%m/%y")
+    D_d = date_time.strftime("%d")
+    D_date =(f"{9+int(D_d)}{date_time.strftime("/%m/%y")}")
+    O_D_date = (f"{O_date}||{D_date}")
+
+    quantity = buy_data["quantity"]
+    size = buy_data["size"]
+    userid = session["userid"]
+    print(userid)
+    print(O_D_date)
+    print(imgID[0])
+    print(quantity)
+    print(size)
+
+
+    if not buy_data:
+         return redirect("/")
+    
+    return render_template("buy_page.html" 
+                           ,buy_data = buy_data
+                            ,img_data = img_data
+                             ,O_date = O_date
+                              ,D_date = D_date )
 
 
 if __name__ == "__main__":

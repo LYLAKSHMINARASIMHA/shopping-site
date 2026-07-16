@@ -1,0 +1,100 @@
+{% extends "header.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename= 'css/buy_page.css')}}" >
+<div class="BuyPage">
+    
+    <div class="buycheck">
+        <div class="buy-product">
+            <samp style="color: rgb(80, 162, 255);"><i class="fa-solid fa-box-open"></i>&nbsp;Product Details</samp>
+        <div class="BP ImgName">
+            <div class="BPimg">
+                <img src="{{url_for('static', filename= buy_data.imgpath)}}" alt="image">
+            </div>
+            <div class="BPdata">
+                <div class="BPname">{{img_data.p_name}}</div><br>
+                <div class="BPname">⭐ {{img_data.p_rating}} (Rating)</div><br>
+                <div class="BPname">₹ {{img_data.p_price}}</div>
+            </div>
+        </div>
+        <div class="BP quantity">
+            <h4><i class="fa-solid fa-cubes"></i> Quantity</h4>
+            <p>{{ buy_data.quantity }}</p>
+        </div>
+        <div class="BP size">
+            <h4><i class="fa-solid fa-ruler"></i> Size</h4>
+            <p>{{ buy_data.size }}</p>
+        </div>
+    </div>
+   </div>
+
+   <div class="buycheck">
+    <div class="buy-product">
+        <samp style="color: rgb(80, 162, 255);"><i class="fa-solid fa-credit-card"></i> &nbsp;Payment Details</samp>
+        <div class="BP totalprice">
+            <h4>{{img_data.p_name}}</h4>
+            <p>{{img_data.p_price}}</p>
+        </div>
+        <div class="BP discount">
+            <h4>Discount</h4>
+            <p style="color: green;">-₹ 0.0</p>
+        </div>
+        <div class="BP GST">
+            <h4>G S T (0%)</h4>
+            <p>-₹ 0.0</p>
+        </div>
+        <div class="BP deliverycharge">
+            <h4>Delivery Charges</h4>
+            <p style="color: green;" >FREE</p>
+        </div>
+        <div class="BP total">
+            <h4>Total</h4>
+            <p style="width: 10%;">₹{{img_data.p_price}}</p>
+        </div>
+    </div>
+   </div>
+
+   <div class="buycheck">
+    <div class="orderdetails">
+        <samp style="color: rgb(80, 162, 255);"><i class="fa-solid fa-truck"></i>&nbsp;Delivery Status</samp>
+       <div class="delivery">
+         <div class="orderDt">
+            <div class="card"><i class="fa-solid fa-cart-shopping"></i></div>
+            <p>{{O_date}}</p>
+        </div>
+        <div class="orderRoute"></div>
+        <samp class="D_truck"><i class="fa-solid fa-truck"></i></samp>
+        <div class="orderRoute"></div>
+        <div class="deliveryDt">
+            <div class="card"><i class="fa-solid fa-house"></i></div>
+            <p>{{D_date}}</p>
+        </div>
+       </div>
+    </div>
+   </div>
+   <div class="buycheck">
+        <div class="buy-buttons">
+            <button type="button" class="Order_Now"><i class="fa-solid fa-lock"></i>&nbsp;Order Now</button>
+            <button type="button" class="Cancel_Order"><i class="fa-solid fa-circle-xmark"></i> &nbsp;Cancel Order</button>
+        </div>
+    </div>
+</div>
+   {% endblock %}
+
+
+   <!-- <div class="buycheck">
+     <div class="buy-product-data">
+        <div class="productdata">
+            <div class="Uimg">
+                <div class="userimg">
+                <img src="{{url_for('static', filename= buy_data.imgpath)}}" alt="image">
+                </div>
+            </div>
+            <div class="img-data">
+                <p>{{ buy_data.quantity }}</p>
+            <p>{{ buy_data.size }}</p>
+            </div>
+        </div>
+    </div>
+  
+</div> -->

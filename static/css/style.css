@@ -121,14 +121,33 @@ outline: none;}
              
 /*-------------------------------- [home img] -----------------------------------------*/
 
+ @keyframes appear{
+            from{
+                opacity: 0;
+                transform: translateY(100px);
+                scale: 0.5;
+                /* clip-path: inset(100% 100% 0 0); */
+            }to{
+                opacity: 1;
+                transform: translateY(0);
+                scale: 1;
+                /* clip-path: inset(0 0 0 0); */
+                
+            }
+        }
 
 .add_container img{width: 100%;}
 .row3img{display: flex; flex-direction: column; gap: 30px;} 
    .rowsimg{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding: 1%; }
    .product{display: flex; justify-content: space-around; align-items: stretch; gap: 10px; padding: 3%; }
-   .product img{width: 100%; height: 100%; object-fit: cover; display: block;}
+   .product img{width: 100%; height: 100%; object-fit: cover; display: block; animation: appear linear;
+            animation-timeline: view(); transition: 0.7s;
+            animation-range: entry 0% cover 40%; }
    .product .productimg{width: 250px; overflow: hidden; object-fit: cover; margin-top: 10px;
-      border-radius: 10px; box-shadow: 0px 3px 8px black;}
+      border-radius: 10px; box-shadow: 0px 3px 8px black; animation: appear linear;
+            animation-timeline: view(); transition: 0.7s;
+            animation-range: entry 0% cover 40%;}
+    .product img:hover{scale: 1.1;}
 
     .section33{display: grid; grid-template-columns: 2fr 1fr; justify-content: space-evenly; align-items: center; padding: 5%; gap: 25px;}
    .product33{ background-color: #a2cae0; padding: 2%; border-radius: 20px;
@@ -168,17 +187,27 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
 
     .product_data{display: flex; flex-direction: column; gap: 10px; justify-content: space-between;
        align-items: left; padding: 25px;}
-      
+
+       .no_size{display: none;}
        .size_btn{display: flex; gap: 10px;}
        .size_btn .btn{height: 35px; width: 100%; border-radius: 10px; border: none; cursor: pointer; 
-      box-shadow: 0 10px 8px rgba(0,0,0,0.1); }
-       .size_btn .btn:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5); color: white;}
-       .product_quantity{display: flex; flex-direction: column; gap: 10px;}
+      box-shadow: 0 10px 8px rgba(0,0,0,0.1); z-index: 5;}
+       .size_btn .btn.selected{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+         color: white; z-index: 5;}
+         .sizeError{display: block; color: red; position: absolute; transform: translateY(-10px); transition: 0.6s;
+        opacity: 0; padding: 1px 8px;}
+         .sizeError.active{display: block; color: red; position: absolute; transform: translateY(10px); 
+        opacity: 1; transition: 0.6s;}
+       .product_quantity{display: flex; flex-direction: column; gap: 10px;margin-top: 20px;}
        .product_quantity label{display: flex;}
-       .product_quantity input{display: flex; padding: 1%; border-radius: 8px; }
+       .product_quantity input{display: flex; padding: 1%; border-radius: 8px; z-index: 5; }
+       .quantityError{display: block; color: red; transform: translateY(40px); position: absolute; 
+        transition: 0.6s; opacity: 0;}
+       .quantityError.active{display: block; color: red; transform: translateY(55px); 
+        position: absolute; opacity: 1;}
        .product_btns{display: flex; align-items: center; justify-content: space-around;}
        .product_btns button{width: 150px; height: 50px; border-radius: 10px; box-shadow: 0 10px 8px rgba(0,0,0,0.1);
-      border: none; cursor: pointer; }
+      border: none; cursor: pointer; margin-top: 15px; }
       .product_btns button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
           color: white;}
 
@@ -217,9 +246,9 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
 
 
 .Orders_page{padding: 1%;}
-button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px;}
+/* button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px;}
 button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-          color: white;}
+          color: white;} */
 .orders_block button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px;}
 .details_and_buy button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 10px;}
 .details_and_buy button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -369,7 +398,6 @@ input, select, textarea{ width:100%; padding:12px;
     background: none;
     height: 350px;
      min-height:min(200vw,350px);
-     border: 5px solid;
      transition: 0.5s;
 }
 .LR-block.active{
@@ -428,6 +456,7 @@ input, select, textarea{ width:100%; padding:12px;
         }
 
         .L_F_open{
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none;
             transform: rotate(0deg);
             padding: 25px;
             display: flex;
@@ -438,7 +467,12 @@ input, select, textarea{ width:100%; padding:12px;
             border-radius: 20px;
             transition: 1s;
         }
+        .L_F_open:focus{
+            background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+          color: white;
+        }
         .R_F_open{
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none;
             transform: rotate(0deg);
             padding: 25px;
             display: flex;
@@ -448,6 +482,10 @@ input, select, textarea{ width:100%; padding:12px;
             height: 30px;
             border-radius: 20px;
             transition: 0.5s;
+        }
+        .R_F_open:focus{
+            background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+          color: white;
         }
 
     @media(max-width: 600px){
@@ -576,6 +614,9 @@ border: 1px solid black; border-radius: 10px;}
 @media (max-width: 1000px){
     .section33{grid-template-columns: 1fr;}
     .product33D{gap: 0px;}
+    .product33D .P33D{animation: appear linear;
+            animation-timeline: view(); transition: 0.7s;
+            animation-range: entry 0% cover 40%;}
 }
 
 

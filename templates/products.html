@@ -9,7 +9,7 @@
             <div class="product_block">
                   <div class="product_img">
                       <div class="img_block">
-                        <img src="{{ url_for('static' , filename = image) }}">
+                        <img id="imagedata" src="{{ url_for('static' , filename = image) }}">
                       </div>
                   </div>
                   <!-- --------------- -->
@@ -18,16 +18,17 @@
                       <h1 class="name">{{ products.p_name }}</h1>
                     </div>
                     <div class="product_review">
-                      <span class="review">4.7  (130 reviews)</span>
+                      <span class="review">⭐ {{ products.p_rating}}  (136 reviews)</span>
                     </div>
                     <div class="product_discription">
                       <p class="discription">{{ products.p_description }}</p>
                     </div>
                     <div class="product_price">₹ {{ products.p_price }}</div>
                     
-                      {% if phones == "phones" %}
-                      
+                      {% if hasSize %}
+                      <p class="no_size" id="no_size">{{ hasSize }}</p>
                       {% else %}
+                      <p class="no_size" id="no_size">{{ hasSize }}</p>
                       <div class="product_size">
                         <label class="size">Size</label>
                         <div class="size_btn">
@@ -37,18 +38,20 @@
                             <button type="button" class="btn">XL</button>
                             <button type="button" class="btn">XXL</button>
                         </div>
+                        <samp class="sizeError">select size</samp>
                       </div>
                       {% endif %}
                     
                     <div class="product_quantity">
                       <label class="quantity">Quantity</label>
-                      <input type="number" min="1" max="25" value="1">
+                      <input type="number" id="quantitydata" value="1" min="1" max="25" value="1">
+                      <samp class="quantityError">Maximum quantity allowed is 25</samp>
                     </div>
                     
                     {% if userid %}
                       <div class="product_btns">
                         <button type="button" class="buy" 
-                        onclick="window.location.href='{{ url_for('buy_cart')}}'" >
+                        id="buy_button" >
                           Buy Now</button>
                         <button type="button" class="add" 
                         onclick="cart()" >
@@ -76,43 +79,45 @@
         </div>
 
         <div class="feature">
-            <i class="fa-solid fa-rotate-left"></i>
-            <h4>Easy Returns</h4>
-            <p>30 Days Policy</p>
+          <i class="fa-solid fa-rotate-left"></i>
+          <h4>Easy Returns</h4>
+          <p>30 Days Policy</p>
         </div>
 
         <div class="feature">
-            <i class="fa-solid fa-wallet"></i>
-            <h4>Secure Payment</h4>
-            <p>100% Secure</p>
+          <i class="fa-solid fa-wallet"></i>
+          <h4>Secure Payment</h4>
+          <p>100% Secure</p>
         </div>
 
         <div class="feature">
-            <i class="fa-solid fa-headset"></i>
-            <h4>24/7 Support</h4>
-            <p>Customer Care</p>
+          <i class="fa-solid fa-headset"></i>
+          <h4>24/7 Support</h4>
+          <p>Customer Care</p>
         </div>
 
-    </section>
-     </div>
-      </div>
-      {% endif %}
+      </section>
+    </div>
+  </div>
+  {% endif %}
 
-<section class="row3img">
+  <section class="row3img">
     {% for imageId in imageId %}
     <article class="product">
-        {% for image in imageId %}
-            <div class="productimg">
-                <a href="/products/{{ image }}">
-                    <img src="{{url_for('static', filename=image)}}" alt="Mimg">
-                </a>
-            </div>
-        {% endfor %}
+      {% for image in imageId %}
+      <div class="productimg">
+        <a href="/products/{{ image }}">
+          <img src="{{url_for('static', filename=image)}}" alt="Mimg">
+        </a>
+      </div>
+      {% endfor %}
     </article>
-{% endfor %}
-</section>
+    {% endfor %}
+  </section>
 
 
-      
+
 </div>
-    {% endblock %}
+<script src="{{url_for('static', filename ='javascript/productpage.js')}}" defer></script>
+<!-- productpage.js -->
+{% endblock %}
