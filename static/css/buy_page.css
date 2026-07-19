@@ -34,7 +34,7 @@ position: absolute;}
 .orderRoute{padding: 1%; border-top: dotted; width: 20%;}
 
 .buy-buttons{display: flex; padding: 2%; width: 80%; align-items: center; justify-content: space-around;
-    transition: 0.7s;
+    transition: 0.7s; z-index: 10;
 background-color: #f8faf6; border-radius: 10px; box-shadow: 0px 2px 3px rgb(88, 86, 86);}
 .buy-buttons button{display: flex; align-items: center; padding: 2%; width: 40%; justify-content: center;
   box-shadow: 0px 2px 3px rgb(88, 86, 86); }
@@ -52,16 +52,72 @@ background-color: #f8faf6; border-radius: 10px; box-shadow: 0px 2px 3px rgb(88, 
     .orderdetails .delivery{width: 100%;}
 }
 
+.successMSG{ display: flex; color: green; opacity: 0; overflow: hidden; transition: 0.6s; transform: translateY(-50px);
+    background-color: aliceblue; width: 80%;  border-radius: 10px; align-items: center;
+justify-content: center; }
+.successMSG.action{ display: flex; color: green; opacity: 1; transform: translateY(-10px);
+    background-color: aliceblue; width: 80%; padding: 1%; border-radius: 10px; align-items: center;
+justify-content: center; }
 
 
 
 
-/* .productdata{display: flex;  align-items: center; justify-content: space-evenly; border: 1px solid;
-    padding: 1%; width: 100%; border-radius: 20px; 
+/* -----------------------------------------profile page */
+.profileblock{ width: 90%; max-width: 900px; margin: 30px auto; justify-content: space-evenly;
+     background: rgba(255, 255, 255, 0.582); border-radius: 20px; padding: 3%; display: flex;
+      align-items: center; gap: 40px; box-shadow: 0 5px 20px rgba(0,0,0,.15);
 }
-.Uimg{display: flex; width: 40%; justify-content: center;}
-.userimg{display: flex; width: 150px; height: 150px;
-    object-fit: cover; overflow: hidden; border: 1px solid;
-border-radius: 20px; }
-.userimg img{display: flex; width: 100%; height: auto; object-fit: cover;} */
 
+.userdata{
+    width: 220px;
+    display: flex;
+    justify-content: center;
+}
+
+.profileimg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileicon{
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: #d8c8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileicon i{
+    font-size: 120px;
+    color: #6b46c1;
+}
+
+.profileimg span{
+    margin-top: 15px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+
+.profiledata p{
+    font-size: 20px;
+    margin: 18px 0;
+    color: #444;
+}
+
+.profiledata p b{
+    color: black;
+}
+
+/* .PBlock{} */
+.PBlock.Pbuttons, .PBlock.userdetails{width: 90%; max-width: 900px; margin: 30px auto; justify-content: space-evenly;
+     background: rgba(255, 255, 255, 0.582); border-radius: 20px; padding: 3%; display: flex;
+      align-items: center; gap: 40px; box-shadow: 0 5px 20px rgba(0,0,0,.15); }
+.PBlock.userdetails{display: flex; flex-direction: column;}
+.userBlockdata{display: flex; justify-content: space-evenly; width: 100%; align-items: center;}
+.yourOrders, .yourCart{display: grid;  justify-content: center; 
+width: 40%; text-align: center;}

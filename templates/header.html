@@ -41,6 +41,7 @@
 
              <div class="S_L">
                 {% if userid %}
+                
                 <div class="profile2">
                     <a href="/profile" class="PRF"><div class="circle2"><i class="fa-solid fa-user"></i></div></a>
                     <span>{{ userid }}</span>
@@ -59,33 +60,50 @@
         </div>
         
     </header>
-
-    <div class="Sinp">
-            <div class="mnbtn">
-                <button type="button" class="mbtn"><a>☰</a></button>
-                <nav class="Navbar1">
-                <ul class="menu1">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/Orders#orders_page">Orders</a></li>
-                    <li><a href="/Orders#cart_page">Cart</a></li>
-                    <li><a href="/Help_Center">Help Center</a></li>
-                    <li><a href="/Orders#coupons_page">Coupons</a></li>
-                    <li><a href="/Help_Center">Contact</a></li>
-                    <li><a href="#bottom">About</a></li> 
-                    </li>
-                </ul>
-            </nav>
+        {% if offmenu %}
+            <div class="Sinp">
+                    <div class="mnbtn">
+                        <button type="button" class="mbtn"><a>☰</a></button>
+                        <nav class="Navbar1">
+                        <ul class="menu1">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/Orders#orders_page">Orders</a></li>
+                            <li><a href="/Orders#cart_page">Cart</a></li>
+                            <li><a href="/Help_Center">Help Center</a></li>
+                            <li><a href="/Orders#coupons_page">Coupons</a></li>
+                            <li><a href="/Help_Center">Contact</a></li>
+                            <li><a href="#bottom">About</a></li> 
+                            </li>
+                        </ul>
+                    </nav>
+                    </div>
+                    
+                <input type="text" placeholder="text" class="SHin">
+                <a href="#" class="searchbtn">search</a>
+                <a href="#" class="searchbtn2">🔍</a>
             </div>
-            
-        <input type="text" placeholder="text" class="SHin">
-        <a href="#" class="searchbtn">search</a>
-        <a href="#" class="searchbtn2">🔍</a>
-    </div>
+        {% else %}
+        <style>
 
-    <div class="notification">
-        <samp class="msg"></samp>
-    </div>
-
+        </style>
+         <div class="Sinp2">
+                    <div class="mnbtn">
+                        <button type="button" class="mbtn"><a>☰</a></button>
+                        <nav class="Navbar1">
+                        <ul class="menu1">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/Orders#orders_page">Orders</a></li>
+                            <li><a href="/Orders#cart_page">Cart</a></li>
+                            <li><a href="/Help_Center">Help Center</a></li>
+                            <li><a href="/Orders#coupons_page">Coupons</a></li>
+                            <li><a href="/Help_Center">Contact</a></li>
+                            <li><a href="#bottom">About</a></li> 
+                            </li>
+                        </ul>
+                    </nav>
+                    </div>
+            </div>
+        {% endif %}
     {% block content %}
 
     {% endblock %}

@@ -1,64 +1,87 @@
 {% extends "header.html" %}
 
     {% block content %}
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/buy_page.css')}}" >
+    
     <div class="Orders_page" >
         <section class="main_datablock">
             <samp id="orders_page">My Orders</samp>
             <p>Track, view and manage your orders</p>
         </section>
-        <div class="orders_block">  
-            <div class="type_buttons">
+        <div class="type_buttons">
                 <button type="button">All Orders</button>
                 <button type="button">Shipped</button>
                 <button type="button">Delivered</button>
                 <button type="button">Cancelled</button>
-            </div>
-            {% if O_Image %}
-            <div class="all_products">
-                 {% for images in O_Image %}
-                <div class="order_items">
-                        {% for image in images %}
-                    <div class="order_product">
-                            <div class="items_data">
-                                <div class="img_and_data">
-                                <a href="/products/{{ image }}">
-                                    <div class="image1">
-                                        <img src="{{url_for('static', filename= image)}}">
-                                    </div>
-                                      </a>
-                                    
-                                    <div class="data">
-                                        <samp class="Order-Id">Order Id</samp><br>
-                                        <samp class="Order-Name">Order Name</samp>
-                                        <div>
-                                            <samp>Size:M </samp>
-                                            <samp>color: Beige </samp><br>
-                                            <samp> Qty: 1</samp>
-                                        </div>
-                                        <h5>$788</h5>
-                                    </div>
+            </div> 
+        <div class="orders_block">  
+            <div class="orderblock">
+                {% if Orderdata %}
+                {% for order in Orderdata %}
+                    <div class="order">
+                        <div class="OP imgname">
+                            <div class="OPimg">
+                                <img src="{{url_for('static', filename=order.image)}}" alt="">
+                            </div>
+                            <div class="OPname">
+                                <p>{{ order.product.p_name }}</p>
+                                <p>Quantity: {{ order.quantity }}</p>
+                                <p>₹ {{ order.totalamount }}</p>
+                            </div>
+                        </div>
+                        <div class="OP Track"  style="display: block;">
+                            <div class="orderdetails" >
+                                <samp class="headT" style="color: rgb(80, 162, 255);">Delivery Status</samp>
+                            <div class="delivery">
+                                <div class="orderDt">
+                                    <div class="card"><i class="fa-solid fa-cart-shopping"></i></div>
+                                    <p>{{ order[0] }}</p>
                                 </div>
-                                <div class="order_date">
-                                    <p>Order Date</p>
-                                    <samp>12 May 2026</samp>
+                                <div class="orderRoute"></div>
+                                <samp class="D_truck"><i class="fa-solid fa-truck"></i></samp>
+                                <div class="orderRoute"></div>
+                                <div class="deliveryDt">
+                                    <div class="card"><i class="fa-solid fa-house"></i></div>
+                                    <p>{{ order[1] }}</p>
                                 </div>
                             </div>
-                            <div class="details_and_buy">
-                                <a href="/products/{{ image }}"><p>View Details</p></a>
-                                <button type="button" 
-                                onclick="window.location.href='{{ url_for('products', image = image)}}'">
-                                Buy Again</button>
                             </div>
-                    </div> 
-                     {% endfor %}
-                </div>
+                        </div>
+                        <div class="OP OD_date">
+                            <div class="OPo_date">
+                                <h4>Order date</h4>
+                                <p>{{ order.order_date }}</p>
+                            </div>
+                            <div class="OPd_date">
+                                <h4>Delivery date</h4>
+                                <p>{{ order.delivery_date }}</p>
+                            </div>
+                        </div>
+                        <div class="OP TCbuttons" >
+                            <div class="buycheck">
+                                <div class="buy-buttons" >
+                                    <button type="button" class="Order_Now" onclick="orderT(this)">
+                                        <i class="fa-solid fa-location"></i>&nbsp;Track Order</button>
+                                    <button type="button" class="Cancel_Order" onclick="cancel_O(this)"
+                                    data-orderid="{{order.OrderID}}" >
+                                        <i class="fa-solid fa-circle-xmark"></i> &nbsp;Cancel Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <!-- <script>const OrderID = "{{order.OrderID}}"; </script>    -->
                 {% endfor %}
-            
             </div>
+            
+            
             {% else %}
-           <div class="no-orders">
-             <p>no orders....</p> <div class="card"><i class="fa-solid fa-truck"></i></div>
-           </div>
+               <div class="no-orders">
+                {% if userid %}
+                    <p>no orders....</p> <div class="card"><i class="fa-solid fa-truck"></i></div>
+                {% else %}
+                    <p>Please login or rigister....</p> <div class="card"><i class="fa-solid fa-truck"></i></div>
+                {% endif %}
+                </div>
             {% endif %}
 
         </div>
@@ -124,9 +147,13 @@ You can update quantities, remove items, and proceed to checkout anytime.</p>
             
             </div>
             {% else %}
-           <div class="no-orders">
-             <p>Not Add cart....</p> <div class="card"><i class="fa-solid fa-cart-shopping"></i></div>
-           </div>
+                <div class="no-orders">
+                {% if userid %}
+                    <p>Not Add cart....</p> <div class="card"><i class="fa-solid fa-cart-shopping"></i></div>
+                {% else %}
+                    <p>Please login or rigister....</p> <div class="card"><i class="fa-solid fa-truck"></i></div>
+                {% endif %}
+                </div>
             {% endif %}   
             </div> 
         </div>

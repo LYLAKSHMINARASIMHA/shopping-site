@@ -28,8 +28,19 @@ df = df.dropna(how="all")
 product = df.to_dict(orient="records")
 
 
+
+# ............. product data 
+product_dict ={}
+for item in product:
+     product_dict[str(item["p_id"])] = item
+
+
+
+
 @app.route("/")
 def testing():
+
+    offmenu = True
     
 
     images = []
@@ -64,30 +75,106 @@ def testing():
                             grouped_Bimg=grouped_Bimg,
                               grouped_Gimg = grouped_Gimg,
                                 grouped_Mimg = grouped_Mimg,
-                                
+                                offmenu = offmenu,
                                 )
 
 @app.route("/Orders/")
 def Orders():
-    Gimages = []
-    for Gfile in os.listdir(folders["womens"]):
-        Gimages.append("products/women_dresses/" + Gfile)
-        Gimages = Gimages[:3]
-        O_Image = []
-    for i in range(0, len(Gimages), 3):
-            O_Image.append(Gimages[i:i+3])
-    C_Image = []
-    for i in range(0, len(Gimages), 3):
-            C_Image.append(Gimages[i:i+3])
+
+    #  users_history sheet
+    OdataF = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+    OdataF.columns = OdataF.columns.str.strip().str.lower()
+    OdataF = OdataF.dropna(how="all")
+    UHproduct = OdataF.to_dict(orient="records")
+    # print(OdataF)``
+
+    # ..........images path len(UHproduct)
+    imgpaths = {}
+    for root, dirs, files in os.walk("static/products"):
+        for file in files:
+            img_ID = os.path.splitext(file)[0]
+            imgpaths[img_ID] = os.path.join(root,file).replace("\\","/").replace("static/","")
+    
+    userID =session.get("userid")
+    p_data = []
+    OrderID =[] 
+    Pimgid=[]
+    UOdate={}
+    
+                #  "quantity": item["quantity"],  orderid
+    for item in UHproduct:
+        if str(userID) == str(item["userid"]):
+            OrderID.append({
+                 "OrderID" : item["orderid"]
+            })
+            p_data.append({
+                      "quantity": item["quantity"]
+            })
+            UOdate[item["p_id"]]= {
+                 "order date":item["date"].split("||")[0],
+                 "delivery date":item["date"].split("||")[1]
+            }
+            Pimgid.append(item["p_id"])
+            session["totalOrders"] = len(Pimgid)
+    
+    O_ID =[]
+    for item in UHproduct:
+        if str(userID) == str(item["userid"]):
+            O_ID.append({
+                 "OrderID" : item["orderid"]
+            })
+
+    
+
+    
+
+    imgdata = {}
+    for pid in Pimgid:
+        if str(pid) in product_dict:
+            imgdata[pid] = product_dict[pid]
+
+    imglocation = {}
+    for item in Pimgid:
+         imglocation[item] = imgpaths[item]
+         
+    Orderdata=[]
+    i =0 
+    for pid in Pimgid:
+         Orderdata.append({
+              "OrderID":O_ID[i]["OrderID"],
+              "image":imglocation[pid],
+              "product":imgdata[pid],
+              "order_date":UOdate[pid]["order date"],
+              "delivery_date":UOdate[pid]["delivery date"],
+              "totalamount":p_data[i]["quantity"]*imgdata[pid]["p_price"],
+              "quantity":p_data[i]["quantity"]
+         })
+         i +=1
+
+    
+    print(O_ID)
+    # print(totalOrders)
+    # "quantity":p_data[i]["quantity"]
+    print(f" Orderdata: {Orderdata}\n")
+    # print(f" p_quantity: {p_quantity}\n")
+    # print(f"{imglocation}\n")
+    # print(f"{p_data[1]["quantity"]}\n")
+    # print(f"{UOdate}\n")
+    # print(f"{imgdata["PIGW3"]}\n")
+    # print(Pimgid)
+    # print(product_dict)  
+    
+    # print(UOdate1)
+    # ["date"]  Uproduct = p_data[1] i+=1 UOdate=Uproduct["p_id"]
+    # .split("||") Uproduct={} UOdate1=UOdate  UOdate1[4][1] p_id
+         
 
     return render_template("Orders.html",
-                              O_Image = O_Image,
-                              C_Image = C_Image
+                              UOdate = UOdate,
+                              Orderdata = Orderdata
                             )
 
-@app.route("/Cart")
-def Cart():
-    return render_template("Cart.html")
+
 
 @app.route("/Help_Center")
 def Help_Center():
@@ -95,6 +182,8 @@ def Help_Center():
 
 @app.route("/products/<path:image>")
 def products(image):
+    offmenu = True
+
     imagename = image
     imagedata = image.split("/")
     imgname = imagedata[2].split(".")
@@ -102,7 +191,6 @@ def products(image):
     hasSize = ""
     if phones in ["phones", "mainimg"]:
          hasSize = phones
-    print(hasSize)
     p_data = None
     for item in product:
         if str(imgname[0]) == str(item["p_id"]):
@@ -147,30 +235,27 @@ def products(image):
                            imageId = img_group,
                            products = p_data,
                            hasSize = hasSize,
-                           reviews = reviews)
+                           reviews = reviews,
+                           offmenu = offmenu,)
 
 
-@app.route("/login" , methods=["POST"])
-def login():
-     
-     userid = session["userid"]
-     email = request.form["email"]
-     password = request.form["password"]
-
-
-     return redirect("/")
 
 @app.route("/register" , methods=["POST"])
 def register():
+     UI = session.get("userid")
+     if UI:
+          return jsonify({
+                         "ok":True
+                    })
+     data = request.get_json()
      
-     userName = request.form["username"]
-     email = request.form["email"]
-     password = request.form["password"]
-     conform_password = request.form["conform-password"]
+     userName = data["username"]
+     email = data["email"]
+     password = data["password"]
+    #  conform_password = request.form["conform-password"]
 
      excel_file = "Shopping_W_data.xlsx"
      sheet_name = "users_sheet"
-
      file = "Shopping_W_data.xlsx"
      
 
@@ -219,22 +304,31 @@ def register():
                     startrow=next_row
                )
                print("user saved successfully")
+               if data:
+                    return jsonify({
+                         "ok":True
+                    })
 
-     return redirect("/")
-
-@app.route("/AllProducts")
-def AllProducts():
-    return render_template("AllProducts.html")
 
 @app.route("/login_page")
 def login_page():
+     userid = session.get("userid")
+
+     if userid:
+          return redirect("/")
+     
      return render_template("login_page.html")
 
 @app.route("/profile")
 def profile():
+    if not session.get("userid"):
+         return render_template("login_page.html")
+    userid = session.get("userid")
     df = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_sheet")
-    userid = session["userid"]
+    df.columns = df.columns.str.strip().str.lower()
+    df = df.dropna(how="all")
     userdata = df[df["userid"]== userid]
+    totalOrders = session.get("totalOrders")
 
     userid = userdata.iloc[0]["userid"]
     username = userdata.iloc[0]["username"]
@@ -245,12 +339,15 @@ def profile():
                            , userid =userid
                            , username = username
                            , email = email
+                           ,totalOrders = totalOrders
                              )
 
 @app.route("/check_login", methods=["POST"])
 def check_login():
      df = pd.read_excel("Shopping_W_data.xlsx",
                         sheet_name="users_sheet")
+     df.columns = df.columns.str.strip().str.lower()
+     df = df.dropna(how="all")
       
      data = request.get_json()
      email = data["Lemail"]
@@ -292,6 +389,8 @@ def check_email():
 
     df = pd.read_excel("Shopping_W_data.xlsx",
                         sheet_name="users_sheet")
+    df.columns = df.columns.str.strip().str.lower()
+    df = df.dropna(how="all")
                         
 
     if email in df["email"].values:
@@ -323,6 +422,7 @@ def check_buydata():
     check_imgp = bool(imgpath)
     
     if check_Q and check_S and check_imgp:
+         
          session["buy_data"]={
               "quantity":quantity,
               "size" : size,
@@ -336,13 +436,13 @@ def check_buydata():
 @app.route("/buy_page")
 def buy_page():
     buy_data = session.get("buy_data")
-    print(f"buy data= {buy_data}")
+
+    if not buy_data:
+         return redirect("/")
 
     imgpath = buy_data["imgpath"].split("/")
-    print(f"img path = {imgpath[2]}") 
 
     imgID = imgpath[2].split(".")
-    print(f"img id = {imgID[0]}")
 
     df = pd.read_excel("Shopping_W_data.xlsx")
     df.columns = df.columns.str.strip().str.lower()
@@ -354,8 +454,12 @@ def buy_page():
          if str(imgID[0]) == str(item["p_id"]):
               img_data = item
               break
+         
+    totat=int(img_data["p_price"]) * int(buy_data["quantity"])
 
-    print(img_data) 
+    buy_data["totat_amount"] = totat
+    # print(buy_data)
+
 
     date_time = datetime.now()
     O_date = date_time.strftime("%d/%m/%y")
@@ -363,26 +467,137 @@ def buy_page():
     D_date =(f"{9+int(D_d)}{date_time.strftime("/%m/%y")}")
     O_D_date = (f"{O_date}||{D_date}")
 
-    quantity = buy_data["quantity"]
-    size = buy_data["size"]
-    userid = session["userid"]
-    print(userid)
-    print(O_D_date)
-    print(imgID[0])
-    print(quantity)
-    print(size)
+    
 
-
-    if not buy_data:
-         return redirect("/")
+    
     
     return render_template("buy_page.html" 
                            ,buy_data = buy_data
                             ,img_data = img_data
                              ,O_date = O_date
-                              ,D_date = D_date )
+                              ,D_date = D_date
+                               ,O_D_date = O_D_date  )
+
+@app.route("/write_excel", methods=["POST"])
+def write_excel():
+    #  users_history sheet
+    OdataF = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+    OdataF.columns = OdataF.columns.str.strip().str.lower()
+    OdataF = OdataF.dropna(how="all")
+    UHproduct = OdataF.to_dict(orient="records")
+
+    
+    data = request.get_json()
+
+    imgpath = data["imgpath"].split("/")
+    imgID = imgpath[2].split(".")
+
+    quantity = data["quantity"]
+    size = data["Size"]
+    date = data["ODdate"]
+    userID = session.get("userid")
+
+    O_ID =[]
+    for item in UHproduct:
+        if str(userID) == str(item["userid"]):
+            O_ID.append({
+                 "OrderID" : item["orderid"]
+            })
+    print(O_ID)
+
+    if O_ID:
+         last_order = O_ID[-1]["OrderID"]
+         num = int(last_order.split("O")[-1])
+         orderID = f"{userID}O{num+1}"
+    else:
+         orderID = (f"{userID}O1")
+
+    # print(f"orderID: {orderID}")
+    # print(f"userID: {userID}")
+    # print(imgID[0])
+    # print(quantity)
+    # print(size)
+    # print(date)
+
+    excel_file = "Shopping_W_data.xlsx"
+    sheet_name = "users_history"
+    
+    BUY_data = {
+         "orderID": [orderID],
+         "user_id": [userID],
+         "Date": [date],
+         "P_ID": [imgID[0]],
+         "Qantity": [quantity],
+         "Size": [size]
+    }
+    new_data= pd.DataFrame(BUY_data)
+
+    if os.path.exists(excel_file):
+         book = load_workbook(excel_file)
+         sheet = book[sheet_name]
+         
+         next_row = sheet.max_row
+
+         with pd.ExcelWriter(excel_file
+                             ,engine="openpyxl"
+                             ,mode="a"
+                             ,if_sheet_exists="overlay") as writer:
+              new_data.to_excel(
+                   writer,
+                   sheet_name=sheet_name,
+                   index=False,
+                   header=False,
+                   startrow=next_row
+              )
+              session.pop("buy_data", None)
+              print("save success")
+
+    
+
+
+    if data:
+         return jsonify({"ok": True})
+
+
+    return redirect("/")
+
+@app.route("/logOut", methods=["POST"])
+def logOut():
+     data = request.get_json()
+     logout = data["logout"]
+     if logout:
+          print("logOUT success")
+          session.clear()
+          return jsonify({"ok":True})
+     return "logOUT success"
+
+@app.route("/removeOP", methods=["POST"])
+def removeOP():
+     data = request.get_json()
+     Rorderid = data["Rorderid"]
+
+     df = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+     df.columns = df.columns.str.strip().str.lower()
+     df = df.dropna(how="all")
+     
+
+     if Rorderid in df["orderid"].values:
+        print(f"{Rorderid} success")
+        return jsonify({"ok":True})
+     else:
+         print(f"{Rorderid} success")
+         print("error")
+          
+               
+    #  print(f"{POID} success")
+     return "remove order product"
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug= True) 
+    app.run(host="0.0.0.0", port=5000, debug= True)
+    
+
+    
+        # df=df[df["orderid"] != Rorderid ]
+        # df.to_excel("Shopping_W_data.xlsx", index= False)
     

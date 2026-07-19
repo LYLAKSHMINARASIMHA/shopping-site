@@ -1,3 +1,9 @@
+
+const products_page = document.getElementById("products_page");
+const BuyPage = document.getElementById("BuyPage");
+
+if(products_page){
+
 function buy() {
     window.location.href = "/login_page";
 }
@@ -96,30 +102,43 @@ buy_button.addEventListener("click",()=>{
 });
 
 
-//     if(!sizeoption){
-    
-
-    
-// }
-// else{
-//     selectedSize = "nosize";
-// }
-
-
-
-//     if(!sizevalid || !quantityvalid)return;
-//     console.log("quantity:", quantitydata.value, "size:", selectedSize);
-//     console.log("image ID :", imgpath);
-
-    
-
-
-
-
-
-function B_showError() {
-
 }
-function B_hideError() {
 
+
+//----------------------------------------------------------------------------- 
+
+
+
+const successMSG = document.querySelector(".successMSG");
+
+function write_excel() {
+    fetch("/write_excel",{
+        method : "POST",
+        headers : {
+            "content-Type" : "application/json"
+        },
+        body : JSON.stringify({
+            ok : true,
+            imgpath: BimgID,
+            quantity: Bquantity,
+            Size: Bsize,
+            ODdate : Bdate
+        })
+    })
+
+    .then(response => response.json())
+    .then(data =>{
+       let msg = data.ok
+        if(msg){
+            successMSG.classList.add("action");
+            setTimeout(() => {
+            window.location.href= "/";
+            }, 500);
+        }
+    })
 }
+function cancel_excel() {
+    window.history.go(-1);
+}
+
+

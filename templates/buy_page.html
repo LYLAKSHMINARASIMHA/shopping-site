@@ -33,7 +33,7 @@
         <samp style="color: rgb(80, 162, 255);"><i class="fa-solid fa-credit-card"></i> &nbsp;Payment Details</samp>
         <div class="BP totalprice">
             <h4>{{img_data.p_name}}</h4>
-            <p>{{img_data.p_price}}</p>
+            <p>{{img_data.p_price}} × {{ buy_data.quantity }}</p>
         </div>
         <div class="BP discount">
             <h4>Discount</h4>
@@ -49,7 +49,7 @@
         </div>
         <div class="BP total">
             <h4>Total</h4>
-            <p style="width: 10%;">₹{{img_data.p_price}}</p>
+            <p style="width: 10%;">₹{{buy_data.totat_amount}}</p>
         </div>
     </div>
    </div>
@@ -74,14 +74,33 @@
    </div>
    <div class="buycheck">
         <div class="buy-buttons">
-            <button type="button" class="Order_Now"><i class="fa-solid fa-lock"></i>&nbsp;Order Now</button>
-            <button type="button" class="Cancel_Order"><i class="fa-solid fa-circle-xmark"></i> &nbsp;Cancel Order</button>
+            <button type="button" class="Order_Now" onclick="write_excel()"><i class="fa-solid fa-lock"></i>&nbsp;Order Now</button>
+            <button type="button" class="Cancel_Order" onclick="cancel_excel()">
+                <i class="fa-solid fa-circle-xmark"></i> &nbsp;Cancel Order</button>
         </div>
     </div>
+
+    <div class="buycheck">
+        <div class="successMSG" id="successMSG">
+            <p >Order success</p>
+        </div>
+    </div>
+    
 </div>
+<script>
+    const BimgID = "{{buy_data.imgpath}}";
+    const Bquantity = "{{ buy_data.quantity }}";
+    const Bsize = "{{ buy_data.size }}";
+    const Bdate = "{{ O_D_date }}";
+</script>
+
+<script src="{{url_for('static', filename='javascript/productpage.js')}}" defer></script>
    {% endblock %}
 
 
+<!-- {% for order in p_data %} -->
+<!-- {% endfor %} -->
+   
    <!-- <div class="buycheck">
      <div class="buy-product-data">
         <div class="productdata">

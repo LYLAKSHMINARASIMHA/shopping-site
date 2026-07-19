@@ -1,6 +1,6 @@
     :root{
             --bg: #f8fafc; --text-size: 18px; --text: black; --accent: #326eed; --max-width:1100px;
-            --ice-blue: #d6e6f3; --powder-blue: #a2cae0; --sapphire: #245eb7; --deep-navy: #000926;
+            --ice-blue: #ffffffb5; --powder-blue: #a2cae0; --sapphire: #245eb7; --deep-navy: #000926;
             --afbtn: #18b050;
         }
         html{
@@ -78,6 +78,12 @@ background:rgba(255, 255, 255, 0.158);
     backdrop-filter:blur(15px);
     border:1px solid rgba(255,255,255,.2);
  z-index: 9999;}
+ 
+ .Sinp2{height: auto; display: flex; width: 5%; border-radius: 10px; 
+    padding: 1%; position: sticky; top: 0%; background: rgba(255, 255, 255, 0.158); 
+    backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, .2); z-index: 9999; 
+    justify-content: center;
+}
 
 .mnbtn .mbtn{ 
     /* display: none; */
@@ -88,8 +94,9 @@ background:rgba(255, 255, 255, 0.158);
             .Navbar1{position: relative;  display: none; transition: 0.8s; } 
             .menu1{list-style: none; position: absolute; top: 0px; display: flex; flex-direction: column;
             justify-content: space-evenly; align-items: center; margin: 0%; padding: 0%; width: 480%; height: 300px;
-        border-radius: 30px; overflow: hidden; box-shadow: 0 2px 5px rgb(51, 51, 51); background-color: var(--ice-blue);
-    border: 1px solid black; }
+        border-radius: 30px; overflow: hidden; box-shadow: 0 1px 2px rgb(51, 51, 51); backdrop-filter: blur(15px);
+         background-color: var(--ice-blue);
+     }
          .mnbtn.active .Navbar1{ display: block;}
          .mnbtn.active .mbtn{ box-shadow: 0 1px 3px black; border: 1px solid #000;
              background-color: var(--afbtn);}
@@ -117,8 +124,7 @@ outline: none;}
              background-color: rgb(0, 132, 255);}
 .searchbtn2:focus{box-shadow: 0 1px 3px black; 
              background-color: var(--afbtn);}
-  
-             
+                     
 /*-------------------------------- [home img] -----------------------------------------*/
 
  @keyframes appear{
@@ -253,26 +259,32 @@ button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 .details_and_buy button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 10px;}
 .details_and_buy button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
           color: white;}
-    .orders_block{display: flex; flex-direction: column;
-     padding: 1%; align-items: flex-start; }
-     .all_products{ display: flex; flex-direction: column; gap: 10px; margin-top: 10px;
-         width: 100%; align-items: center; justify-content: space-between;}
-    .order_items{ width: 100%; display: grid; grid-template-columns: repeat(2, 1fr);  gap: 30px; justify-content: space-around;}
-    .order_product{background:rgba(255, 255, 255, 0.676); border-radius: 15px; box-shadow: 0px 1px 5px black;
-          padding: 1%;}
-    .items_data{display: flex;  justify-content: space-around; 
-         gap: 10px; }
-    .img_and_data{display: flex;  gap: 10px; align-items: center;}
-    .img_and_data .image1{ display: flex; height: 150px; border-radius: 10px;
-        box-shadow: 0 1px 4px  black;
-         object-fit: cover; overflow: hidden;}
-    .img_and_data img{width: 100%; height: auto;}
-    .details_and_buy{display: flex; justify-content: space-around;}
-    .Order-Id{font-family: Georgia, 'Times New Roman', Times, serif}
-  
-    @media(max-width: 850px){
-        .order_items{grid-template-columns: 1fr;}
-    }
+
+     .orderblock{ display: grid; grid-template-columns: repeat(2, 40%);
+        row-gap: 20px; 
+     padding: 2%; align-items: center; justify-content: space-evenly;}
+     .order{background-color: aliceblue; padding: 1%; border-radius: 15px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
+     .OP{display: flex; align-items: center; justify-content: space-around;}
+     .OPimg{width: 150px; height: 150px; 
+        border-radius: 10% 30% 50% 70%; 
+        overflow: hidden;}
+     .OP img{display: flex; width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: 0.6s; }
+     .OP img:hover{scale: 1.1; }
+     .OP.imgname{gap: 10px;}
+     .OP.OD_date{display: flex; flex-direction: column; align-items: center; }
+     .OPo_date, .OPd_date{display: flex; border-top: 0.5px dotted; height: 40px;
+         justify-content: space-around; width: 90%; align-items: center; }
+     .OP.TCbuttons{width: 100%; }
+     .OP.TCbuttons .buy-buttons{width: 300px; padding: 5% 1%; }
+     .OP .orderdetails{height: 30px; position: absolute; width: 30%; opacity: 0; transition: 0.6s;
+         transform: translateY(-10px); z-index: 0;}
+     .OP .orderdetails.active{height: 30px; position: absolute;
+        transform: translateY(0px); transition: 0.6s; opacity: 1; z-index: 0;}
+     .OP .orderdetails .headT{font-size: small; transform: translateY(5px); }
+
+    
 
     .all_coupons{display: flex; padding: 1%; gap: 10px; }
     .coupon_card{border: 1px solid; padding: 1%; border-radius: 0 20px 20px 0; border-left: 5px solid black;
@@ -597,15 +609,20 @@ border: 1px solid black; border-radius: 10px;}
 
 @media(max-width: 840px){
  .Navbar{display: none;}
-  /* .mnbtn .mbtn{display: block; 
-        } */
  .container{justify-content: space-between;}
+
+ /* ------------------------- */
+        .OP .orderdetails{width: 60%;}
+        .order_items{grid-template-columns: 1fr;}
+        .orderblock{ grid-template-columns: repeat(1, 80%);}
 }
 
 @media(max-width: 400px){
  .platform{font-size: 15px;}
  .searchbtn{display: none;}
  .searchbtn2{display: flex;}
+  .profileblock{flex-direction: column;}
+  /* .userBlockdata{display: flex; flex-direction: column; gap: 10px;} */
 }
 
 
@@ -618,5 +635,10 @@ border: 1px solid black; border-radius: 10px;}
             animation-timeline: view(); transition: 0.7s;
             animation-range: entry 0% cover 40%;}
 }
+
+ @media(max-width: 350px){
+        .OP.TCbuttons .buy-buttons{width: 100%; padding:4% 4%; }
+       
+ }
 
 

@@ -251,6 +251,7 @@ email.addEventListener("blur", function () {
                                      if (data.message === "Email Available"){
                             email_status.style.color = "#18b050";
                                 E_Available = true;
+                                hideError(email);
                         }
                         else{
                             email_status.style.color = "red";
@@ -290,7 +291,6 @@ password.addEventListener("blur", function(){
     }
 
     if(password.value.trim()===""){
-
             hideError1(password);
         }
     else if(pwdvalue.length >= 8 && pwdvalue.length <= 15 
@@ -331,21 +331,21 @@ password.addEventListener("blur", function(){
             }
             
         //password error block
-            if(password.value.trim() === ""){
-                showError(password);
-                valid = false;
-            }
-            else{
-                hideError(password);
-            }
+            // if(password.value.trim() === ""){
+            //     showError(password);
+            //     valid = false;
+            // }
+            // else{
+            //     hideError(password);
+            // }
         // password match block
-            if(Cpassword.value.trim() === ""){
-                showError(Cpassword);
-                valid = false;
-            }
-            else{
-                hideError(Cpassword);
-            }
+            // if(Cpassword.value.trim() === ""){
+            //     showError(Cpassword);
+            //     valid = false;
+            // }
+            // else{
+            //     hideError(Cpassword);
+            // }
 
             if(password.value.trim() === ""){
                showError(password);
@@ -371,9 +371,26 @@ password.addEventListener("blur", function(){
                 }
 
             if(valid){
-                    window.location.href = "/";
+                fetch("/register",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body: JSON.stringify({
+                        username: username.value,
+                        email: email.value,
+                        password:password.value,
+                        // "conform-password" :Cpassword.value
+                    })
+                })
+                .then(response => response.json())
+                .then(data=>{
+                    if(data.ok){
+                         window.location.href = "/";
+                         console.log("hello");
+                    }
+                }) 
                 }
-            
         });
       
        function showError(input){

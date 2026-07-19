@@ -26,9 +26,65 @@ const more = document.querySelector(".more");
         }
     });
 
+    window.addEventListener("scroll",()=>{
+        S_L.classList.remove("active");
+        nav.classList.remove("active");
+        dropdown.classList.remove("active");
+    });
+
+//........................logOut.........................
+function logOut(){
+    fetch("/logOut",{
+        method:"POST",
+        headers:{
+            "content-Type":"application/json"
+        },
+        body: JSON.stringify({
+            logout: true
+        })
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        if (data.ok){
+            window.location.href= "/login_page";
+        }
+    })
+}
 
 // .....................{ product buy and cart }......................
 
+
+function orderT(button){
+    const order = button.closest(".order")
+    const orderdetails = order.querySelector(".orderdetails");
+
+    orderdetails.classList.add("active");
+    setTimeout(()=>{
+        orderdetails.classList.remove("active");
+    },1500)
+}
+
+function cancel_O(button){
+    const OrderID = button.dataset.orderid;
+    console.log(OrderID);
+    // removeOP
+
+    fetch("/removeOP",{
+        method:"POST",
+        headers:{
+            "content-Type":"application/json"
+        },
+        body: JSON.stringify({
+            "Rorderid": OrderID
+        })
+    })
+    .then(response => response.json())
+    .then(data =>{
+        if(data.ok){
+            console.log(OrderID,"deleted");
+        }
+    })
+}
 
 
  
