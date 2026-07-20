@@ -65,7 +65,11 @@ function orderT(button){
 }
 
 function cancel_O(button){
+    if(!confirm("Are you sure you want to cancel this order? ")){
+        return;
+    }
     const OrderID = button.dataset.orderid;
+    const orderCard = button.closest(".order");
     console.log(OrderID);
     // removeOP
 
@@ -81,6 +85,7 @@ function cancel_O(button){
     .then(response => response.json())
     .then(data =>{
         if(data.ok){
+            orderCard.remove()
             console.log(OrderID,"deleted");
         }
     })

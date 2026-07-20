@@ -152,10 +152,10 @@ def Orders():
          i +=1
 
     
-    print(O_ID)
+    # print(O_ID)
     # print(totalOrders)
     # "quantity":p_data[i]["quantity"]
-    print(f" Orderdata: {Orderdata}\n")
+    # print(f" Orderdata: {Orderdata}\n")
     # print(f" p_quantity: {p_quantity}\n")
     # print(f"{imglocation}\n")
     # print(f"{p_data[1]["quantity"]}\n")
@@ -576,17 +576,31 @@ def removeOP():
      data = request.get_json()
      Rorderid = data["Rorderid"]
 
+     XLname ="Shopping_W_data.xlsx"
      df = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
      df.columns = df.columns.str.strip().str.lower()
      df = df.dropna(how="all")
      
 
      if Rorderid in df["orderid"].values:
+        df = df[df["orderid"] != Rorderid]
+        with pd.ExcelWriter(
+            XLname,
+            engine="openpyxl",
+            mode="a",
+            if_sheet_exists="replace"
+        ) as writer:
+         df.to_excel(
+            writer,
+            sheet_name="users_history",
+            index=False
+        )
+        print("Order Deleted successfully. ")
         print(f"{Rorderid} success")
         return jsonify({"ok":True})
      else:
-         print(f"{Rorderid} success")
-         print("error")
+         print("Order ID not found. ")
+         return jsonify({"ok":True})
           
                
     #  print(f"{POID} success")
