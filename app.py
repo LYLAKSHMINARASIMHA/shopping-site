@@ -9,7 +9,8 @@ app = Flask(__name__)
 @app.context_processor
 def inject_user():
      return{
-          "userid": session.get("userid")
+          "userid": session.get("userid"),
+          "status_D": session.get("status_D")
      }
 
 app.secret_key = "my_secret_key"
@@ -29,6 +30,27 @@ product = df.to_dict(orient="records")
 
 
 
+    # if item["status"] == "Ordered":
+    #     Orderstatus[item["orderid"]] = {
+    #         "Order status": item["status"],
+    #         "Delivery date": item["date"].split("||")[1]
+    #     }
+    #     if Pdate == Orderstatus[item["orderid"]]["Delivery date"]:
+    #         todayorder.append(item["orderid"])
+    #     elif Pdate < Orderstatus[item["orderid"]]["Delivery date"]:
+    #         shippingO.append(item["orderid"])
+    #     elif Pdate > Orderstatus[item["orderid"]]["Delivery date"]:
+    #         deliveredP.append(item["orderid"])
+    # elif item["status"] == "Shipping":
+
+
+
+
+
+# print(f"today delivery products Order ID's: {todayorder}")
+# print(f"shipping order products Order ID's: {shippingO}")
+# print(f"product delivery complete Order ID's: {deliveredP}")
+
 # ............. product data 
 product_dict ={}
 for item in product:
@@ -39,7 +61,54 @@ for item in product:
 
 @app.route("/")
 def testing():
+    #............ order status update 
 
+    Pdate = datetime.now().date()
+    
+    OSdf = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+    OSdf.columns = OSdf.columns.str.strip().str.lower()
+    OSdf = OSdf.dropna(how="all")
+    OSproduct = OSdf.to_dict(orient="records")
+
+
+    if session.get("status_D") != str(Pdate):
+        Orderstatus = {}
+        for item in OSproduct:
+            delivery_date = datetime.strptime( item["date"].split("||")[1], "%d/%m/%y").date()
+            if item["status"] == "Cancelled":
+                continue
+            else:
+                if Pdate < delivery_date:
+                    Orderstatus[item["orderid"]] = {
+                        "Order status": "shipping"
+                    }
+                else:
+                    Orderstatus[item["orderid"]] = {
+                        "Order status": "Delivered"
+                    }
+
+        for orderid, data in Orderstatus.items():
+    
+            if orderid in OSdf["orderid"].values:
+                OSdf.loc[OSdf["orderid"] == orderid, "status" ]= data["Order status"]
+                print(f"{orderid} updated")
+        with pd.ExcelWriter(
+        "Shopping_W_data.xlsx",
+        engine="openpyxl",
+        mode="a",
+        if_sheet_exists="replace"
+        ) as writer:
+
+            OSdf.to_excel(
+                writer,
+                sheet_name="users_history",
+                index=False
+            )
+
+        print("Order status updated successfully.")
+
+        session["status_D"] = str(Pdate)
+    
     offmenu = True
     
 
@@ -86,6 +155,7 @@ def Orders():
     OdataF.columns = OdataF.columns.str.strip().str.lower()
     OdataF = OdataF.dropna(how="all")
     UHproduct = OdataF.to_dict(orient="records")
+    # product = OdataF.to_dict(orient="records")
     # print(OdataF)``
 
     # ..........images path len(UHproduct)
@@ -95,6 +165,8 @@ def Orders():
             img_ID = os.path.splitext(file)[0]
             imgpaths[img_ID] = os.path.join(root,file).replace("\\","/").replace("static/","")
     
+    Pdate = datetime.now()
+    Pdate = Pdate.strftime("%d/%m/%y")
     userID =session.get("userid")
     p_data = []
     OrderID =[] 
@@ -108,7 +180,8 @@ def Orders():
                  "OrderID" : item["orderid"]
             })
             p_data.append({
-                      "quantity": item["quantity"]
+                      "quantity": item["quantity"],
+                      "status": item["status"]
             })
             UOdate[item["p_id"]]= {
                  "order date":item["date"].split("||")[0],
@@ -116,7 +189,11 @@ def Orders():
             }
             Pimgid.append(item["p_id"])
             session["totalOrders"] = len(Pimgid)
-    
+            
+# if UOdate[item["p_id"]]["order date"] in Pdate:
+#                 print(Pdate)
+    # print(UOdate["PIBS1"]["order date"])
+    # print(Pdate)
     O_ID =[]
     for item in UHproduct:
         if str(userID) == str(item["userid"]):
@@ -147,6 +224,7 @@ def Orders():
               "order_date":UOdate[pid]["order date"],
               "delivery_date":UOdate[pid]["delivery date"],
               "totalamount":p_data[i]["quantity"]*imgdata[pid]["p_price"],
+              "status":p_data[i]["status"],
               "quantity":p_data[i]["quantity"]
          })
          i +=1
@@ -158,7 +236,7 @@ def Orders():
     # print(f" Orderdata: {Orderdata}\n")
     # print(f" p_quantity: {p_quantity}\n")
     # print(f"{imglocation}\n")
-    # print(f"{p_data[1]["quantity"]}\n")
+    # print(f"{p_data}\n")
     # print(f"{UOdate}\n")
     # print(f"{imgdata["PIGW3"]}\n")
     # print(Pimgid)
@@ -528,7 +606,8 @@ def write_excel():
          "Date": [date],
          "P_ID": [imgID[0]],
          "Qantity": [quantity],
-         "Size": [size]
+         "Size": [size],
+         "Status": "Ordered"
     }
     new_data= pd.DataFrame(BUY_data)
 
@@ -583,7 +662,7 @@ def removeOP():
      
 
      if Rorderid in df["orderid"].values:
-        df = df[df["orderid"] != Rorderid]
+        df.loc[df["orderid"] == Rorderid, "status"]= "Cancelled"
         with pd.ExcelWriter(
             XLname,
             engine="openpyxl",
@@ -600,7 +679,7 @@ def removeOP():
         return jsonify({"ok":True})
      else:
          print("Order ID not found. ")
-         return jsonify({"ok":True})
+         return jsonify({"ok":False})
           
                
     #  print(f"{POID} success")

@@ -56,18 +56,30 @@
                                 <h4>Delivery date</h4>
                                 <p>{{ order.delivery_date }}</p>
                             </div>
-                        </div>
-                        <div class="OP TCbuttons" >
-                            <div class="buycheck">
-                                <div class="buy-buttons" >
-                                    <button type="button" class="Order_Now" onclick="orderT(this)">
-                                        <i class="fa-solid fa-location"></i>&nbsp;Track Order</button>
-                                    <button type="button" class="Cancel_Order" onclick="cancel_O(this)"
-                                    data-orderid="{{order.OrderID}}" >
-                                        <i class="fa-solid fa-circle-xmark"></i> &nbsp;Cancel Order</button>
-                                </div>
+                            <div class="OPd_date">
+                                <h4>Order status</h4>
+                                <p class="order-status">{{ order.status }}</p>
                             </div>
                         </div>
+                        {% if order.status == "Cancelled" %}
+                        <p style="color: red; text-align: center;">This order is Cancelled</p>
+                        {% else %}
+                            {% if order.status == "Delivered" %}
+                            <p style="color: green; text-align: center;">This order is Delivered</p>
+                            {% else %}
+                                <div class="OP TCbuttons" >
+                                    <div class="buycheck">
+                                        <div class="buy-buttons" >
+                                            <button type="button" class="Order_Now" onclick="orderT(this)">
+                                                <i class="fa-solid fa-location"></i>&nbsp;Track Order</button>
+                                            <button type="button" class="Cancel_Order" onclick="cancel_O(this)"
+                                            data-orderid="{{order.OrderID}}" >
+                                                <i class="fa-solid fa-circle-xmark"></i> &nbsp;Cancel Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
                     </div>  
                     <!-- <script>const OrderID = "{{order.OrderID}}"; </script>    -->
                 {% endfor %}

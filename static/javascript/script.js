@@ -85,8 +85,8 @@ function cancel_O(button){
     .then(response => response.json())
     .then(data =>{
         if(data.ok){
-            orderCard.remove()
-            console.log(OrderID,"deleted");
+            location.reload();
+            console.log(OrderID,"Update");
         }
     })
 }
