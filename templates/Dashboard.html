@@ -1,0 +1,164 @@
+{% extends "header.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename= 'css/dashboard.css')}}">
+<div class="dashboard-block">
+    <div class="dashboard">
+        <div class="dashboard-menu">
+            <ul>
+                <li><a href="/Dashboard"><i class="fa-solid fa-house"></i><samp>Dashboard</samp></a></li>
+                <li><a href=""><i class="fa-solid fa-users"></i><samp>Users</samp></a></li>
+                <li><a href=""><i class="fa-solid fa-box"></i><samp>Products</samp></a></li>
+                <li><a href=""><i class="fa-solid fa-cart-shopping"></i><samp>Orders</samp></a></li>
+                <li><a href=""><i class="fa-solid fa-gear"></i><samp>Settings</samp></a></li>
+            </ul>
+        </div>
+        <div class="dashboard-data">
+            <div class="alldata">
+                <div class="Dtotal Users">
+                    <a href="">
+                        <div class="Dusers">
+                            <i class="fa-solid fa-users"></i>
+                            <div class="D-boxdata">
+                                <samp class="Dh">Users</samp>
+                                <samp>{{ data.total_users }}</samp>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="Dtotal DOrder">
+                    <a href="">
+                        <div class="Dusers">
+                            <i class="fa-solid fa-box"></i>
+                            <div class="D-boxdata">
+                                <samp class="Dh">Orders</samp>
+                                <samp>{{data.total_O}}</samp>
+                            </div>
+                        </div>
+                        <div class="DUdata">
+                            <samp>12.5$ month</samp>
+                        </div>
+                    </a>
+                </div>
+                <div class="Dtotal DProducts">
+                    <a href="">
+                        <div class="Dusers">
+                            <i class="fa-solid fa-cubes"></i>
+                            <div class="D-boxdata">
+                                <samp class="Dh">Products</samp>
+                                <samp>{{data.totalitem}}</samp>
+                            </div>
+                        </div>
+                        <div class="DUdata">
+                            <samp>12.5$ month</samp>
+                        </div>
+                    </a>
+                </div>
+                <div class="Dtotal DSales">
+                    <a href="">
+                        <div class="Dusers">
+                            <i class="fa-solid fa-truck"></i>
+                            <div class="D-boxdata">
+                                <samp class="Dh">Sales</samp>
+                                <samp>12300$</samp>
+                            </div>
+                        </div>
+                        <div class="DUdata">
+                            <samp>12.5$ month</samp>
+                        </div>
+                    </a>
+                </div>
+            </div>
+          
+            
+        </div>
+           </div>
+</div>
+<div class="dataBlocks">
+   <div class="usersdata">
+    <div class="allU headings">
+        <p>User ID</p>
+        <p>User Name</p>
+        <p>User E-mail</p>
+    </div>
+    {% for item in data.users_D %}
+    <div class="allU Data">
+        <p>#12344</p>
+        <p>Testing</p>
+        <p>testing@gamil.com</p>
+    </div>
+    {% endfor %}
+   </div>
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{url_for('static', filename ='javascript/productpage.js')}}" defer></script>
+{% endblock %}
+
+
+                <!-- {% for item in data %} -->
+                <!-- {% endfor %} -->
+
+
+                 <div class="alldatablock">
+        <!-- users -->
+<div class="allstatus">
+                <div class="allusers headings">
+                    <p>User ID</p>
+                    <p>E-mail</p>
+                </div>
+                {% for item in data.users_D %}
+                <div class="allusers datas">
+                    <p>{{item.userid}}</p>
+                    <p>{{item.email}}</p>
+                </div>
+                {% endfor %}
+            </div>
+    <!-- product -->
+
+             <div class="allstatus">
+                <div class="allusers headings">
+                <p>product img</p>
+                <p>product ID</p>
+                <p>product Name</p>
+                <p>product price</p></div>
+                {% for item in data.products %}
+                <div class="allusers datas">
+                    <div class="Pimg">
+                        <img src="{{url_for('static', filename= item.img_path)}}" alt="image">
+                    </div>
+                    <p>#{{ item.p_id }}</p>
+                    <p>{{ item.p_name }}</p>
+                    <p>₹ {{ item.p_price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+
+
+
+        <div class="allstatus">
+                <div class="allusers headings">
+                    <p>Order ID</p>
+                    <p> User ID</p>
+                    <p>Order date</p>
+                    <p>Quantity</p>
+                    <p>Size</p>
+                    <p>Status</p>
+                </div>
+                {% for item in data.Order_data %}
+                <div class="allusers datas">
+                    <p>{{item.orderid}}</p>
+                    <p>{{item.userid}}</p>
+                    <p>{{item.date}}</p>
+                    <p>{{item.quantity}}</p>
+                    <p>{{item.size}}</p>
+                    <p>{{item.status}}</p>
+                </div>
+                {% endfor %}
+            </div>

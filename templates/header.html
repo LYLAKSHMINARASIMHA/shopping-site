@@ -34,6 +34,10 @@
                             <li><a href="/Orders#coupons_page">Coupons</a></li>
                             <li><a href="/Help_Center">Contact</a></li>
                             <li><a href="#bottom">About</a></li>
+                            {% if session.get("roll") == "Admin" %}
+                            <li><a href="/Dashboard">Dashboard</a></li>
+                            {% else %}
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>
@@ -60,50 +64,99 @@
         </div>
         
     </header>
-        {% if offmenu %}
-            <div class="Sinp">
-                    <div class="mnbtn">
-                        <button type="button" class="mbtn"><a>☰</a></button>
-                        <nav class="Navbar1">
-                        <ul class="menu1">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/Orders#orders_page">Orders</a></li>
-                            <li><a href="/Orders#cart_page">Cart</a></li>
-                            <li><a href="/Help_Center">Help Center</a></li>
-                            <li><a href="/Orders#coupons_page">Coupons</a></li>
-                            <li><a href="/Help_Center">Contact</a></li>
-                            <li><a href="#bottom">About</a></li> 
-                            </li>
-                        </ul>
-                    </nav>
-                    </div>
-                    
-                <input type="text" placeholder="text" class="SHin">
-                <a href="#" class="searchbtn">search</a>
-                <a href="#" class="searchbtn2">🔍</a>
-            </div>
-        {% else %}
-        <style>
+       {% if offmenu %}
+<div class="Sinp">
+    <div class="mnbtn">
 
-        </style>
-         <div class="Sinp2">
-                    <div class="mnbtn">
-                        <button type="button" class="mbtn"><a>☰</a></button>
-                        <nav class="Navbar1">
-                        <ul class="menu1">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/Orders#orders_page">Orders</a></li>
-                            <li><a href="/Orders#cart_page">Cart</a></li>
-                            <li><a href="/Help_Center">Help Center</a></li>
-                            <li><a href="/Orders#coupons_page">Coupons</a></li>
-                            <li><a href="/Help_Center">Contact</a></li>
-                            <li><a href="#bottom">About</a></li> 
-                            </li>
-                        </ul>
-                    </nav>
-                    </div>
-            </div>
-        {% endif %}
+        <button type="button" class="mbtn">☰</button>
+
+        <nav class="Navbar1">
+            <ul class="menu1">
+                <li><a href="/">Home</a></li>
+                <li><a href="/Orders#orders_page">Orders</a></li>
+                <li><a href="/Orders#cart_page">Cart</a></li>
+                <li><a href="/Help_Center">Help Center</a></li>
+                <li><a href="/Orders#coupons_page">Coupons</a></li>
+                <li><a href="/Help_Center">Contact</a></li>
+                <li><a href="#bottom">About</a></li>
+                {% if session.get("roll") == "Admin" %}
+                <li><a href="/Dashboard">Dashboard</a></li>
+                {% else %}
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+
+    <!-- Search Area -->
+    <div class="search_box">
+
+        <input
+            type="text"
+            class="SHin"
+            placeholder="Search products..."
+            autocomplete="off"
+        >
+
+        <!-- Search Suggestions -->
+        <div class="search_suggestions">
+            
+        </div>
+
+    </div>
+
+    <!-- Desktop Search BTN -->
+    <button type="button"  id="S-button" class="searchbtn">
+        Search
+    </button>
+
+    <!-- Mobile Search BTN -->
+    <button type="button" id="S-button" style=" border: none;" class="searchbtn2">
+        🔍
+    </button>
+
+</div>
+
+{% else %}
+
+<div class="Sinp2">
+
+    <div class="mnbtn">
+
+        <button type="button" class="mbtn">☰</button>
+
+        <nav class="Navbar1">
+
+            <ul class="menu1">
+
+                <li><a href="/">Home</a></li>
+
+                <li><a href="/Orders#orders_page">Orders</a></li>
+
+                <li><a href="/Orders#cart_page">Cart</a></li>
+
+                <li><a href="/Help_Center">Help Center</a></li>
+
+                <li><a href="/Orders#coupons_page">Coupons</a></li>
+
+                <li><a href="/Help_Center">Contact</a></li>
+
+                <li><a href="#bottom">About</a></li>
+
+                {% if session.get("roll") == "Admin" %}
+                <li><a href="/Dashboard">Dashboard</a></li>
+                {% else %}
+                {% endif %}
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+</div>
+
+{% endif %}
     {% block content %}
 
     {% endblock %}

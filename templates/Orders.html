@@ -8,17 +8,21 @@
             <samp id="orders_page">My Orders</samp>
             <p>Track, view and manage your orders</p>
         </section>
+        {% if Orderdata %}
         <div class="type_buttons">
-                <button type="button">All Orders</button>
-                <button type="button">Shipped</button>
-                <button type="button">Delivered</button>
-                <button type="button">Cancelled</button>
+            {% else %}
+            <div class="type_button"></div>
+            {% endif %}
+                <button type="button" class="orderType">All Orders</button>
+                <button type="button" class="orderType">Shipped</button>
+                <button type="button" class="orderType">Delivered</button>
+                <button type="button" class="orderType">Cancelled</button>
             </div> 
         <div class="orders_block">  
             <div class="orderblock">
                 {% if Orderdata %}
                 {% for order in Orderdata %}
-                    <div class="order">
+                    <div class="order" data-status="{{order.status}}">
                         <div class="OP imgname">
                             <div class="OPimg">
                                 <img src="{{url_for('static', filename=order.image)}}" alt="">

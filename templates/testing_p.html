@@ -3,145 +3,52 @@
     <head>
         <style>
 
-            .Sinp{ height: auto; display: flex; justify-content: space-evenly; align-items: center;
-padding: 1%;   position: sticky; top: 0%;
-background:rgba(255, 255, 255, 0.158);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,.2);
- z-index: 9999;}
- 
- .Sinp2{height: auto; display: flex; width: 5%; border-radius: 10px; 
-    padding: 1%; position: sticky; top: 0%; background: rgba(255, 255, 255, 0.158); 
-    backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, .2); z-index: 9999; 
-    justify-content: center;
+
+.chart-box{
+    width: 70%;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
-.SHin{ width: 80%; border-radius: 10px; border: 1px solid black; height: 10px; transition: 0.3s; 
-outline: none;}
-.SHin:focus{border:1px solid var(--sapphire); box-shadow: 0 1px 3px var(--sapphire);}
-
-.searchbtn{display: flex; justify-content: center; align-items: center;
-        padding: 6px 16px; border-radius: 20px; background-color: var(--accent); color: white; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.50);}
-.searchbtn:hover{box-shadow: 0 1px 3px black; 
-             background-color: rgb(0, 132, 255);}
-.searchbtn:focus{box-shadow: 0 1px 3px black; 
-             background-color: var(--afbtn);}
-.searchbtn2{display: none; justify-content: center; align-items: center;
-        padding: 5px 9px; border-radius: 20px; background-color: var(--accent); color: white; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.50);}
-.searchbtn2:hover{box-shadow: 0 1px 3px black; 
-             background-color: rgb(0, 132, 255);}
-.searchbtn2:focus{box-shadow: 0 1px 3px black; 
-             background-color: var(--afbtn);}
-
-
-    .mnbtn{display: flex; flex-direction: column;
-    }
-    .mbtn{width: 40px; height: 35px; display: flex; 
-         align-items: center; z-index: 100;
-    justify-content: center;}
-    .pages {
-    text-align: center;
-    display: block;
-    transition: 1s;
-    position: absolute;
-    transform: translateY(25px);
-    height: 0px;
-    z-index: 1;
-}
-    .pages.show{text-align: center; display: block; transition: 1s; position: absolute;
-        transform: translateY(25px); height: auto; z-index: 100;
-            }
-    .pg{border: 1px solid; opacity: 0; transition: 1s;}
-    .pg.show{border: 1px solid; opacity: 1;}
-.pg.home{transform: translateY(-30px);}
-.pg.Orders{transform: translateY(-65px);}
-.pg.Cart{transform: translateY(-100px);}
-.pg.Help_Center{transform: translateY(-135px);}
-.pg.Coupons{transform: translateY(-170px);}
-.pg.Contact{transform: translateY(-205px);}
-.pg.About{transform: translateY(-240px);}
-
-.pg.home.show{display: block; transform: translateY(0px);}
-.pg.Orders.show{display: block; transform: translateY(0px);}
-.pg.Cart.show{display: block; transform: translateY(0px);}
-.pg.Help_Center.show{display: block; transform: translateY(0px);}
-.pg.Coupons.show{display: block; transform: translateY(0px);}
-.pg.Contact.show{display: block; transform: translateY(0px);}
-.pg.About.show{display: block; transform: translateY(0px);}
-
-
+/* canvas{
+    height:350px;
+} */
 
         </style>
     </head>
     <body>
-        <div class="Sinp">
-                    <div class="mnbtn">
-                        <button type="button" class="mbtn" id="mbtn" onclick="menu()"><a>☰</a></button>
-                        <div class="pages">
-                            <p class="pg home">home</p>
-                            <p class="pg Orders">Orders</p>
-                            <p class="pg Cart">Cart</p>
-                            <p class="pg Help_Center">Help Center</p>
-                            <p class="pg Coupons">Coupons</p>
-                            <p class="pg Contact">Contact</p>
-                            <p class="pg About">About</p>
-                        </div>
-                    </div>
-                    
-                <input type="text" placeholder="text" class="SHin">
-                <a href="#" class="searchbtn">search</a>
-                <a href="#" class="searchbtn2">🔍</a>
-            </div>
-            <script>
-                const mbtn = document.getElementById("mbtn");
-                const pg = document.querySelectorAll(".pg");
-                const pages = document.querySelector(".pages");
-            mbtn.addEventListener("mouseenter",()=>{
-                pages.classList.add("show");
-                setTimeout(() => {
-                    pg.forEach(pg=>{
-                    pg.classList.add("show");
-                })
-                }, 100);
-            });
-            mbtn.addEventListener("mouseleave",()=>{
-                pg.forEach(pg=>{
-                    pg.classList.remove("show");
-                })
-            });
-            
-            pages.addEventListener("mouseenter",()=>{
-                pg.forEach(pg=>{
-                    pg.classList.add("show");
-                })
-            });
-            pages.addEventListener("mouseleave",()=>{
-                pages.classList.remove("show");
-                pg.forEach(pg=>{
-                    pg.classList.remove("show");
-                })
-            });
+    <div class="chart-box">
+    <h2>Revenue Overview (Last 7 Days)</h2>
 
-            // function menu(){
-                //  pg.forEach(pg=>{
-                //     pg.classList.add("show");
-                // })
-            // }
-            mbtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                pg.forEach(pg=>{
-                    pg.classList.add("show");
-                })
-            });
+        <canvas id="revenueChart"></canvas>
+    </div>
 
-            mbtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                pg.forEach(pg=>{
-                    pg.classList.remove("show");
-                })
-            });
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const revenue = "{{ revenue | tojson }}";
+    
+    const ctx = document.getElementById('revenueChart');
+
+new Chart(ctx,{
+    type:'line',
+    data:{
+        labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        datasets:[{
+            label:'Revenue',
+            data:[7500,14500,10000,16500,22000,15000,20500],
+            borderColor:'blue',
+            backgroundColor:'rgba(0,0,255,0.1)',
+            fill:true,
+            tension:0.4
+        }]
+    }
+});
+
+// .................................
+
 
 
             </script>

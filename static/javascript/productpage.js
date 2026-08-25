@@ -142,3 +142,20 @@ function cancel_excel() {
 }
 
 
+
+ const ctx = document.getElementById('revenueChart');
+
+new Chart(ctx,{
+    type:'line',
+    data:{
+        labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        datasets:[{
+            label:'Revenue',
+            data:[7500,14500,10000,16500,22000,15000,20500],
+            borderColor:'blue',
+            backgroundColor:'rgba(0,0,255,0.1)',
+            fill:true,
+            tension:0.4
+        }]
+    }
+});

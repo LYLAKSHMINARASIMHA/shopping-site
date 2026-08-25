@@ -21,10 +21,13 @@
             <h4><i class="fa-solid fa-cubes"></i> Quantity</h4>
             <p>{{ buy_data.quantity }}</p>
         </div>
+        {% if buy_data.size == "nosize" %}
+        {% else %}
         <div class="BP size">
             <h4><i class="fa-solid fa-ruler"></i> Size</h4>
             <p>{{ buy_data.size }}</p>
         </div>
+        {% endif %}
     </div>
    </div>
 

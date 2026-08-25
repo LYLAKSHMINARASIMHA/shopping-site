@@ -101,6 +101,23 @@
   </div>
   {% endif %}
 
+{% if searchimg %}
+<section class="row3img">
+  {% for imageId in searchimg %}
+  <article class="product">
+    {% for image in imageId %}
+    <div class="productimg">
+      <a href="/products/{{ image }}">
+        <img src="{{url_for('static', filename=image)}}" alt="Mimg">
+      </a>
+    </div>
+    {% endfor %}
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+{% endif %}
+
   <section class="row3img">
     {% for imageId in imageId %}
     <article class="product">

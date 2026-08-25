@@ -10,7 +10,8 @@ app = Flask(__name__)
 def inject_user():
      return{
           "userid": session.get("userid"),
-          "status_D": session.get("status_D")
+          "status_D": session.get("status_D"),
+          "roll": session.get("roll")
      }
 
 app.secret_key = "my_secret_key"
@@ -22,6 +23,7 @@ folders ={
     "slippers" : "static/products/slippers",  # size
     "shoes" : "static/products/shoes",  # size
     "watchs" : "static/products/watchs",  #size
+    "products": "static/products",
 }
 df = pd.read_excel("Shopping_W_data.xlsx")
 df.columns = df.columns.str.strip().str.lower()
@@ -57,12 +59,19 @@ for item in product:
      product_dict[str(item["p_id"])] = item
 
 
+# ..........images path len(UHproduct)
+imgpaths = {}
+for root, dirs, files in os.walk("static/products"):
+    for file in files:
+        img_ID = os.path.splitext(file)[0]
+        imgpaths[img_ID] = os.path.join(root,file).replace("\\","/").replace("static/","")
 
 
 @app.route("/")
-def testing():
+def Home():
     #............ order status update 
-
+    if session.get("roll"):
+        print(session.get("roll"))
     Pdate = datetime.now().date()
     
     OSdf = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
@@ -75,7 +84,7 @@ def testing():
         Orderstatus = {}
         for item in OSproduct:
             delivery_date = datetime.strptime( item["date"].split("||")[1], "%d/%m/%y").date()
-            if item["status"] == "Cancelled":
+            if item["status"] in ["Cancelled", "Delivered"]:
                 continue
             else:
                 if Pdate < delivery_date:
@@ -171,7 +180,7 @@ def Orders():
     p_data = []
     OrderID =[] 
     Pimgid=[]
-    UOdate={}
+    UOdate=[]
     
                 #  "quantity": item["quantity"],  orderid
     for item in UHproduct:
@@ -183,10 +192,10 @@ def Orders():
                       "quantity": item["quantity"],
                       "status": item["status"]
             })
-            UOdate[item["p_id"]]= {
+            UOdate.append({
                  "order date":item["date"].split("||")[0],
                  "delivery date":item["date"].split("||")[1]
-            }
+            })
             Pimgid.append(item["p_id"])
             session["totalOrders"] = len(Pimgid)
             
@@ -215,29 +224,33 @@ def Orders():
          imglocation[item] = imgpaths[item]
          
     Orderdata=[]
-    i =0 
-    for pid in Pimgid:
+    for i, pid in enumerate(Pimgid):
          Orderdata.append({
               "OrderID":O_ID[i]["OrderID"],
               "image":imglocation[pid],
               "product":imgdata[pid],
-              "order_date":UOdate[pid]["order date"],
-              "delivery_date":UOdate[pid]["delivery date"],
+              "order_date":UOdate[i]["order date"],
+              "delivery_date":UOdate[i]["delivery date"],
               "totalamount":p_data[i]["quantity"]*imgdata[pid]["p_price"],
               "status":p_data[i]["status"],
               "quantity":p_data[i]["quantity"]
          })
-         i +=1
+
+    # for Oid in OrderID:
+    #     Orderdata.append({
+    #           "order_date":UOdate[Oid["OrderID"]]["order date"],
+    #           "delivery_date":UOdate[Oid["OrderID"]]["delivery date"],
+    #     })
 
     
-    # print(O_ID)
+    # print(p_data)
     # print(totalOrders)
     # "quantity":p_data[i]["quantity"]
     # print(f" Orderdata: {Orderdata}\n")
     # print(f" p_quantity: {p_quantity}\n")
     # print(f"{imglocation}\n")
     # print(f"{p_data}\n")
-    # print(f"{UOdate}\n")
+    # print(f"UOdate: {UOdate["UI002O1"]["order date"]}\n")
     # print(f"{imgdata["PIGW3"]}\n")
     # print(Pimgid)
     # print(product_dict)  
@@ -258,8 +271,128 @@ def Orders():
 def Help_Center():
     return render_template("Help_Center.html")
 
+@app.route("/searchproducts")
+def searchproducts():
+
+    search_words = {
+    "men": "mens",
+    "mens": "mens",
+    "men wear": "mens",
+    "mens wear": "mens",
+    "women": "womens",
+    "womens": "womens",
+    "women wear": "womens",
+    "womens wear": "womens",
+    "women dress": "womens",
+    "womens dress": "womens",
+    "mobile": "phones",
+    "mobiles": "phones",
+    "watch": "watchs",
+    "watches": "watchs",
+    "mens watchs": "watchs",
+    "womens watchs": "watchs",
+    "men watchs": "watchs",
+    "women watchs": "watchs",
+    "sports shoes": "shoes",
+    "running shoes": "shoes",
+    }
+    
+    data = request.args.get("search").lower()
+    data = data.replace("'","")
+    data = search_words.get(data, data)
+    
+    matchedID =[]
+    matchedID2 =[]
+    searchimg = []
+    for item in folders:
+        if data == item:
+            matchedID.append(item)
+
+    print(data)
+    print(matchedID)
+
+    if matchedID:
+         for item in matchedID:
+                 folder_path = folders[item].replace("static/","")
+         
+         for item in matchedID:
+           for file in os.listdir(folders[item]):
+                    matchedID2.append(folder_path+"/"+ file)
+
+         selectSHimg = (random.sample(matchedID2, 6))
+         for i in range(0, len(selectSHimg), 3):
+             searchimg.append(selectSHimg[i:i+3])
+    elif len(matchedID) >= 6:
+        print("hello")
+        for item1 in product:
+            if data in item1["category"]:
+                matchedID.append(item1["p_id"])
+        if len(matchedID) >= 6:
+                print(matchedID)
+        else:
+             for item2 in product:
+                if data in item2["p_description"]:
+                    matchedID.append(item2["p_id"])
+             print(matchedID)
+             
+        
+
+    
+
+    
+
+    
+    count = min(6, len(matchedID))
+    
+
+    # print(searchimg)
+
+
+
+    offmenu = True
+    imagename="products/img/"
+
+    imageId = []
+    for file in os.listdir(folders["mens"]):
+        imageId.append("products/mens_dresses/" + file)
+    
+    for file in os.listdir(folders["womens"]):
+        imageId.append("products/women_dresses/" + file)
+
+    for file in os.listdir(folders["phones"]):
+        imageId.append("products/phones/" + file)
+
+    for file in os.listdir(folders["slippers"]):
+        imageId.append("products/slippers/" + file)
+
+    for file in os.listdir(folders["shoes"]):
+        imageId.append("products/shoes/" + file)
+
+    for file in os.listdir(folders["watchs"]):
+        imageId.append("products/watchs/" + file)
+
+    # if imagename == "products/img/":
+    #     num = 15
+    # else:
+    #     num = 9
+
+
+    selectimg = (random.sample(imageId, 12))
+    img_group = []
+    for i in range(0, len(selectimg),3):
+            img_group.append(selectimg[i:i+3])
+            
+    return render_template("products.html",
+                           searchimg = searchimg,
+                           imageId = img_group,
+                           offmenu = offmenu,
+                           image = imagename,)
+
+
 @app.route("/products/<path:image>")
 def products(image):
+    
+
     offmenu = True
 
     imagename = image
@@ -330,6 +463,7 @@ def register():
      userName = data["username"]
      email = data["email"]
      password = data["password"]
+     roll = "User"
     #  conform_password = request.form["conform-password"]
 
      excel_file = "Shopping_W_data.xlsx"
@@ -358,7 +492,8 @@ def register():
         "userid": [userid],
         "user" : [userName],
         "email" : [email],
-        "password" : [password]
+        "password" : [password],
+        "roll" : [roll],
      }
      session["userid"] = userid
 
@@ -442,6 +577,7 @@ def check_login():
           })
           elif password == excel_pwd:
                  session["userid"] = userdata.iloc[0]["userid"]
+                 session["roll"] = userdata.iloc[0]["roll"]
                  return jsonify({
                      "success": True
                  })
@@ -542,7 +678,7 @@ def buy_page():
     date_time = datetime.now()
     O_date = date_time.strftime("%d/%m/%y")
     D_d = date_time.strftime("%d")
-    D_date =(f"{9+int(D_d)}{date_time.strftime("/%m/%y")}")
+    D_date =(f"{3+int(D_d)}{date_time.strftime("/%m/%y")}")
     O_D_date = (f"{O_date}||{D_date}")
 
     
@@ -680,10 +816,56 @@ def removeOP():
      else:
          print("Order ID not found. ")
          return jsonify({"ok":False})
-          
-               
-    #  print(f"{POID} success")
-     return "remove order product"
+
+@app.route("/Dashboard")
+def Dashboard():
+    if session.get("roll") == "Admin":
+        userid = session.get("userid")
+        print(userid)
+    else:
+        return redirect("/")
+
+    Odata = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+    Odata.columns = Odata.columns.str.strip().str.lower()
+    Odata = Odata.dropna(how="all")
+    Odata = Odata.to_dict(orient="records")
+
+    userdata = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_sheet")
+    userdata.columns = userdata.columns.str.strip().str.lower()
+    userdata = userdata.dropna(how="all")
+    userdata = userdata.to_dict(orient="records")
+
+    imgpath={}
+    imgID = []
+    for item in os.listdir(folders["products"]):
+        path = os.path.join(folders["products"], item)
+        img_lo = path.split("\\")
+        for item1 in os.listdir(path):
+            imgpath[item1.split(".")[0]]=f"{img_lo[1]}/{item1}"
+            imgID.append(item1.split(".")[0])
+
+    
+    for item in product:
+        for item_id in imgID:
+            if str(item["p_id"]) == str(item_id):
+                item["img_path"]="products/" + imgpath[str(item_id)]
+
+    # print(Odata)
+    # print(imgpath["1133"])
+    # print(pID_data)
+    data = {
+        "total_O":len(Odata),
+        "totalitem":len(product),
+        "total_users":len(userdata),
+        "users_D":userdata,
+        "products":product,
+        "Order_data":Odata,
+        "imgpath":imgpath
+    }
+
+    
+    return render_template("Dashboard.html",
+                           data=data)
 
 
 if __name__ == "__main__":

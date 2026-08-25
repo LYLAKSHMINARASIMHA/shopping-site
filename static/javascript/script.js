@@ -23,6 +23,7 @@ const more = document.querySelector(".more");
             S_L.classList.remove("active");
             dropdown.classList.remove("active");
             nav.classList.remove("active");
+            searchSuggestions.classList.remove("active");
         }
     });
 
@@ -30,6 +31,7 @@ const more = document.querySelector(".more");
         S_L.classList.remove("active");
         nav.classList.remove("active");
         dropdown.classList.remove("active");
+        searchSuggestions.classList.remove("active");
     });
 
 //........................logOut.........................
@@ -55,7 +57,7 @@ function logOut(){
 
 
 function orderT(button){
-    const order = button.closest(".order")
+    const order = button.closest(".order");
     const orderdetails = order.querySelector(".orderdetails");
 
     orderdetails.classList.add("active");
@@ -91,5 +93,149 @@ function cancel_O(button){
     })
 }
 
+const type_buttons = document.querySelectorAll(".type_buttons button");
+const orderCard = document.querySelectorAll(".order");
 
- 
+type_buttons.forEach(button =>{
+    button.addEventListener("click", ()=>{
+        
+        type_buttons.forEach(btn =>{
+            btn.classList.remove("active");
+        })
+        button.classList.add("active");
+
+        const filter = button.innerText;
+
+        orderCard.forEach(order =>{
+    const status = order.dataset.status;
+
+    if (filter == "All Orders"){
+        order.style.display = "block";
+    }
+    else if (filter == "Shipped"){
+        if (status == "shipping"){
+            order.style.display="block";
+        }
+        else{
+            order.style.display="none";
+        }
+    }
+    else if(filter == "Delivered"){
+        if (status == "Delivered"){
+            order.style.display="block";
+        }
+        else{
+            order.style.display="none";
+        }
+    }
+    else if(filter == "Cancelled"){
+        if (status == "Cancelled"){
+            order.style.display="block";
+        }
+        else{
+            order.style.display="none";
+        }
+    }
+});
+
+    });
+});
+
+
+
+//  ...............searching
+
+const SHin = document.querySelector(".SHin");
+const searchSuggestions = document.querySelector(".search_suggestions");
+
+// Python nundi ee array ni pampali
+const ProductNames = [
+    "Men wear",
+    "Women wear",
+    "Mobiles",
+    "Shoes",
+    "Running Shoes",
+    "Sports Shoes",
+    "phones",
+    "New phones",
+    "Women Dress",
+    "Watch",
+    "Women Watchs",
+    "Men Watchs",
+    "Slippers"
+];
+
+SHin.addEventListener("input", () => {
+
+    const value = SHin.value.toLowerCase().trim();
+
+    searchSuggestions.innerHTML = "";
+
+    if(value == ""){
+
+        searchSuggestions.classList.remove("active");
+        return;
+
+    }
+
+    let found = false;
+
+    ProductNames.forEach(product => {
+
+        if(product.toLowerCase().includes(value)){
+
+            found = true;
+
+            const div = document.createElement("div");
+
+            div.className = "search_item";
+
+            div.innerText = product;
+
+            div.addEventListener("click",()=>{
+
+                SHin.value = product;
+
+                searchSuggestions.classList.remove("active");
+
+            });
+
+            searchSuggestions.appendChild(div);
+
+        }
+
+    });
+
+    if(found){
+
+        searchSuggestions.classList.add("active");
+
+    }
+
+    else{
+
+        searchSuggestions.classList.add("active");
+
+        searchSuggestions.innerHTML =
+        `<div class="search_empty">
+            No Products Found
+        </div>`;
+
+    }
+
+});
+
+const Search_btn = document.getElementById("S-button");
+
+Search_btn.addEventListener("click",()=> {
+    const value = SHin.value.toLowerCase().trim();
+    console.log(value);
+
+    if(value == ""){
+        searchSuggestions.classList.remove("active");
+        return;
+    }
+    else {
+         window.location.href = "/searchproducts?search="+ encodeURIComponent(value);
+    }
+});

@@ -12,7 +12,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("testing_p.html")
+    revenue = [7500,14500,10000,16500,22000,15000,20500,60000]
+
+    return render_template("testing_p.html",
+                           revenue=revenue)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug= True) 
