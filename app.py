@@ -821,7 +821,6 @@ def removeOP():
 def Dashboard():
     if session.get("roll") == "Admin":
         userid = session.get("userid")
-        print(userid)
     else:
         return redirect("/")
 
@@ -866,6 +865,58 @@ def Dashboard():
     
     return render_template("Dashboard.html",
                            data=data)
+
+@app.route("/D_users_data/<Ddata>/<Ddata1>")
+def D_users_data(Ddata,Ddata1):
+    if session.get("roll") == "Admin":
+        userid = session.get("userid")
+    else:
+        return redirect("/")
+
+    if Ddata1 == "userdata":
+        userdata = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_sheet")
+        userdata.columns = userdata.columns.str.strip().str.lower()
+        userdata = userdata.dropna(how="all")
+        userdata = userdata.to_dict(orient="records")
+
+        for item in userdata:
+            if str(item["userid"]) == str(Ddata):
+                    print(item)
+                    webdata={
+                            "datatype":Ddata1,
+                            "userid":Ddata,
+                            "username":item["username"],
+                            "email":item["email"],
+                            "password":item["password"],
+                            "roll":item["roll"],
+                        }
+                    break
+    elif Ddata1 == "orderdata":
+        Odata = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+        Odata.columns = Odata.columns.str.strip().str.lower()
+        Odata = Odata.dropna(how="all")
+        Odata = Odata.to_dict(orient="records")
+
+        
+        for item in Odata:
+            if str(item["orderid"]) == str(Ddata):
+                 webdata={
+                            "datatype":Ddata1,
+                            "userid":item["userid"],
+                            "orderid":Ddata,
+                            "date":item["date"],
+                            "quantity":item["quantity"],
+                            "status":item["status"],
+                        }
+                 break
+
+       
+    else:
+        print("product data")
+    userID=Ddata
+    
+    print(Ddata1)
+    return render_template("D_users_data.html",webdata=webdata)
 
 
 if __name__ == "__main__":

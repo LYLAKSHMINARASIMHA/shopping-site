@@ -7,16 +7,16 @@
         <div class="dashboard-menu">
             <ul>
                 <li><a href="/Dashboard"><i class="fa-solid fa-house"></i><samp>Dashboard</samp></a></li>
-                <li><a href=""><i class="fa-solid fa-users"></i><samp>Users</samp></a></li>
-                <li><a href=""><i class="fa-solid fa-box"></i><samp>Products</samp></a></li>
-                <li><a href=""><i class="fa-solid fa-cart-shopping"></i><samp>Orders</samp></a></li>
-                <li><a href=""><i class="fa-solid fa-gear"></i><samp>Settings</samp></a></li>
+                <li><a href="/Dashboard#usersdata"><i class="fa-solid fa-users"></i><samp>Users</samp></a></li>
+                <li><a ><i class="fa-solid fa-box"></i><samp>Products</samp></a></li>
+                <li><a href="/Dashboard#Udata_block"><i class="fa-solid fa-cart-shopping"></i><samp>Orders</samp></a></li>
+                <li><a ><i class="fa-solid fa-gear"></i><samp>Settings</samp></a></li>
             </ul>
         </div>
         <div class="dashboard-data">
             <div class="alldata">
                 <div class="Dtotal Users">
-                    <a href="">
+                    <a href="/Dashboard#usersdata">
                         <div class="Dusers">
                             <i class="fa-solid fa-users"></i>
                             <div class="D-boxdata">
@@ -27,7 +27,7 @@
                     </a>
                 </div>
                 <div class="Dtotal DOrder">
-                    <a href="">
+                    <a href="/Dashboard#Udata_block">
                         <div class="Dusers">
                             <i class="fa-solid fa-box"></i>
                             <div class="D-boxdata">
@@ -41,7 +41,7 @@
                     </a>
                 </div>
                 <div class="Dtotal DProducts">
-                    <a href="">
+                    <a >
                         <div class="Dusers">
                             <i class="fa-solid fa-cubes"></i>
                             <div class="D-boxdata">
@@ -55,7 +55,7 @@
                     </a>
                 </div>
                 <div class="Dtotal DSales">
-                    <a href="">
+                    <a >
                         <div class="Dusers">
                             <i class="fa-solid fa-truck"></i>
                             <div class="D-boxdata">
@@ -75,19 +75,124 @@
            </div>
 </div>
 <div class="dataBlocks">
-   <div class="usersdata">
+   <div class="usersdata" id="usersdata">
     <div class="allU headings">
         <p>User ID</p>
-        <p>User Name</p>
         <p>User E-mail</p>
+        <p></p>
     </div>
-    {% for item in data.users_D %}
-    <div class="allU Data">
-        <p>#12344</p>
-        <p>Testing</p>
-        <p>testing@gamil.com</p>
+    <div class="Udata_block">
+                {% for item in data.users_D %}
+                    <div class="allU Data">
+                    <p>#{{item.userid}}</p>
+                    <p>{{item.email}}</p>
+                    <!-- <button type="button" onclick="Udatas(this)">see more</button> -->
+                    <p><a onclick="Udatas(this)" >see more</a></p>
+                      <!-- data block -->
+                <div class="D_alldata1">
+                    <div class="Xbtn"><button onclick="Udataoff(this)">❌</button></div>
+                        <div class="D_alldata2">
+                                <div class="">
+                                    <span><p><b>UserID:</b><br> <input type="text" value="{{item.userid}}" readonly></p></span>
+                                    <p><b>User Name:</b><br><input type="text" value="{{item.username}}" readonly> </p>
+                                    <p><b>User Mail:</b><br> <input type="text" value="{{item.email}}" readonly></p>
+                                </div>
+                                <div class="">
+                                        <p><b>User Password:</b><br> <input type="text" value="{{item.password}}" readonly></p>
+                                        <p><b>Roll:</b><br> <input type="text" value="{{item.roll}}" readonly></p>
+                                        <div class="D_User Dblock2">
+                                        <a href="/D_users_data/{{item.userid}}/userdata"><button type="button">Edit Data</button></a>
+                                        <button type="button" disabled><i class="fa-solid fa-lock"></i> Save</button>
+                                        </div>
+                                    </div>
+                    </div>
+                </div>
+            <!-- data blockend -->
+                </div>
+                
+          
+                {% endfor %}
     </div>
-    {% endfor %}
+   </div>
+
+   <!-- Graph -->
+    <div class="card">
+        <h2>Total data</h2>
+        <div class="chart-container">
+            <div class="chart">
+                <canvas id="orderChart"></canvas>
+            </div>
+            <div class="legend">
+                <div class="item">
+                    <div class="left">
+                        <div class="color yellow"></div>
+                        Users
+                    </div>
+                    <div>{{data.total_users}} ({{data.total_users}}%)</div>
+                </div>
+                <div class="item">
+                    <div class="left">
+                        <div class="color blue"></div>
+                        Orders
+                    </div>
+                    <div>{{data.total_O}} ({{data.total_O}}%)</div>
+                </div>
+                <div class="item">
+                    <div class="left">
+                        <div class="color green"></div>
+                        Products
+                    </div>
+                    <div>{{data.totalitem}} ({{data.totalitem}}%)</div>
+                </div>
+                <div class="item">
+                    <div class="left">
+                        <div class="color red"></div>
+                        Cancelled
+                    </div>
+                    <div>20 (16%)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="" id="Udata_block">
+      <div class="usersdata">
+    <div class="allU headings">
+        <p>Order ID</p>
+        <p>O/D dates</p>
+        <p>Status</p>
+        <p></p>
+    </div>
+    <div class="Udata_block" >
+    {% for item in data.Order_data %}
+        <div class="allU Data">
+             <p>{{item.orderid}}</p>
+                    <p>{{item.date}}</p>
+                    <p>{{item.status}}</p>
+         <p><a onclick="Udatas(this)" >see more</a></p>
+                      <!-- data block -->
+                <div class="D_alldata1">
+                    <div class="Xbtn"><button onclick="Udataoff(this)">❌</button></div>
+                        <div class="D_alldata2">
+                                <div class="">
+                                    <span><p><b>UserID:</b><br> <input type="text" value="{{item.userid}}" readonly></p></span>
+                                    <p><b>Order ID:</b><br> <input type="text" value="{{item.orderid}}" readonly></p>
+                                    <p><b>O/D Date:</b><br><input type="text" value="{{item.date}}" readonly> </p>
+                                </div>
+                                <div class="">
+                                        <p><b>Quantity:</b><br> <input type="text" value="{{item.quantity}}" readonly></p>
+                                        <p><b>Status:</b><br> <input type="text" value="{{item.status}}" readonly></p>
+                                        <div class="D_User Dblock2">
+                                        <a href="/D_users_data/{{item.orderid}}/orderdata"><button type="button">Edit Data</button></a>
+                                        <button type="button" disabled><i class="fa-solid fa-lock"></i> Save</button>
+                                        </div>
+                                    </div>
+                    </div>
+                </div>
+            <!-- data blockend -->
+    </div>
+     {% endfor %}
+</div>
    </div>
 </div>
 
@@ -96,7 +201,16 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{url_for('static', filename ='javascript/productpage.js')}}" defer></script>
+<script src="{{url_for('static', filename ='javascript/dashbord.js')}}" defer></script>
+
+<script>
+    const totalUsers = "{{data.total_users}}";
+    const totalOrders = "{{data.total_O}}";
+    const totalproducts = "{{data.totalitem}}";
+    const totalsales = 120;
+</script>
+
+<script src="{{url_for('static', filename ='javascript/script.js')}}" defer></script>
 {% endblock %}
 
 
@@ -105,19 +219,6 @@
 
 
                  <div class="alldatablock">
-        <!-- users -->
-<div class="allstatus">
-                <div class="allusers headings">
-                    <p>User ID</p>
-                    <p>E-mail</p>
-                </div>
-                {% for item in data.users_D %}
-                <div class="allusers datas">
-                    <p>{{item.userid}}</p>
-                    <p>{{item.email}}</p>
-                </div>
-                {% endfor %}
-            </div>
     <!-- product -->
 
              <div class="allstatus">

@@ -35,9 +35,85 @@ border-radius: 10px;}
 .Pimg img{display: flex; width: 100%; height: 100%; object-fit: cover;}
 
 
-.allU{width: 100%; 
-     display: flex; align-items: center; justify-content: space-evenly;}
+.userData{display: flex; position: absolute; z-index: 9999; width: 250px; height: 250px;
+      background-color: #2195f336; transform: translateX(200%);}
 
-@media(max-width: 600px){
+.dataBlocks{display: grid; grid-template-columns: 1.5fr 2fr; gap: 10px;
+      align-items: center; padding: 1%;}
+.usersdata{padding: 1%; margin: 10px; position: relative;
+      background-color: aliceblue; border-radius: 10px;
+box-shadow: 0 0 10px rgba(0,0,0,.1); }
+.allU{padding: 1%;
+     display: flex; justify-content: space-evenly; gap: 10px;}
+.allU p{width: 100%;}
+.Udata_block{overflow: scroll; height: 275px;}
+/* .Udata_block button{border: none; background-color: aliceblue; height: 25px; width: 100%;} */
+
+.allU.Data:hover{background-color: rgb(208, 232, 253);}
+
+
+        .card { background: white; border-radius: 18px;
+             padding: 30px; box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+        }
+        h2 {
+            margin-bottom: 25px;
+        }
+        .chart-container { display: flex; align-items: center;
+             justify-content: space-evenly;
+        }
+        .chart { width: 200px; height: 200px;
+        }
+        /* .legend { flex: 1;
+        } */
+        .item { display: flex; justify-content: space-between; gap: 10px;
+             align-items: center; margin: 25px 0; font-size: 12px;
+        }
+        .left { display: flex; align-items: center; gap: 15px;
+        }
+        .color { width: 22px; height: 22px; border-radius: 5px;
+        }
+        .yellow {
+            background: #FFC107;
+        }
+        .blue {
+            background: #2196F3;
+        }
+        .green {
+            background: #4CAF50;
+        }
+        .red {
+            background: #F44336;
+        }
+        a{cursor: pointer;}
+
+        .D_alldata1{display: none;}
+        .D_alldata1.active{ display: flex; padding: 1%; justify-content: center;
+          background: rgba(255, 255, 255, 0.071);  overflow: visible; left: 0; top: 0;
+          z-index: 10;
+          width: min(80vw,350px);
+          /* width: max-content;
+    min-width: 400px; */
+    backdrop-filter: blur(5px); border-radius: 20px; 
+           box-shadow: 0 5px 20px rgba(0, 0, 0, .15); position: absolute;}
+          .Xbtn{position: absolute;
+                right: 0;}
+                .Xbtn button{border: none; background-color: rgba(255, 255, 255, 0);
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.0); cursor: pointer;}
+                    .Xbtn button:hover{box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+          .D_alldata1.active input{    width: 80%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;}
+           .D_alldata2{ display: flex;  width: 100%; justify-content: space-around;}
+
+
+@media(max-width: 650px){
+     .dataBlocks{grid-template-columns: 1fr;}
      .dashboard-menu ul li a samp{display: none;}
+}
+@media(max-width: 955px){
+     .D_User_dt{grid-template-columns: 1fr;}
+     .Udata_block{height: 435px;}
+     .chart-container{flex-direction: column; }
+     .legend{display: grid; grid-template-columns: 1fr 1fr; gap: 10px;}
 }

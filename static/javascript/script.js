@@ -23,11 +23,17 @@ const more = document.querySelector(".more");
             S_L.classList.remove("active");
             dropdown.classList.remove("active");
             nav.classList.remove("active");
-            searchSuggestions.classList.remove("active");
+            
+        if (D_alldata1) {
+        D_alldata1.classList.toggle("active");
+        D_alldata1 = null;
+    }
+    
         }
     });
 
     window.addEventListener("scroll",()=>{
+        // D_alldata1.remove("active");
         S_L.classList.remove("active");
         nav.classList.remove("active");
         dropdown.classList.remove("active");
@@ -239,3 +245,5 @@ Search_btn.addEventListener("click",()=> {
          window.location.href = "/searchproducts?search="+ encodeURIComponent(value);
     }
 });
+
+

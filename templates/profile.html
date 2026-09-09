@@ -1,7 +1,7 @@
 {% extends "header.html" %}
 
 {% block content %}
-   
+   <link rel="stylesheet" href="{{url_for('static', filename= 'css/dashboard.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename= 'css/buy_page.css')}}" >
 
 {% if userid %}
@@ -10,13 +10,25 @@
             <div class="PBlock userdata">
                 <div class="profileimg">
                     <div class="profileicon"><i class="fa-solid fa-user-circle"></i></div>
-                    <span>{{ userid }}</span>
+                    <span>{{username}}</span>
                 </div>
                 </div>
                 <div class="profiledata">
-                    <p><b>UserID:</b> {{userid}}</p>
-                    <p><b>User Name:</b> {{username}}</p>
-                    <p><b>mail:</b> {{email}}</p>
+                    <!-- block -->
+                        <div class="D_alldata2" style=" flex-direction: column;">
+                                <div class="">
+                                    <span><p><b>UserID:</b><br> <input type="text" value="{{userid}}" readonly></p></span>
+                                    <p><b>Name:</b><br><input type="text" value="{{username}}" readonly> </p>
+                                    <p><b>Mail:</b><br> <input type="text" value="{{email}}" readonly></p>
+                                </div>
+                                <div class="">
+                                        <div class="D_User Dblock2" style="display: flex; gap: 10px;">
+                                        <button type="button">Edit Data</button>
+                                        <button type="button" disabled><i class="fa-solid fa-lock"></i> Save</button>
+                                        </div>
+                                    </div>
+                    </div>
+                    <!-- blockend -->
                 </div>
             </div>
             <div class="PBlock userdetails">
@@ -35,12 +47,10 @@
                 </div>
             </div>
             <div class="PBlock Pbuttons">
-                <button type="button" onclick="logOut()" class="logout" style="color: red;">LogOut</button>
-                <button type="button" class="settings">Settings</button>
-                <button type="button" class="editprofile">Edit Profile</button>
+                    <button type="button" onclick="logOut()" class="logout" >LogOut</button>
+                    <button type="button" class="settings">Settings</button>
+                    <button type="button" class="editprofile">Edit Profile</button>
             </div>
-        </div>
-
                 {% else %}
                 {% endif %}
 
