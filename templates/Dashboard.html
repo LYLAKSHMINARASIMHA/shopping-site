@@ -214,8 +214,6 @@
 {% endblock %}
 
 
-                <!-- {% for item in data %} -->
-                <!-- {% endfor %} -->
 
 
                  <div class="alldatablock">
@@ -241,25 +239,3 @@
             
         </div>
 
-
-
-        <div class="allstatus">
-                <div class="allusers headings">
-                    <p>Order ID</p>
-                    <p> User ID</p>
-                    <p>Order date</p>
-                    <p>Quantity</p>
-                    <p>Size</p>
-                    <p>Status</p>
-                </div>
-                {% for item in data.Order_data %}
-                <div class="allusers datas">
-                    <p>{{item.orderid}}</p>
-                    <p>{{item.userid}}</p>
-                    <p>{{item.date}}</p>
-                    <p>{{item.quantity}}</p>
-                    <p>{{item.size}}</p>
-                    <p>{{item.status}}</p>
-                </div>
-                {% endfor %}
-            </div>

@@ -11,7 +11,7 @@
                 registrform_form.style.transform = "translateY(150px) translateX(-100px)";
                 L_F_open.style.transform = "rotate(90deg)";
                 registrform_form.style.opacity="0";
-
+                
                 setTimeout(()=>{
                     loginform_form.style.transform = "translateY(-180px) translateX(-175px)";
                     loginform_form.style.width = "min(90vw,350px)";
@@ -53,11 +53,12 @@
                 registrform_form.style.transform = "rotate(90deg) translateY(-0px) translateX(-110px)";
                     
                     setTimeout(()=>{
-                        registrform_form.style.transform = "rotate(90deg) translateY(220px) translateX(-150px)";
+                        registrform_form.style.transform = "rotate(90deg) translateY(220px) translateX(-180px)";
                         registrform_form.style.width = "min(140vw,450px)";
                     registrform_form.style.height = "min(90vw,350px)";
+                    registrform_form.style.overflow="hidden";
                     R_F_open.style.display = "none";
-                    forms[1].style.transform = "rotate(-90deg)";
+                    forms[1].style.transform = "translateY(-35px) rotate(-90deg)";
                     LR_block.style.height ="450px"
                     setTimeout(()=>{
                         forms[1].style.display="block";
@@ -72,6 +73,7 @@
                     forms[1].style.transform = "rotate(0deg)";
                     registrform_form.style.removeProperty("width");
                     registrform_form.style.removeProperty("height");
+                    registrform_form.style.removeProperty("overflow");
                     LR_block.style.removeProperty("height");
                     R_F_open.style.removeProperty("display");
                     registrform_form.style.removeProperty("transform");
@@ -162,7 +164,15 @@ function LtogglePassword() {
                         }
                 }
                 else{
-                    login_check.innerText = "invalid login details";
+                    if(Lpassword.value.trim() === ""){
+                    login_check.innerText = "";
+                      valid = false;
+                      }
+                      else{
+                        setTimeout(() => {
+                        login_check.innerText = "invalid login details";
+                        }, 500);
+                        }
                 }
             });
 
@@ -221,7 +231,10 @@ email.addEventListener("blur", function () {
 
                     if(email.value.trim()===""){
                         email_status.innerText = "";
+                        hideError(email);
+                        setTimeout(()=>{
                         showError1(email);
+                        },200);
                     }
                     else if(!email.value.includes('@gmail') || !email.value.includes('.')){
                         email_status.innerText = "";
@@ -256,7 +269,7 @@ email.addEventListener("blur", function () {
                         else{
                             email_status.style.color = "red";
                             E_Available = false;
-                            hideError(email);
+                            hideError1(email);
                             
                             }
                                 });
@@ -268,6 +281,10 @@ email.addEventListener("blur", function () {
 });
 
 password.addEventListener("blur", function(){
+    // if(password.value.trim() === ""){
+    //            showError(password);
+    //            valid = false;
+    //         }
     const pwdvalue = password.value;
         let letter ="";
         let capltr ="";
@@ -291,7 +308,9 @@ password.addEventListener("blur", function(){
     }
 
     if(password.value.trim()===""){
+            showError(password);
             hideError1(password);
+               valid = false;
         }
     else if(pwdvalue.length >= 8 && pwdvalue.length <= 15 
     && capltr.length >= 1 && number.length >= 3 
@@ -300,6 +319,7 @@ password.addEventListener("blur", function(){
         hideError1(password);
     }
     else{
+        hideError(password);
         showError1(password);
     }
 });
@@ -322,7 +342,12 @@ password.addEventListener("blur", function(){
             }
 
         //E-mail error block
-            if(!email.value.includes('@gmail') || !email.value.includes('.')){
+            if(email.value.trim()===""){
+                hideError(email);
+                showError1(email);
+            }
+            else if(!email.value.includes('@gmail') || !email.value.includes('.')){
+                hideError1(email);
                 showError(email);
                 valid = false;
             }
@@ -330,22 +355,6 @@ password.addEventListener("blur", function(){
                 hideError(email);
             }
             
-        //password error block
-            // if(password.value.trim() === ""){
-            //     showError(password);
-            //     valid = false;
-            // }
-            // else{
-            //     hideError(password);
-            // }
-        // password match block
-            // if(Cpassword.value.trim() === ""){
-            //     showError(Cpassword);
-            //     valid = false;
-            // }
-            // else{
-            //     hideError(Cpassword);
-            // }
 
             if(password.value.trim() === ""){
                showError(password);
@@ -363,12 +372,17 @@ password.addEventListener("blur", function(){
                 valid = false;
             }
             else{
+                hideError(password);
+                hideError(Cpassword);
                 hideError1(Cpassword);
             }
 
             if(!E_Available){
                     valid = false;
                 }
+            const emptyusername = "";
+            const emptyemail = "";
+            const emptypassword = "";
 
             if(valid){
                 fetch("/register",{
@@ -380,7 +394,10 @@ password.addEventListener("blur", function(){
                         username: username.value,
                         email: email.value,
                         password:password.value,
-                        // "conform-password" :Cpassword.value
+
+                        // username: emptyusername,
+                        // email: emptyemail,
+                        // password:emptypassword,
                     })
                 })
                 .then(response => response.json())
@@ -388,6 +405,10 @@ password.addEventListener("blur", function(){
                     if(data.ok){
                          window.location.href = "/";
                          console.log("hello");
+                    }
+                    else{
+                        window.location.reload();
+                        alert("Something is ⚠️wrong. Please check once.");
                     }
                 }) 
                 }

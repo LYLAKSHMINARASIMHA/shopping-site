@@ -47,13 +47,22 @@
                 {% if userid %}
                 
                 <div class="profile2">
-                    <a href="/profile" class="PRF"><div class="circle2"><i class="fa-solid fa-user"></i></div></a>
-                    <span>{{ userid }}</span>
+                    <a href="/profile" class="PRF"><div class="circle2"><i class="fa-solid fa-user"></i></div></a>    
+    <span style="
+        display: inline-block;
+        max-width: 75px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+    ">
+        {{ u_Name }}
+    </span>
                 </div>
                 {% else %}
                 <div class="btnls">
-                    <a href="/login_page" class="Sbtn" >sign up</a>
-                    <a href="/login_page" class="Lbtn" >login</a>
+                    <a href="/login_page" class="Sbtn" >Sign up</a>
+                    <a href="/login_page" class="Lbtn" >Login</a>
                 </div>
                 <div class="profile">
                     <a href="#" class="PRF"><div class="circle"><i class="fa-solid fa-user"></i></div></a>
@@ -172,8 +181,8 @@
                 <div class="footer_icons">
                     <a href="/"><i class="fa-solid fa-home"></i> Home</a><br>
                     <a href="/products/products/img/"><i class="fa-solid fa-cart-shopping"></i> Products</a><br>
-                    <a href="#bottom"><i class="fa-solid fa-headset"></i> Contact</a><br>
-                    <a href="#bottom"><i class="fa-solid fa-address-card"></i> About</a>
+                    <a href="/Help_Center"><i class="fa-solid fa-headset"></i> Contact</a><br>
+                    <a href="#Aboutbottom"><i class="fa-solid fa-address-card"></i> About</a>
                 </div>
             </div>
             <div class="SHcontacts">

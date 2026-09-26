@@ -42,6 +42,9 @@ const more = document.querySelector(".more");
 
 //........................logOut.........................
 function logOut(){
+    if(!confirm("Are you sure LogOut this account? ")){
+        return;
+    }
     fetch("/logOut",{
         method:"POST",
         headers:{

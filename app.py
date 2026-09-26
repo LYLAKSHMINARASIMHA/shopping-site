@@ -10,6 +10,7 @@ app = Flask(__name__)
 def inject_user():
      return{
           "userid": session.get("userid"),
+          "u_Name": session.get("u_Name"),
           "status_D": session.get("status_D"),
           "roll": session.get("roll")
      }
@@ -32,26 +33,10 @@ product = df.to_dict(orient="records")
 
 
 
-    # if item["status"] == "Ordered":
-    #     Orderstatus[item["orderid"]] = {
-    #         "Order status": item["status"],
-    #         "Delivery date": item["date"].split("||")[1]
-    #     }
-    #     if Pdate == Orderstatus[item["orderid"]]["Delivery date"]:
-    #         todayorder.append(item["orderid"])
-    #     elif Pdate < Orderstatus[item["orderid"]]["Delivery date"]:
-    #         shippingO.append(item["orderid"])
-    #     elif Pdate > Orderstatus[item["orderid"]]["Delivery date"]:
-    #         deliveredP.append(item["orderid"])
-    # elif item["status"] == "Shipping":
 
 
 
 
-
-# print(f"today delivery products Order ID's: {todayorder}")
-# print(f"shipping order products Order ID's: {shippingO}")
-# print(f"product delivery complete Order ID's: {deliveredP}")
 
 # ............. product data 
 product_dict ={}
@@ -164,8 +149,6 @@ def Orders():
     OdataF.columns = OdataF.columns.str.strip().str.lower()
     OdataF = OdataF.dropna(how="all")
     UHproduct = OdataF.to_dict(orient="records")
-    # product = OdataF.to_dict(orient="records")
-    # print(OdataF)``
 
     # ..........images path len(UHproduct)
     imgpaths = {}
@@ -181,8 +164,8 @@ def Orders():
     OrderID =[] 
     Pimgid=[]
     UOdate=[]
+
     
-                #  "quantity": item["quantity"],  orderid
     for item in UHproduct:
         if str(userID) == str(item["userid"]):
             OrderID.append({
@@ -197,12 +180,7 @@ def Orders():
                  "delivery date":item["date"].split("||")[1]
             })
             Pimgid.append(item["p_id"])
-            session["totalOrders"] = len(Pimgid)
             
-# if UOdate[item["p_id"]]["order date"] in Pdate:
-#                 print(Pdate)
-    # print(UOdate["PIBS1"]["order date"])
-    # print(Pdate)
     O_ID =[]
     for item in UHproduct:
         if str(userID) == str(item["userid"]):
@@ -236,28 +214,6 @@ def Orders():
               "quantity":p_data[i]["quantity"]
          })
 
-    # for Oid in OrderID:
-    #     Orderdata.append({
-    #           "order_date":UOdate[Oid["OrderID"]]["order date"],
-    #           "delivery_date":UOdate[Oid["OrderID"]]["delivery date"],
-    #     })
-
-    
-    # print(p_data)
-    # print(totalOrders)
-    # "quantity":p_data[i]["quantity"]
-    # print(f" Orderdata: {Orderdata}\n")
-    # print(f" p_quantity: {p_quantity}\n")
-    # print(f"{imglocation}\n")
-    # print(f"{p_data}\n")
-    # print(f"UOdate: {UOdate["UI002O1"]["order date"]}\n")
-    # print(f"{imgdata["PIGW3"]}\n")
-    # print(Pimgid)
-    # print(product_dict)  
-    
-    # print(UOdate1)
-    # ["date"]  Uproduct = p_data[1] i+=1 UOdate=Uproduct["p_id"]
-    # .split("||") Uproduct={} UOdate1=UOdate  UOdate1[4][1] p_id
          
 
     return render_template("Orders.html",
@@ -308,8 +264,6 @@ def searchproducts():
         if data == item:
             matchedID.append(item)
 
-    print(data)
-    print(matchedID)
 
     if matchedID:
          for item in matchedID:
@@ -323,7 +277,6 @@ def searchproducts():
          for i in range(0, len(selectSHimg), 3):
              searchimg.append(selectSHimg[i:i+3])
     elif len(matchedID) >= 6:
-        print("hello")
         for item1 in product:
             if data in item1["category"]:
                 matchedID.append(item1["p_id"])
@@ -342,11 +295,6 @@ def searchproducts():
     
 
     
-    count = min(6, len(matchedID))
-    
-
-    # print(searchimg)
-
 
 
     offmenu = True
@@ -370,11 +318,6 @@ def searchproducts():
 
     for file in os.listdir(folders["watchs"]):
         imageId.append("products/watchs/" + file)
-
-    # if imagename == "products/img/":
-    #     num = 15
-    # else:
-    #     num = 9
 
 
     selectimg = (random.sample(imageId, 12))
@@ -458,69 +401,75 @@ def register():
           return jsonify({
                          "ok":True
                     })
+
      data = request.get_json()
-     
+             
      userName = data["username"]
      email = data["email"]
      password = data["password"]
      roll = "User"
     #  conform_password = request.form["conform-password"]
-
-     excel_file = "Shopping_W_data.xlsx"
-     sheet_name = "users_sheet"
-     file = "Shopping_W_data.xlsx"
-     
-
-     wb = load_workbook(file)
-     sheet1 = wb[sheet_name]
-     last_userid = sheet1.cell(row=sheet1.max_row, column=1).value
-
-    # Heading matrame unte
-     if last_userid is None or last_userid == "":
-         userid = "UI001"
-
-     else:
-
-         number = int(last_userid[2:])      # UI003 -> 3
-
-         userid = f"UI{number+1:03d}"       # 4 -> UI004
-
-    #  session["user"] = userName
-     
-
-     new_data = {
-        "userid": [userid],
-        "user" : [userName],
-        "email" : [email],
-        "password" : [password],
-        "roll" : [roll],
-     }
-     session["userid"] = userid
-
-     new_df = pd.DataFrame(new_data)
-     
-
-     if os.path.exists(excel_file):
-          book = load_workbook(excel_file)
-          sheet = book[sheet_name]
-
-          next_row = sheet.max_row
-          with pd.ExcelWriter(excel_file,
-                              engine="openpyxl",
-                              mode="a",
-                              if_sheet_exists="overlay") as writer:
-               new_df.to_excel(
-                    writer,
-                    sheet_name=sheet_name,
-                    index=False,
-                    header=False,
-                    startrow=next_row
-               )
-               print("user saved successfully")
-               if data:
-                    return jsonify({
-                         "ok":True
+     if userName == "" or email == "" or password == "":
+          return jsonify({
+                        "ok":False
                     })
+     else:
+        excel_file = "Shopping_W_data.xlsx"
+        sheet_name = "users_sheet"
+        file = "Shopping_W_data.xlsx"
+        
+
+        wb = load_workbook(file)
+        sheet1 = wb[sheet_name]
+        last_userid = sheet1.cell(row=sheet1.max_row, column=1).value
+
+        # Heading matrame unte
+        if last_userid is None or last_userid == "":
+            userid = "UI001"
+
+        else:
+
+            number = int(last_userid[2:])      # UI003 -> 3
+
+            userid = f"UI{number+1:03d}"       # 4 -> UI004
+
+        #  session["user"] = userName
+        
+
+        new_data = {
+            "userid": [userid],
+            "user" : [userName],
+            "email" : [email],
+            "password" : [password],
+            "roll" : [roll],
+        }
+        session["userid"] = userid
+        session["u_Name"] = userName
+
+        new_df = pd.DataFrame(new_data)
+        
+
+        if os.path.exists(excel_file):
+            book = load_workbook(excel_file)
+            sheet = book[sheet_name]
+
+            next_row = sheet.max_row
+            with pd.ExcelWriter(excel_file,
+                                engine="openpyxl",
+                                mode="a",
+                                if_sheet_exists="overlay") as writer:
+                new_df.to_excel(
+                        writer,
+                        sheet_name=sheet_name,
+                        index=False,
+                        header=False,
+                        startrow=next_row
+                )
+                print("user saved successfully")
+                if data:
+                        return jsonify({
+                            "ok":True
+                        })
 
 
 @app.route("/login_page")
@@ -534,6 +483,11 @@ def login_page():
 
 @app.route("/profile")
 def profile():
+    OdataF = pd.read_excel("Shopping_W_data.xlsx", sheet_name="users_history")
+    OdataF.columns = OdataF.columns.str.strip().str.lower()
+    OdataF = OdataF.dropna(how="all")
+    UHproduct = OdataF.to_dict(orient="records")
+    
     if not session.get("userid"):
          return render_template("login_page.html")
     userid = session.get("userid")
@@ -541,19 +495,26 @@ def profile():
     df.columns = df.columns.str.strip().str.lower()
     df = df.dropna(how="all")
     userdata = df[df["userid"]== userid]
-    totalOrders = session.get("totalOrders")
 
     userid = userdata.iloc[0]["userid"]
     username = userdata.iloc[0]["username"]
     email = userdata.iloc[0]["email"]
 
+    totalOrders=""
+    Pimgid =[]
+    for item in UHproduct:
+        if str(userid) == str(item["userid"]):
+            Pimgid.append(item["p_id"])
+            totalOrders = len(Pimgid)
+            
+    pr_Data={
+        "username":username,
+        "email":email,
+        "totalOrders":totalOrders,
+    }
+
     
-    return render_template("profile.html"
-                           , userid =userid
-                           , username = username
-                           , email = email
-                           ,totalOrders = totalOrders
-                             )
+    return render_template("profile.html", pr_Data=pr_Data)
 
 @app.route("/check_login", methods=["POST"])
 def check_login():
@@ -577,6 +538,7 @@ def check_login():
           })
           elif password == excel_pwd:
                  session["userid"] = userdata.iloc[0]["userid"]
+                 session["u_Name"] = userdata.iloc[0]["username"]
                  session["roll"] = userdata.iloc[0]["roll"]
                  return jsonify({
                      "success": True
@@ -672,7 +634,6 @@ def buy_page():
     totat=int(img_data["p_price"]) * int(buy_data["quantity"])
 
     buy_data["totat_amount"] = totat
-    # print(buy_data)
 
 
     date_time = datetime.now()
@@ -717,7 +678,6 @@ def write_excel():
             O_ID.append({
                  "OrderID" : item["orderid"]
             })
-    print(O_ID)
 
     if O_ID:
          last_order = O_ID[-1]["OrderID"]
@@ -726,12 +686,6 @@ def write_excel():
     else:
          orderID = (f"{userID}O1")
 
-    # print(f"orderID: {orderID}")
-    # print(f"userID: {userID}")
-    # print(imgID[0])
-    # print(quantity)
-    # print(size)
-    # print(date)
 
     excel_file = "Shopping_W_data.xlsx"
     sheet_name = "users_history"
@@ -765,7 +719,7 @@ def write_excel():
                    startrow=next_row
               )
               session.pop("buy_data", None)
-              print("save success")
+              print("buy_data save success")
 
     
 
@@ -811,7 +765,6 @@ def removeOP():
             index=False
         )
         print("Order Deleted successfully. ")
-        print(f"{Rorderid} success")
         return jsonify({"ok":True})
      else:
          print("Order ID not found. ")
@@ -849,9 +802,6 @@ def Dashboard():
             if str(item["p_id"]) == str(item_id):
                 item["img_path"]="products/" + imgpath[str(item_id)]
 
-    # print(Odata)
-    # print(imgpath["1133"])
-    # print(pID_data)
     data = {
         "total_O":len(Odata),
         "totalitem":len(product),
@@ -881,7 +831,6 @@ def D_users_data(Ddata,Ddata1):
 
         for item in userdata:
             if str(item["userid"]) == str(Ddata):
-                    print(item)
                     webdata={
                             "datatype":Ddata1,
                             "userid":Ddata,
@@ -915,7 +864,6 @@ def D_users_data(Ddata,Ddata1):
         print("product data")
     userID=Ddata
     
-    print(Ddata1)
     return render_template("D_users_data.html",webdata=webdata)
 
 
@@ -923,7 +871,3 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug= True)
     
 
-    
-        # df=df[df["orderid"] != Rorderid ]
-        # df.to_excel("Shopping_W_data.xlsx", index= False)
-    

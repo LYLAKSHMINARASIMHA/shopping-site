@@ -85,7 +85,6 @@
                             {% endif %}
                         {% endif %}
                     </div>  
-                    <!-- <script>const OrderID = "{{order.OrderID}}"; </script>    -->
                 {% endfor %}
             </div>
             
@@ -130,37 +129,7 @@ You can update quantities, remove items, and proceed to checkout anytime.</p>
             </section>
             <div class="C_Image-block">
                 {% if C_Image %}
-            <div class="all_products">
-                 {% for images in C_Image %}
-                <div class="order_items">
-                        {% for image in images %}
-                    <div class="order_product">
-                            <div class="items_data">
-                                <div class="img_and_data">
-                                    <a href="/products/{{ image }}">
-                                        <div class="image1">
-                                            <img src="{{url_for('static', filename= image)}}">
-                                        </div>
-                                    </a>
-                                    
-                                    <div class="data">
-                                        <samp class="Order-Id">Order Id</samp><br>
-                                        <samp class="Order-Name">Order Name</samp>
-                                        <h5>$788</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="details_and_buy">
-                                <a href="/products/{{ image }}"><p>View Details</p></a>
-                                <button type="button">
-                                Buy Again</button>
-                            </div>
-                    </div> 
-                     {% endfor %}
-                </div>
-                {% endfor %}
-            
-            </div>
+        
             {% else %}
                 <div class="no-orders">
                 {% if userid %}

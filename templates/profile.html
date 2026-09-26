@@ -10,20 +10,19 @@
             <div class="PBlock userdata">
                 <div class="profileimg">
                     <div class="profileicon"><i class="fa-solid fa-user-circle"></i></div>
-                    <span>{{username}}</span>
+                    <span>{{pr_Data.username}}</span>
                 </div>
                 </div>
                 <div class="profiledata">
                     <!-- block -->
                         <div class="D_alldata2" style=" flex-direction: column;">
                                 <div class="">
-                                    <span><p><b>UserID:</b><br> <input type="text" value="{{userid}}" readonly></p></span>
-                                    <p><b>Name:</b><br><input type="text" value="{{username}}" readonly> </p>
-                                    <p><b>Mail:</b><br> <input type="text" value="{{email}}" readonly></p>
+                                    <p><b>Name:</b><br><input type="text" value="{{pr_Data.username}}" readonly> </p>
+                                    <p><b>Mail:</b><br> <input type="text" value="{{pr_Data.email}}" readonly></p>
                                 </div>
                                 <div class="">
                                         <div class="D_User Dblock2" style="display: flex; gap: 10px;">
-                                        <button type="button">Edit Data</button>
+                                        <button type="button"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
                                         <button type="button" disabled><i class="fa-solid fa-lock"></i> Save</button>
                                         </div>
                                     </div>
@@ -32,13 +31,17 @@
                 </div>
             </div>
             <div class="PBlock userdetails">
-                <div class="userBlock">Hello, {{username}} Welcome to Your Profile
+                <div class="userBlock">Hello, {{pr_Data.username}} Welcome to Your Profile
                     <p>it's your details</p>
                 </div>
                 <div class="userBlockdata">
                     <div class="yourOrders">
                         <h4>Your Total Orders</h4>
-                        <p>{{totalOrders}}</p>
+                        {% if pr_Data.totalOrders %}
+                        <p>{{pr_Data.totalOrders}}</p>
+                        {% else %}
+                        <p>No Orders</p>
+                        {% endif %}
                     </div>
                     <div class="yourCart">
                         <h4>Save or Cart products</h4>

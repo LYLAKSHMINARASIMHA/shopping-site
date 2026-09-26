@@ -1,6 +1,6 @@
     :root{
             --bg: #f8fafc; --text-size: 18px; --text: black; --accent: #326eed; --max-width:1100px;
-            --ice-blue: #ffffffb5; --powder-blue: #a2cae0; --sapphire: #245eb7; --deep-navy: #000926;
+            --ice-blue: #ffffffb5; --powder-blue: #a2cae0; --sapphire: #307130; --deep-navy: #000926;
             --afbtn: #18b050;
         }
         html{
@@ -26,7 +26,7 @@ img{ width: 100%; height: 100%;}
        .Navbar .menu{ display: flex; gap: 10px; list-style: none;}
        
     .menu li a:hover{box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: px solid #000;
-             background-color: rgb(234, 245, 255); transition: 0.3s;}  
+background-color: #307130; transition: 0.3s; color: white;}  
         .menu li a{ padding: 6px 14px; border-radius: 0px 20px 0px 20px;}
         .menu .more{position: relative;}
         .menu .more .dropdown{display: none; position: absolute;  background-color: #d6e6f3;
@@ -134,20 +134,18 @@ background:rgba(255, 255, 255, 0.158);
      border: none; width: 30px; height: 30px; background-color: var(--accent);
         border-radius: 10px; color: white; transition: 0.3s; cursor: pointer;}
         .mnbtn .mbtn:hover{box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: 1px solid #000;
-             background-color: rgb(0, 132, 255);}
+             background-color: var(--afbtn);}
             .Navbar1{position: relative;  display: none; transition: 0.8s; } 
             .menu1{list-style: none; position: absolute; top: 0px; display: flex; flex-direction: column;
             justify-content: space-evenly; align-items: center; margin: 0%; padding: 0%; width: 480%; height: 300px;
-        border-radius: 30px; overflow: hidden; box-shadow: 0 1px 2px rgb(51, 51, 51); backdrop-filter: blur(15px);
-         background-color: var(--ice-blue);
+        border-radius: 30px; overflow: hidden; box-shadow: 0 1px 2px rgb(51, 51, 51);
+         background-color: #f2f9ee;
      }
          .mnbtn.active .Navbar1{ display: block;}
          .mnbtn.active .mbtn{ box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: 1px solid #000;
-             background-color: var(--afbtn);}
+             background-color: #307130;}
             .menu1 li a:hover{box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: px solid #000;
-             background-color: rgb(234, 245, 255); transition: 0.3s;}  
-             .menu1 li a:focus{background-color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: px solid #000;
-              transition: 0.3s;}  
+             background-color: #307130; transition: 0.3s; color: white;}
         .menu1 li a{ padding: 6px 20px; border-radius: 0px 20px 0px 20px;}
 
 .SHin{ width: 80%; border-radius: 10px; border: 1px solid black; height: 10px; transition: 0.3s; 
@@ -158,9 +156,9 @@ outline: none;}
         padding: 6px 16px; border-radius: 20px; background-color: var(--accent); color: white; 
         box-shadow: 0 2px 5px rgba(0,0,0,0.50);}
 .searchbtn:hover{box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
-             background-color: rgb(0, 132, 255);}
-.searchbtn:focus{box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
              background-color: var(--afbtn);}
+.searchbtn:focus{box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+             background-color: #307130;}
 .searchbtn2{display: none; justify-content: center; align-items: center;
         padding: 5px 9px; border-radius: 20px; background-color: var(--accent); color: white; 
         box-shadow: 0 2px 5px rgba(0,0,0,0.50);}
@@ -242,7 +240,7 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
        .size_btn{display: flex; gap: 10px;}
        .size_btn .btn{height: 35px; width: 100%; border-radius: 10px; border: none; cursor: pointer; 
       box-shadow: 0 10px 8px rgba(0,0,0,0.1); z-index: 5;}
-       .size_btn .btn.selected{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+       .size_btn .btn.selected{background-color: #1d5b1d; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
          color: white; z-index: 5;}
          .sizeError{display: block; color: red; position: absolute; transform: translateY(-10px); transition: 0.6s;
         opacity: 0; padding: 1px 8px;}
@@ -258,7 +256,7 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
        .product_btns{display: flex; align-items: center; justify-content: space-around;}
        .product_btns button{width: 150px; height: 50px; border-radius: 10px; box-shadow: 0 10px 8px rgba(0,0,0,0.1);
       border: none; cursor: pointer; margin-top: 15px; }
-      .product_btns button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      .product_btns button:focus{background-color: #1d5b1d; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
           color: white;}
 
           .feature_block{padding: 2%;}
@@ -305,14 +303,7 @@ box-shadow: 0px 3px 8px rgb(56, 56, 56); background-color: #a2cae015;}
      color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: 0.6s;}
 
 .Orders_page{padding: 1%;}
-/* button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px;}
-button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-          color: white;} */
 .orders_block button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 5px; cursor: pointer;}
-.details_and_buy button{box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none; border-radius: 10px;
-cursor: pointer;}
-.details_and_buy button:focus{background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-          color: white; cursor: pointer;}
 
      .orderblock{ display: grid; grid-template-columns: repeat(2, 40%);
         row-gap: 20px; 
@@ -348,12 +339,6 @@ cursor: pointer;}
     .coupon_name{font-size: 20px;}
     .no-orders{display: flex; align-items: center; justify-content: center; padding: 1%;
         gap: 10px; height: 50%; width: 100%;}
-    .C_Image-block{display: flex;}
-
-    .coupon_card button{padding: 1%; width: 100%; height: 40px; border: none; border-radius: 10px;
-     color: #1d5b1d; cursor: pointer;}
-    .coupon_card button:focus{padding: 1%; width: 100%; height: 40px; border: none; border-radius: 10px;
-     color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.5); background-color: #1d5b1d; cursor: pointer;}
 
 
 
@@ -529,7 +514,8 @@ input, select, textarea{ width:100%; padding:12px;
             display: none;
         }
 
-        .L_F_open{
+       .R_F_open, .L_F_open{
+            color: #1d5b1d;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none;
             transform: rotate(0deg);
             padding: 25px;
@@ -541,25 +527,12 @@ input, select, textarea{ width:100%; padding:12px;
             border-radius: 20px;
             transition: 1s;
         }
-        .L_F_open:focus{
-            background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        .R_F_open:focus, .L_F_open:focus{
+            background-color: #1d5b1d; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
           color: white;
         }
         .R_F_open{
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: none;
-            transform: rotate(0deg);
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 30px;
-            border-radius: 20px;
             transition: 0.5s;
-        }
-        .R_F_open:focus{
-            background-color: #326eed; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-          color: white;
         }
 
     @media(max-width: 600px){
@@ -589,7 +562,9 @@ input, select, textarea{ width:100%; padding:12px;
             transition: 0.3s ease;
             background: rgba(255, 255, 255, 0);
             padding: 0 4px;
+            user-select: none;
         }
+        .form_blocks input:hover{box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
        .form_blocks input:focus+ label, .form_blocks input:not(:placeholder-shown)+ label {
             top: -6px;
             font-size: 12px;
@@ -653,16 +628,12 @@ input, select, textarea{ width:100%; padding:12px;
 
 
 
-  .D_alldata2 button{
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    color: #1d5b1d;
-    cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
-   .D_alldata2 button:hover{box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
- .D_alldata2 button:focus{color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.5); background-color: #1d5b1d; cursor: pointer;}
- .D_alldata2 button:focus a{color: white; cursor: pointer;}
+  .D_alldata2 button,.btn1-2 button{ width: 100%; height: 40px; border: none; border-radius: 10px;
+    color: #1d5b1d; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+   .D_alldata2 button:hover,.btn1-2 button:hover{box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+ .D_alldata2 button:focus,.btn1-2 button:focus{color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+     background-color: #1d5b1d; cursor: pointer;}
+ .D_alldata2 button:focus,.btn1-2 button:focus a{color: white; cursor: pointer;}
 
 /*-------------------------------- [footer] -----------------------------------------*/
 
@@ -715,7 +686,9 @@ border: 1px solid black; border-radius: 10px;}
  }
  @media(max-width: 350px){
         .OP.TCbuttons .buy-buttons{width: 100%; padding:4% 4%; }
-       
+       .Rform {
+        transform: translateY(-68px) rotate(-90deg) !important;
+    }
  }
 
 
