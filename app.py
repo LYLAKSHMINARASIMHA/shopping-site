@@ -791,9 +791,9 @@ def Dashboard():
     imgID = []
     for item in os.listdir(folders["products"]):
         path = os.path.join(folders["products"], item)
-        img_lo = path.split("\\")
+        img_lo = os.path.basename(path)
         for item1 in os.listdir(path):
-            imgpath[item1.split(".")[0]]=f"{img_lo[1]}/{item1}"
+            imgpath[item1.split(".")[0]]=f"{img_lo}/{item1}"
             imgID.append(item1.split(".")[0])
 
     
